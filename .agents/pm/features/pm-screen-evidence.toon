@@ -1,0 +1,13 @@
+id: pm-screen-evidence
+title: Public corpus proof and release certification
+description: ""
+type: Feature
+status: open
+priority: 2
+tags: []
+created_at: "2026-11-06T18:46:56.201Z"
+updated_at: "2026-11-06T18:46:56.201Z"
+author: codex-agent
+acceptance_criteria: Public-only corpus guard; independent mechanical oracle; three candidate sets; 500 seeded sequences; complete coverage and release gates
+parent: pm-screen-delivery
+body: ""

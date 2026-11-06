@@ -1,0 +1,13 @@
+id: pm-screen-later
+title: Later population partitions and multi-stage screening
+description: "Deferred by specification: cross-partition deduplicated manifests, multi-stage review, retrieval integrations and explicit future schema migrations."
+type: Feature
+status: open
+priority: 2
+tags: []
+created_at: "2026-11-06T18:46:57.622Z"
+updated_at: "2026-11-06T18:46:57.622Z"
+author: codex-agent
+acceptance_criteria: Separately reviewed requirements and manifests precede implementation
+parent: pm-screen-delivery
+body: ""
