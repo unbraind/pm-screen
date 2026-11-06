@@ -1,0 +1,1633 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-11-06T18:59:01.852Z",
+  "policy_digest": "7895972aff12e8ffe8f84c83408208c470c87cecd37a1045c78a243c53f2f1fd",
+  "tracker_receipts": [
+    {
+      "repo": "pm-csv",
+      "revision": "6810408d561f657fa495d121b094eb52735f2c67",
+      "total": 138,
+      "selected": [
+        "pm-csv-017m",
+        "pm-csv-02hc",
+        "pm-csv-0aal",
+        "pm-csv-0orl",
+        "pm-csv-0pmb",
+        "pm-csv-0rvm",
+        "pm-csv-0wj8",
+        "pm-csv-137e",
+        "pm-csv-158c",
+        "pm-csv-1pty",
+        "pm-csv-21ik",
+        "pm-csv-28sk",
+        "pm-csv-2ms0",
+        "pm-csv-2thu",
+        "pm-csv-3044",
+        "pm-csv-3d3b",
+        "pm-csv-3lxi",
+        "pm-csv-4bvs",
+        "pm-csv-545f",
+        "pm-csv-59yv"
+      ],
+      "archive_sha256": "b075bb72ece9d5768adb26d80f83913fd7824d5e18a77b01131a127f84c49099"
+    },
+    {
+      "repo": "pm-beads",
+      "revision": "85b6392112929e967dfb5e174c773a0590124c35",
+      "total": 119,
+      "selected": [
+        "pm-beads-00wh",
+        "pm-beads-080q",
+        "pm-beads-1bgo",
+        "pm-beads-1d0b",
+        "pm-beads-1hs9",
+        "pm-beads-1rmb",
+        "pm-beads-1uz3",
+        "pm-beads-27rw",
+        "pm-beads-3cun",
+        "pm-beads-3pk9",
+        "pm-beads-3uet",
+        "pm-beads-42kv",
+        "pm-beads-4kw8",
+        "pm-beads-51fi",
+        "pm-beads-56vl",
+        "pm-beads-5t1j",
+        "pm-beads-6a9l",
+        "pm-beads-7mj4",
+        "pm-beads-7uxj",
+        "pm-beads-7wd9"
+      ],
+      "archive_sha256": "33e3977bf6a91466b450fba86f4a2c2080fb3bf367677ff4ac73bb99949e7bab"
+    },
+    {
+      "repo": "pm-ops",
+      "revision": "274c15895a88a12bec3d154a7a0ebf61e014b799",
+      "total": 163,
+      "selected": [
+        "ops-042o",
+        "ops-073p",
+        "ops-0c8k",
+        "ops-0u7l",
+        "ops-3ete",
+        "ops-3j1z",
+        "ops-3o3w",
+        "ops-3w9m",
+        "ops-3wbz",
+        "ops-3xs4",
+        "ops-3xyb",
+        "ops-3ype",
+        "ops-45xp",
+        "ops-4b34",
+        "ops-4phd",
+        "ops-54ed",
+        "ops-55sh",
+        "ops-5jp6",
+        "ops-5mv7",
+        "ops-61n2"
+      ],
+      "archive_sha256": "26226ecaf15ba8b77be1ef120d19ea9ac44433f2ccf4e7bb69f529bd81b7cb56"
+    },
+    {
+      "repo": "pm-brief",
+      "revision": "283df04e37bf3144c1beb7026918b774495768ed",
+      "total": 103,
+      "selected": [
+        "pm-brief-00tc",
+        "pm-brief-03r3",
+        "pm-brief-0dru",
+        "pm-brief-1oo2",
+        "pm-brief-1p5o",
+        "pm-brief-2e5v",
+        "pm-brief-352i",
+        "pm-brief-3luv",
+        "pm-brief-3y2c",
+        "pm-brief-3zb6",
+        "pm-brief-4ohy",
+        "pm-brief-4yx9",
+        "pm-brief-58en",
+        "pm-brief-5a57",
+        "pm-brief-5fv2",
+        "pm-brief-6xr0",
+        "pm-brief-7z60",
+        "pm-brief-8754",
+        "pm-brief-8up0",
+        "pm-brief-93z7"
+      ],
+      "archive_sha256": "13ccdaeaf89e233956e166bf6035fe7941a9df0a9d6d55259a5ccd9663f509fe"
+    }
+  ],
+  "issue_receipts": [
+    {
+      "repo": "pm-csv",
+      "count": 2,
+      "pages": 1,
+      "pagination_exhausted": true
+    },
+    {
+      "repo": "pm-beads",
+      "count": 2,
+      "pages": 1,
+      "pagination_exhausted": true
+    },
+    {
+      "repo": "pm-brief",
+      "count": 1,
+      "pages": 1,
+      "pagination_exhausted": true
+    }
+  ],
+  "review": {
+    "recorder": "codex-agent",
+    "independent_review_verified": false,
+    "maintainer_protocol_approval": "not_supplied",
+    "second_independent_pass": "not_supplied",
+    "accuracy_claim": "Mechanical agreement only; domain judgments remain reviewable"
+  },
+  "sets": [
+    {
+      "key": "open-issues",
+      "question": "Which open issues report release-workflow failures?",
+      "inclusion": "Recorded release-workflow failure with an Actions run pointer",
+      "exclusion": "Only package behavior rather than a release workflow",
+      "complete": true,
+      "rows": [
+        {
+          "id": "pm-csv-226",
+          "label": "Daily Release workflow is failing",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-csv/issues/226",
+            "content_digest": "2f7ea887f2c8b6781e5df121245b130cbcf5db4062f58638a7be673b8aa03d6d"
+          },
+          "raw_bytes": 300,
+          "assessment": {
+            "inclusion": "met",
+            "exclusion": "not_met",
+            "reason": "Explicit failed release job with a public Actions run pointer."
+          }
+        },
+        {
+          "id": "pm-csv-214",
+          "label": "Admission omits installed extension type/field registries from validation and revision lookup",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-csv/issues/214",
+            "content_digest": "ef08d1f38ed2a8a7f9bd63a522fe5c77ac459e696d040ff156e98d9f53c66f3b"
+          },
+          "raw_bytes": 3539,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Report concerns package behavior rather than release workflow execution."
+          }
+        },
+        {
+          "id": "pm-beads-204",
+          "label": "Daily Release workflow is failing",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-beads/issues/204",
+            "content_digest": "2b9efdf14720498adec3c4c7633c7a42ab2bc89ca3df8cb7f9c553a77df1c0f2"
+          },
+          "raw_bytes": 302,
+          "assessment": {
+            "inclusion": "met",
+            "exclusion": "not_met",
+            "reason": "Explicit failed release job with a public Actions run pointer."
+          }
+        },
+        {
+          "id": "pm-beads-192",
+          "label": "Forecast contract reader can block before rejecting nonregular inputs",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-beads/issues/192",
+            "content_digest": "a18b220e599db1686927de76a834700355a67b03c01fc2e4cd87c103af0f101e"
+          },
+          "raw_bytes": 3016,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Report concerns package behavior rather than release workflow execution."
+          }
+        },
+        {
+          "id": "pm-brief-187",
+          "label": "Daily Release workflow is failing",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-brief/issues/187",
+            "content_digest": "70bacbd19063bcfcf35e89272ff1164cd78247e28803519774b2bbe3996c7daa"
+          },
+          "raw_bytes": 302,
+          "assessment": {
+            "inclusion": "met",
+            "exclusion": "not_met",
+            "reason": "Explicit failed release job with a public Actions run pointer."
+          }
+        }
+      ]
+    },
+    {
+      "key": "tracker-items",
+      "question": "Which frozen public tracker items explicitly cite SDK capability gaps?",
+      "inclusion": "Explicit SDK gap or missing SDK capability is cited",
+      "exclusion": "Only dependency or release version work with no SDK capability gap",
+      "complete": false,
+      "rows": [
+        {
+          "id": "pm-csv-017m",
+          "label": "Command handlers threw plain Error (no exitCode) → runtime double-invocation",
+          "source_ref": {
+            "item_id": "pm-csv-017m",
+            "item_hash": "48658e084cafc33694cf66f8b721239142944a068688004fcfe609ed4ecbc9f3",
+            "field_pointer": "",
+            "content_digest": "5af417352bf0b3963d1962c0502e71d571bc00ba1bd9c4caa15fe62bdd7a871e"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1052,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-02hc",
+          "label": "pm shell-outs silently degrade to wrong answers when stdout exceeds the spawnSync buffer",
+          "source_ref": {
+            "item_id": "pm-csv-02hc",
+            "item_hash": "f647ac68a6f59b79c3e04c9d6f68aad0ff4e7f79a1f2b4b3e736f06da1a47281",
+            "field_pointer": "",
+            "content_digest": "7348aefb132d7dafed5df062e4505bbc3218bc286c130e4b04ae2fe7c526a6b3"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 12259,
+          "assessment": {
+            "inclusion": "unknown",
+            "exclusion": "not_met",
+            "reason": "SDK read ceiling is cited with standalone import constraints; capability responsibility needs review."
+          }
+        },
+        {
+          "id": "pm-csv-0aal",
+          "label": "Latest published manifest fails pm 2026.8.20 strict health",
+          "source_ref": {
+            "item_id": "pm-csv-0aal",
+            "item_hash": "0884c78cc0b7c6dcf4206e79f75c4d357254d10c627efd03f95793488ace6608",
+            "field_pointer": "",
+            "content_digest": "060b659b279ceee8192659c4f13f57e060906d02960d3f601d30bf5d5aa99c58"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 3285,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-0orl",
+          "label": "csv validate fails to register on pm-cli 2026.7.27 because it redeclares the host-owned --json global",
+          "source_ref": {
+            "item_id": "pm-csv-0orl",
+            "item_hash": "52bdfae24c313e5b1df59e3ed22f37981ab197c0d516a5c3a5a27aa767a92a36",
+            "field_pointer": "",
+            "content_digest": "b3b204d4276996b05c89a057805e7757214d316e277186455c439b3e3fd33451"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 2165,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-0pmb",
+          "label": "Enforce a real coverage gate by running tests against TypeScript sources",
+          "source_ref": {
+            "item_id": "pm-csv-0pmb",
+            "item_hash": "28415ac4bccecb576acb13a43dfb5c9cdc6b3462794c2a8d775420704e203df4",
+            "field_pointer": "",
+            "content_digest": "186333d1fbf342831f514105f7d9ed1b0bcd411be8919f41ac5dd92c4a02074e"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 3518,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-0rvm",
+          "label": "Make repeated terminal keyed CSV imports idempotent",
+          "source_ref": {
+            "item_id": "pm-csv-0rvm",
+            "item_hash": "627882667f9840da256b59c66d896abc73099970efc2aedc9c32615697391cf0",
+            "field_pointer": "",
+            "content_digest": "a45356ba76663d78efcb0b916937c59b03657023c48be00d30eaab80c85120e6"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1485,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-0wj8",
+          "label": "Add bun-install verification to release workflow",
+          "source_ref": {
+            "item_id": "pm-csv-0wj8",
+            "item_hash": "1d0562ca820a16383e309d73a0f592e95885c05e343bce7ba75011450f67b5ad",
+            "field_pointer": "",
+            "content_digest": "87d2fa4d7c5da653bc3427a520ad5d0ffc1faedbf9b0bd615549566e9d58e4c9"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 655,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-137e",
+          "label": "Regenerate CHANGELOG after pm close item",
+          "source_ref": {
+            "item_id": "pm-csv-137e",
+            "item_hash": "86e79434c8ede44295c3c60634b621d32ed69720009e95c5dffebe877ac52321",
+            "field_pointer": "",
+            "content_digest": "913d3004c2015fa31e5d25ae6fb83d8b69847a51ad68c673ed419dd44819f29c"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1080,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-csv-158c",
+          "label": "The overrun guard asserted a recovery outcome it never checked and reported update failures with no item id",
+          "source_ref": {
+            "item_id": "pm-csv-158c",
+            "item_hash": "10a709c5a3bf5e66d0ac05bffec9c4df74eaf9a1f062f15aa12e4c4b98e32c75",
+            "field_pointer": "",
+            "content_digest": "6b25f65478410bc005bb069224bd3708433627c8c71696e50e607fe3c6abce14"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 7607,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-1pty",
+          "label": "Release readiness hardening for pm-csv",
+          "source_ref": {
+            "item_id": "pm-csv-1pty",
+            "item_hash": "164b1aec6cffc44c2783d70d49cbe530d3dc0d467b6e9c24ae520316bc1e6d4b",
+            "field_pointer": "",
+            "content_digest": "fda80bc18703bd04ef8e2e4331064613f52efaec11276d29d3d8624aeb00beb4"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 3594,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-21ik",
+          "label": "loadAppliedByTransaction comment describes unsafe pre-fix marker ordering",
+          "source_ref": {
+            "item_id": "pm-csv-21ik",
+            "item_hash": "7167b845d359a6f9c5f941a9626545da0a5c2e1c2196034303bdd169e3364872",
+            "field_pointer": "",
+            "content_digest": "0c9f369f6844c19bd6612fdd4e6d5e97d73d93883f90311c7f8ae02703221889"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 3311,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-28sk",
+          "label": "Adopt pm-cli 2026.7.26 typed authoring contracts and remove the any-cast defineExtension shim",
+          "source_ref": {
+            "item_id": "pm-csv-28sk",
+            "item_hash": "aaafcd9e6afc307839867699695b23d64b6ae58a73f969627cff5188912924c6",
+            "field_pointer": "",
+            "content_digest": "5d0a851fc65f00ff4f929ec4033b1ee74f43b559ce52640b1060a5df2bf03114"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1739,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-2ms0",
+          "label": "Point the npm homepage at the package catalog and link the author",
+          "source_ref": {
+            "item_id": "pm-csv-2ms0",
+            "item_hash": "177ba9ec50ecc745267d5c39f604e7390fec44aeafac28d0c4d3b892507e9614",
+            "field_pointer": "",
+            "content_digest": "d6945cee52d83121648d838e7844b57f1f10a54aeea296c5b5bc8a3c095bf493"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 4486,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-2thu",
+          "label": "Align Node engine with pm CLI runtime",
+          "source_ref": {
+            "item_id": "pm-csv-2thu",
+            "item_hash": "f7eecf5fffbce9824f1a2c18787fe917e267d80d1e66961b688b10e5c6cdbf21",
+            "field_pointer": "",
+            "content_digest": "acec3db5451e61a5a865e1024c9f39673f7ed7640b1d351480c5e9015a10c889"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1465,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-csv-3044",
+          "label": "Certify pm-csv with pm CLI and SDK 2026.9.28",
+          "source_ref": {
+            "item_id": "pm-csv-3044",
+            "item_hash": "f7840466868a653a28df938f3d95ac46f3e09cf1feb29304302fb18624a569e2",
+            "field_pointer": "",
+            "content_digest": "ffe72f4011c94694235599f495a1185d24110cc19d39dda006843ddb834843ce"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 6858,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-csv-3d3b",
+          "label": "Investigate renderers capability (pm list --format csv)",
+          "source_ref": {
+            "item_id": "pm-csv-3d3b",
+            "item_hash": "3d5b470e3e0afe8b8f0e5f444f05f203150e8fd3fe685c97472caf20935bcbc2",
+            "field_pointer": "",
+            "content_digest": "d11e97e89334fa652acdc2cb4ef2cd132ee0e5ad134bb8636a875a34f30dfc01"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1471,
+          "assessment": {
+            "inclusion": "met",
+            "exclusion": "not_met",
+            "reason": "The SDK renderer rejects CSV; an explicit capability limitation is recorded."
+          }
+        },
+        {
+          "id": "pm-csv-3lxi",
+          "label": "Adopt pm field-aware merge driver for multi-agent branch-merge safety",
+          "source_ref": {
+            "item_id": "pm-csv-3lxi",
+            "item_hash": "99c49467c02a0e1e004a556e9fc80f4dd99f0d9908359b4857e2f762e1c59fbe",
+            "field_pointer": "",
+            "content_digest": "196eddeef994c6ad37d4560672aaf9ec4a071f054e26b8ee07a710e2c95d3888"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 3753,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-4bvs",
+          "label": "atomic CSV import via commitWorkspaceTransaction (pm-cli 2026.7.19)",
+          "source_ref": {
+            "item_id": "pm-csv-4bvs",
+            "item_hash": "5f94317e135a4b5d471543a8894d30164395f74a9ddcd798813a090189ce7e54",
+            "field_pointer": "",
+            "content_digest": "42dfe1754dbff69500c9c7935a1febb223bf2a123c793d0e33bae507e2c83af1"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 3036,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-545f",
+          "label": "A release run bumped and committed a new version every night while publishing was impossible, because the only externally-failable step runs last",
+          "source_ref": {
+            "item_id": "pm-csv-545f",
+            "item_hash": "3983c9609c2046605c9587b23d6c1d979f348a3f60268d83449fbbdd5c73cb78",
+            "field_pointer": "",
+            "content_digest": "20ce6cd41d01cf9b64e207823aec2444ffac4699427614785b792288d5ad6ec3"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 16976,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-csv-59yv",
+          "label": "A release that merges but fails to publish is abandoned by the next day's run",
+          "source_ref": {
+            "item_id": "pm-csv-59yv",
+            "item_hash": "6a2fd39dd0c2aa4acf0cdc9b716cd02d5e59da66f9cf1c23a41733561139ec1f",
+            "field_pointer": "",
+            "content_digest": "1decbee89fd6e498a07d93b5a5ecdc6f2c3c92a3ba816b740c5c6361ac017773"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-csv/tree/6810408d561f657fa495d121b094eb52735f2c67/.agents/pm",
+          "raw_bytes": 1109,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-00wh",
+          "label": "Documented install command fails: pm install github.com/unbraind/pm-beads cannot resolve an entry file",
+          "source_ref": {
+            "item_id": "pm-beads-00wh",
+            "item_hash": "4ba48d5e2d31a46fdf767c99eb74df7e0df9a34407b48d42561d82044463550e",
+            "field_pointer": "",
+            "content_digest": "eecbeca296fc468e6f54238f6adc2e723b42ba924e2365cf68a3db7f3e2fc484"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1954,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-080q",
+          "label": "beads validate and beads diff fail to register on pm-cli 2026.7.27 because each redeclares the host-owned --json global",
+          "source_ref": {
+            "item_id": "pm-beads-080q",
+            "item_hash": "88e9887e6b242eec02eccffedae844db7ef117d114b6a14b6dc7492910fe61b6",
+            "field_pointer": "",
+            "content_digest": "d2dd26411fc6e3c75d24d28aca11ee358e874e65ac96a9452635ccb7c5b73c03"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 3544,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-1bgo",
+          "label": "Resolve PR 75 review thread and history drift on lajb",
+          "source_ref": {
+            "item_id": "pm-beads-1bgo",
+            "item_hash": "6f413efc80eb5c05ae554d2a8fe70fdab36942415c0a2d56d7496c1449012089",
+            "field_pointer": "",
+            "content_digest": "89b0fafc74ddf6ed84bbaa76487eceed73dd9b147cfa8d546df34c0d2e816455"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1506,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-1d0b",
+          "label": "CodeQL action updates split into mutually blocking pull requests",
+          "source_ref": {
+            "item_id": "pm-beads-1d0b",
+            "item_hash": "833dbec6e601af740a861c1cac0aeda74fcb2e0f0225d55a32180b57fa0a1d65",
+            "field_pointer": "",
+            "content_digest": "97882c2ea4ae725cf8eca762ce44fdc42c9be3d2c6a8d2cf1cbdae84a4553b7d"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 2441,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-1hs9",
+          "label": "Send acknowledged Beads changes as compact field operations",
+          "source_ref": {
+            "item_id": "pm-beads-1hs9",
+            "item_hash": "ac22199e6bedc6bc0ccb5d288443bae85c0fd12ab20f2d8bc892bfbce15ab0cd",
+            "field_pointer": "",
+            "content_digest": "fa8f32024872c1896b27574cc4980e47f1c430dfa53d80c0cc900d5d06efcd93"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 26057,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-1rmb",
+          "label": "Unit tests for upsert key + validate; functional round-trip with real data",
+          "source_ref": {
+            "item_id": "pm-beads-1rmb",
+            "item_hash": "055b346f3f0458c35868920dc338c0e552c5d55623c7e8d23e0bddb07ece17c4",
+            "field_pointer": "",
+            "content_digest": "42df575593e24731023468250be9e0bc8f60c12714f24c4d993671505b22d7be"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1037,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-1uz3",
+          "label": "Canonicalize complete workspace reads and adopt the current pm host contract",
+          "source_ref": {
+            "item_id": "pm-beads-1uz3",
+            "item_hash": "882617184618ac9984b461b6b6d2a788438e9ab61d7568ebab3bcb846c88ebe8",
+            "field_pointer": "",
+            "content_digest": "d24802dee1778e3426c8eeff3af60dcb70c74c544205dfd80ab941dbb46419ac"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 10123,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-27rw",
+          "label": "beads validate does not detect dependency cycles",
+          "source_ref": {
+            "item_id": "pm-beads-27rw",
+            "item_hash": "94ccbc4e0f85ef5ec31bd70354cc56d7d8582658255e08adadf353b1f6270d35",
+            "field_pointer": "",
+            "content_digest": "a8e64bf4f3d56f7c7f5c7f054bb541bddcc39c18587300b013770ec1d1299836"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1625,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-3cun",
+          "label": "Pin the pm toolchain to 2026.9 and stop requiring a clock-stamped changelog control",
+          "source_ref": {
+            "item_id": "pm-beads-3cun",
+            "item_hash": "c60cc38078932f70fac1f479c04686b735f27c3e28d9893387db51ec31ebdbd4",
+            "field_pointer": "",
+            "content_digest": "9ceadc918bc6aceef31d26d4c3c79292083dd65d687104ac9712889712e5f000"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 3938,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-beads-3pk9",
+          "label": "Resolve polynomial-redos and incomplete-sanitization code-scanning alerts by measurement",
+          "source_ref": {
+            "item_id": "pm-beads-3pk9",
+            "item_hash": "9c15b8c70e2dde2e8e412284c3c4fc53a0bf8363f9fdca8fc514d2f91cf0b8ff",
+            "field_pointer": "",
+            "content_digest": "467cf7fe194a3643a277e814c74e6a2de53223ae6695ec2a174f6ee5a34d2065"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 18168,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-3uet",
+          "label": "Remove the unused changelog verifier test import",
+          "source_ref": {
+            "item_id": "pm-beads-3uet",
+            "item_hash": "2e7b648282ef2dd65d70d8c55c05dd79cc8739b52f320f03d66db88ed960424c",
+            "field_pointer": "",
+            "content_digest": "da5a11dcd58240b2383f0207f7207ab2f291bb2ca7ca48e585ea51c8e7b21085"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1303,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-42kv",
+          "label": "Migrate off SDK sentinels for the pm-toolchain bump",
+          "source_ref": {
+            "item_id": "pm-beads-42kv",
+            "item_hash": "e577c171d1c1ce4169f5e5ee88c798229837c6e1e199dca3794c7c17935227d8",
+            "field_pointer": "",
+            "content_digest": "ee29c32e047df3eaa0db38d659c752920443678119e7c9a19f2c6cede839ee6c"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 2823,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-4kw8",
+          "label": "Isolate malformed title aliases in existing Beads validation",
+          "source_ref": {
+            "item_id": "pm-beads-4kw8",
+            "item_hash": "0d71b036b78720042530bac0a4e65d46e05b7bfa7485741e88ee792bdb40db4e",
+            "field_pointer": "",
+            "content_digest": "593576d2bb76d6365c9daf2f17fe8c8182e65bdb3e6e396711d68f2f361dce91"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 986,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-51fi",
+          "label": "Make reconciliation updates conditional on inspected item versions",
+          "source_ref": {
+            "item_id": "pm-beads-51fi",
+            "item_hash": "07ae067f08b76b352bbfcc903dff99f212ca31690e24fbe955f6ac41e7a57df5",
+            "field_pointer": "",
+            "content_digest": "722bdef24a5ff39eb6ee450f483910a11877a99ae693db51999e25df3c188416"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1292,
+          "assessment": {
+            "inclusion": "met",
+            "exclusion": "not_met",
+            "reason": "Atomic inspected-version updates require a missing SDK capability at the recorded revision."
+          }
+        },
+        {
+          "id": "pm-beads-56vl",
+          "label": "Verify Dependabot sync workflow update in PR 169",
+          "source_ref": {
+            "item_id": "pm-beads-56vl",
+            "item_hash": "be4879f0af8a8c1b4389df4b76a84e51543354953b6909963c26082dcf2e20f4",
+            "field_pointer": "",
+            "content_digest": "41e2bf43af2db0c479e16c80543e116c2919bce562a6c76f9373d07b960f6194"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 3901,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-5t1j",
+          "label": "Forecast compatibility with named Beads producer dialects before import",
+          "source_ref": {
+            "item_id": "pm-beads-5t1j",
+            "item_hash": "779e7d14bd588cfacf1688443e15e1a86b0dd78ea35cacb35ed6f0a934ee30a6",
+            "field_pointer": "",
+            "content_digest": "50c89dad8759f61ab6ce9330e31ad0297b87f3f8c984e05d266a8f744674e00d"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 26038,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-6a9l",
+          "label": "pm item reads are capped at Node's 1 MiB spawnSync default, so a mature tracker fails with no diagnosis",
+          "source_ref": {
+            "item_id": "pm-beads-6a9l",
+            "item_hash": "5f2294af7d26d3ea91e3d4d13f08da369a121802a4e20328b4a2ed969ab1b93b",
+            "field_pointer": "",
+            "content_digest": "1535d12c4b6801a60a9d90a97db89e6ee16360201c673063f6af195c5338e68c"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 2144,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-7mj4",
+          "label": "preflight: fail-fast Beads-JSONL schema gate before import",
+          "source_ref": {
+            "item_id": "pm-beads-7mj4",
+            "item_hash": "ef02120daef3bdf97e554e3110b9702d5fcf3dc8dba162675071290252d90ab1",
+            "field_pointer": "",
+            "content_digest": "51f08b68f1713a55cd2da2a3f2b1a316e705c69728fedfcc9334926e95646128"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 5097,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-7uxj",
+          "label": "Run the changelog date guard against same-day release suffixes",
+          "source_ref": {
+            "item_id": "pm-beads-7uxj",
+            "item_hash": "b02bdfc741207f4493b1c457afb6a2dc243fba1d5411bb1e28d175c1576fd70b",
+            "field_pointer": "",
+            "content_digest": "fdd875dbcb02abe73c4c722a90a46943e1cb99df720ba9aaab881d81f11a2cf0"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 2187,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-beads-7wd9",
+          "label": "Align Node engine with pm CLI runtime",
+          "source_ref": {
+            "item_id": "pm-beads-7wd9",
+            "item_hash": "66ddd5bad16459039d0553004c6017ce0f31ba1479d5af5145e07614089fde45",
+            "field_pointer": "",
+            "content_digest": "dba1fb3f71b4559672985f615f79a9890994cd846dde8f856e3f6b731d19ad86"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-beads/tree/85b6392112929e967dfb5e174c773a0590124c35/.agents/pm",
+          "raw_bytes": 1467,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "ops-042o",
+          "label": "Security: repository-host check matches too loosely (notgithub.com accepted as GitHub)",
+          "source_ref": {
+            "item_id": "ops-042o",
+            "item_hash": "a5e66314c5ac918c086b1e151bcd0129cb4636acde9a72ffcb27c3ad76588b21",
+            "field_pointer": "",
+            "content_digest": "e4495dfbf94a7c8d64b8176ce0c8ce70ef712c79fbf891ef7403b979135d2066"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 2905,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-073p",
+          "label": "Docstring coverage gate: a lexer-backed, fail-closed documentation gate the fleet can share",
+          "source_ref": {
+            "item_id": "ops-073p",
+            "item_hash": "c7f992aefd927900ecddbbec46411a2f3d951f55af40c24678fda7eff1e8c183",
+            "field_pointer": "",
+            "content_digest": "cf6e37c8a3820af98e6c4c62bca1fc49cb2c8a87c6eb88dda2e247eadcc42bc9"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 5006,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-0c8k",
+          "label": "Enforce documentation for all runtime modules and internal declarations",
+          "source_ref": {
+            "item_id": "ops-0c8k",
+            "item_hash": "b5f03c0f8fb5e7e95d2142de2c202ec0d0f0f068a9ea991abc914bd1dac398c6",
+            "field_pointer": "",
+            "content_digest": "483496a254a5e075874e51f365c4a25ec2ef9c753f959161c29caa7f5d7fc996"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 3563,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-0u7l",
+          "label": "Characterize pre-existing fleet workflow scanner refusals",
+          "source_ref": {
+            "item_id": "ops-0u7l",
+            "item_hash": "3ad374c0d9ab0db7398a71b68cff34e47b29df5d2f86a85ba0a55f4a503aec18",
+            "field_pointer": "",
+            "content_digest": "1c3c576ae2a0d36f515c51470f63175de693b78e0961f96507ec63b0ecf73f8f"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 12789,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3ete",
+          "label": "The release changelog remained Unreleased after the release tag was created",
+          "source_ref": {
+            "item_id": "ops-3ete",
+            "item_hash": "e4bceecf2f5528e6f35391afe5375488497c47417f973dc3f8f4ca2b3c7bfcb9",
+            "field_pointer": "",
+            "content_digest": "26c7eace3f13a8826d9eefda864ea35aebc744e57ff56ae35d48edc1d8fb9861"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 1623,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3j1z",
+          "label": "Repair an incomplete release triple, instead of only reporting it every day",
+          "source_ref": {
+            "item_id": "ops-3j1z",
+            "item_hash": "891a0aeb05e67cc2d7aa0d1a1b6c29ae43298a7022874619fa199ef5bc7666e7",
+            "field_pointer": "",
+            "content_digest": "5c7e6e5a0e6ce8d7b912869247cec6f6eb1afc336a18f88e676791eade2892ec"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 20297,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3o3w",
+          "label": "The auditor shell-tokenised every shebang file, so a Node script failed the gate on a template literal",
+          "source_ref": {
+            "item_id": "ops-3o3w",
+            "item_hash": "9d38f8b885255dac9999ff2b0166b10b397162db5b21c55d0ae4636124baad97",
+            "field_pointer": "",
+            "content_digest": "37483dc734e114fd83e7ecd4423335ed5f39b04e1297bc89ade936c50b0156b0"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 7709,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3w9m",
+          "label": "Canonicalize fleet metric reads and enforce the pm 2026.8.20 host contract",
+          "source_ref": {
+            "item_id": "ops-3w9m",
+            "item_hash": "097389c0986c10e497d18a9208e5e1afc97ef7dc5091c9042cd6bc69268c238d",
+            "field_pointer": "",
+            "content_digest": "e160356f7d4032db78991d7fce3cffadf4604d0d5a0483961807d0f4b4b6c1cf"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 8328,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3wbz",
+          "label": "An assignment the scanner cannot read leaves the previous binding standing, so a replaced provenance flag still attests the publish",
+          "source_ref": {
+            "item_id": "ops-3wbz",
+            "item_hash": "87a35bda9ba29de2afb2531ac07617f62d9bd3776ceeeaaa0db1204df25c48f4",
+            "field_pointer": "",
+            "content_digest": "24f1e7c0e419ba82d51c731162fc8b9acedbe432a49e0b343ee4b4489ce29a92"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 8251,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3xs4",
+          "label": "Audit xargs/parallel spawning wrappers that leave the publish argument list unresolved",
+          "source_ref": {
+            "item_id": "ops-3xs4",
+            "item_hash": "4d53eeea5ad95c780b93c1b5d9dcc59f2481119daa861a88aa97dfda8e40a612",
+            "field_pointer": "",
+            "content_digest": "0b808d588fb2dc75d8c2899d5c91eed9686c3c01a9c3bf74a655d6589b65d774"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 4229,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3xyb",
+          "label": "ops verify-release times out on real full package gate after five minutes",
+          "source_ref": {
+            "item_id": "ops-3xyb",
+            "item_hash": "41abc26b9d3e0f8596954869348301cccb7538a03e19b56855a17b67e5b37b8f",
+            "field_pointer": "",
+            "content_digest": "d34f95e1fb390460f35472b46cae4f2afd7c3a37e6a218408510cd0ea2a0e247"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 5167,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-3ype",
+          "label": "Adopt pm field-aware merge driver for multi-agent branch-merge safety",
+          "source_ref": {
+            "item_id": "ops-3ype",
+            "item_hash": "623c3b7099a661341027b86739307dd9c5965249303e9992f792f7ac094f2a70",
+            "field_pointer": "",
+            "content_digest": "9b824d70560e3157535f1ce39cded043015b25a786adb9ab97a33f213516c06b"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 3623,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-45xp",
+          "label": "Align Node engine with pm CLI runtime",
+          "source_ref": {
+            "item_id": "ops-45xp",
+            "item_hash": "1deccbfefb9f6bd8413f04be905acfc74a35e413d3f30b6e708d2a812531076d",
+            "field_pointer": "",
+            "content_digest": "16f513c6faf88ee23e9d579655deadcaadfeb5bff2ad0ea8a6bfd58e07f7f23d"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 1648,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "ops-4b34",
+          "label": "Publish the canonical attestation scanner as pm-ops exports",
+          "source_ref": {
+            "item_id": "ops-4b34",
+            "item_hash": "999e0a48ee7da8c30c932f662b4ff1a00c1fc66d83bcfe8bc7bf78ba5398844f",
+            "field_pointer": "",
+            "content_digest": "0b0ec5c6a6f16bc08fe991738275b46214a4bf5b8f551046b8902bc873ad6de9"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 8512,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-4phd",
+          "label": "Ship canonical strict ESLint and duplication gates from pm-ops",
+          "source_ref": {
+            "item_id": "ops-4phd",
+            "item_hash": "0929009e0772293c377a210059be7b934dc5e978085e5f5a62ba9ca86b49f492",
+            "field_pointer": "",
+            "content_digest": "7b27aefb62c636720b4e0e5a6997e9947d23b22e8344b3f1645a11860bb4c9b3"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 6618,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-54ed",
+          "label": "Gate durable PM project health in CI on pm CLI 2026.8.6",
+          "source_ref": {
+            "item_id": "ops-54ed",
+            "item_hash": "c401cd5228fe4e1d8f1ed4dcdf5dca27d4ae3f1ed29417346e9bc1ca5fcef735",
+            "field_pointer": "",
+            "content_digest": "3de7aca34bbcdaf3499d3c82d958e5f0739c8db024ada417e322dc7c2d7c6d24"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 3913,
+          "assessment": {
+            "inclusion": "unknown",
+            "exclusion": "not_met",
+            "reason": "Upstream receipt limitations are cited; their SDK-specific scope is unresolved."
+          }
+        },
+        {
+          "id": "ops-55sh",
+          "label": "An option's operand was read as the program in two places, once failing open and once failing closed",
+          "source_ref": {
+            "item_id": "ops-55sh",
+            "item_hash": "1dfca56ae76919f6ed75bb624d1f92cf43515424cff90c0c486e6d6e4b7f91ed",
+            "field_pointer": "",
+            "content_digest": "c71f0c449c005f1dde5af38fded2c6318f1a29e87efa097eccf0b3b8cec259b0"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 6792,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-5jp6",
+          "label": "A heredoc body and a discarded binding both let an unattested publish pass the attestation gate",
+          "source_ref": {
+            "item_id": "ops-5jp6",
+            "item_hash": "dfe2ab01edbd5b36a2363bd84828f5dab76c666efedef34b2416146d4a0192d6",
+            "field_pointer": "",
+            "content_digest": "f0ade9f6185b2c9c47b80957d56bb55becc74eb6b3d7f0cce1db54df53f5b31f"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 9603,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-5mv7",
+          "label": "Escaped shell metacharacter in scalar value bypasses the attestation gate",
+          "source_ref": {
+            "item_id": "ops-5mv7",
+            "item_hash": "fcc97cf45963c2494308e5f7f1e2c847f1107a42ed50a426f3abf572b6f7c26a",
+            "field_pointer": "",
+            "content_digest": "ae10fa166225cc621e9641e68a7dd05b34ea72f8c83ce3df58ce484da019a878"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 1390,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "ops-61n2",
+          "label": "All eight ops commands fail to register on pm-cli 2026.7.27 because each redeclares the host-owned --json global",
+          "source_ref": {
+            "item_id": "ops-61n2",
+            "item_hash": "3aeeb2859a98109ccbcca97a8228ddda60e3ce3af15bfdb530e493d958b1b340",
+            "field_pointer": "",
+            "content_digest": "0a3fad3756d524a76d4f2e2ee64412f8b87e85b40185595d862148440b1a8119"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-ops/tree/274c15895a88a12bec3d154a7a0ebf61e014b799/.agents/pm",
+          "raw_bytes": 4052,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-00tc",
+          "label": "Adopt pm CLI 2026.8.30 and stop pinning which way the SDK handles an incomplete merge receipt",
+          "source_ref": {
+            "item_id": "pm-brief-00tc",
+            "item_hash": "998d8751d83cbe117899eed7cea5c4efcfdd5a4f10fd4a9a641eceeba47144ab",
+            "field_pointer": "",
+            "content_digest": "842f9531a6a6a44d42d55e3d25f310ebac43cfa930ba9ca63add0cd14835bc2d"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 2953,
+          "assessment": {
+            "inclusion": "unknown",
+            "exclusion": "not_met",
+            "reason": "SDK receipt behavior and an upstream bug are cited; gap versus intentional contract needs review."
+          }
+        },
+        {
+          "id": "pm-brief-03r3",
+          "label": "Renew only affected handoff obligations after source revisions change",
+          "source_ref": {
+            "item_id": "pm-brief-03r3",
+            "item_hash": "a7879fabc134b21db0e4a2de81a70f4c18374b7dee7b5b2657b73a410d2f84e9",
+            "field_pointer": "",
+            "content_digest": "e113ce9b844c0d4d60d23fafe4a4900390adc3f166f09bf8154ba54e66938ffa"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 12413,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-0dru",
+          "label": "Full-cycle hardening wave: pm-brief",
+          "source_ref": {
+            "item_id": "pm-brief-0dru",
+            "item_hash": "c99538d92ab540c687c6a442e75cfc007b34fd1cbb8078683512fab68790dbd8",
+            "field_pointer": "",
+            "content_digest": "64666bd7b2e50062393cd15be1dd8554ed7e6b0d7b6ca5a7bb1fca7f662f2dd9"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 1938,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-1oo2",
+          "label": "Restore independent PR review availability",
+          "source_ref": {
+            "item_id": "pm-brief-1oo2",
+            "item_hash": "4fb4815125835d6e40829a2fc1c6a929d826f3206fb7a0eba896f2404d0507ca",
+            "field_pointer": "",
+            "content_digest": "dd571758db747a5671bf748ab18fadaddc251f5fc2f1979bb95fd0c82ede0bcd"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 2061,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-1p5o",
+          "label": "Enable GitHub CodeQL code scanning",
+          "source_ref": {
+            "item_id": "pm-brief-1p5o",
+            "item_hash": "a8c65073360394bd8268c2a78e36b2493c2d6ba1dffdc6ff57209ab524d03048",
+            "field_pointer": "",
+            "content_digest": "e14c0028764f32efb7e9f7e2d3aefe6979bd354361ec66b01061217a398a4565"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 4045,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-2e5v",
+          "label": "Certify the CLI and SDK on PM 2026.9.7",
+          "source_ref": {
+            "item_id": "pm-brief-2e5v",
+            "item_hash": "a30c09dab97dbef9f682c586819484e78f97a96325cbdc0a629d4fb9e15df109",
+            "field_pointer": "",
+            "content_digest": "1c8fbca4c178753dd7fd6cc8cbdc2bf364c9e4e02cab0d9f56bbbb2212f3597a"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 2820,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-brief-352i",
+          "label": "Align pm-brief with pm CLI 2026.6.12 release readiness",
+          "source_ref": {
+            "item_id": "pm-brief-352i",
+            "item_hash": "6cddbafb7532fef254632801e72941b53ad65eda967f963f383961a2521d864d",
+            "field_pointer": "",
+            "content_digest": "4337b38836b896e32ff4344d14ee06e60fbaf4786cd7a07d4bf9c23f0a3433af"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 1630,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-brief-3luv",
+          "label": "Adopt pm-cli 2026.7.29",
+          "source_ref": {
+            "item_id": "pm-brief-3luv",
+            "item_hash": "d1fbb55e35436a90787891219e92d03f68df4c559daf5d58442caa0609e79105",
+            "field_pointer": "",
+            "content_digest": "985480903da3cbd1ed5eb376b955b9d0f7ffebb0fbe7e563952e167ea0a97bc5"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 1836,
+          "assessment": {
+            "inclusion": "unknown",
+            "exclusion": "not_met",
+            "reason": "A historical CLI workaround is removed; SDK capability scope is not established."
+          }
+        },
+        {
+          "id": "pm-brief-3y2c",
+          "label": "Adapt native admission fixtures to the pm-toolchain SDK contract",
+          "source_ref": {
+            "item_id": "pm-brief-3y2c",
+            "item_hash": "1dc282fa6c05ebdfcf1a469e40cece13a7837984351ec49f0f833b31654060ae",
+            "field_pointer": "",
+            "content_digest": "c2305128640c3c72d87437175edee43390e85b7e212e281148fe811e3e9bc87f"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 4841,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-3zb6",
+          "label": "Clear author-attribution health warning for _workspace and pm-brief-ce55 history events",
+          "source_ref": {
+            "item_id": "pm-brief-3zb6",
+            "item_hash": "b550143511106bad50a457330ced2073b14fcfdd62b11cde4013cee4bc02612a",
+            "field_pointer": "",
+            "content_digest": "e1f9ca638eb41d4c4ba3ca4fdbab335e91bdd353639c12f5b1d5fcf9e3334c36"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 2110,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-4ohy",
+          "label": "A release run bumped and committed a new version every night while publishing was impossible, because the only externally-failable step runs last",
+          "source_ref": {
+            "item_id": "pm-brief-4ohy",
+            "item_hash": "f39f7276e9080fe8a8a0fb48091d49b0793f328fe9b74d33aebf566ace329f64",
+            "field_pointer": "",
+            "content_digest": "09a15b0aa4bee993b65fc90416b1030722d8ef56857f15cbd3a73700f284979a"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 18145,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-4yx9",
+          "label": "The identity gate deadlocks the one remediation its own failure message prescribes",
+          "source_ref": {
+            "item_id": "pm-brief-4yx9",
+            "item_hash": "f9d9ee4a327aca23464c2004902025a5cde5bccfa156e37b9f37eb855b19dcfb",
+            "field_pointer": "",
+            "content_digest": "5c0b69c1b828d056b51af0875f49fdc57a7a838a33c8f2c2ea7cb0330830ddaa"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 3659,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-58en",
+          "label": "Add pm brief duplicates post-merge near-duplicate sweep",
+          "source_ref": {
+            "item_id": "pm-brief-58en",
+            "item_hash": "429d2be7e57491e9477d4f5720f08fd8679dacd4f526633800db0b256dea1f9d",
+            "field_pointer": "",
+            "content_digest": "e3e97c606ca57741b40763f88711323ee3b5fd819a957823146e71ab91adcf2c"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 5947,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-5a57",
+          "label": "Fix release CI ordering (publish-before-tag)",
+          "source_ref": {
+            "item_id": "pm-brief-5a57",
+            "item_hash": "8b64dc5454d712105edf77dc8e1dc802edb942fbe27178f86ef5af25e24bd7a3",
+            "field_pointer": "",
+            "content_digest": "8bf94dc3bf4e00a264168cfcc2ad3b3bb89230b62e9dd85cb22464ef0f53a4d6"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 554,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-5fv2",
+          "label": "Certify pm CLI 2026.9.10 and pick up the canonical auditor fixes the lockfile was holding back",
+          "source_ref": {
+            "item_id": "pm-brief-5fv2",
+            "item_hash": "4a981714ac51fe893215453be44970da35aa70fbec6303ed536fa116a05861c9",
+            "field_pointer": "",
+            "content_digest": "d13f6297c9620d77763ac5bf5d6b36e082e78a7c7e31b859b25d7c08118d0034"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 3436,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-brief-6xr0",
+          "label": "Add evidence-weighted next-action ranking",
+          "source_ref": {
+            "item_id": "pm-brief-6xr0",
+            "item_hash": "81f03dd385cac14bc853edffd6684254493e2615c4f9cef28ab969e3742e3adf",
+            "field_pointer": "",
+            "content_digest": "3388887237d76a2bbc66935df2f58a8f6fa8f94ceb075dfba19caebad8745a1e"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 6015,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-7z60",
+          "label": "Align Node engine with pm CLI runtime",
+          "source_ref": {
+            "item_id": "pm-brief-7z60",
+            "item_hash": "29b69aa3722b50fe6eedc90f2d25cc1250def99436836a42536a3fad1496d3b7",
+            "field_pointer": "",
+            "content_digest": "ef12ba239aafe956bc39347283c88a6eee3fb4e6002b48f162e42d2afd362ae6"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 1467,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "met",
+            "reason": "Only version or release-readiness work is recorded; no explicit SDK capability gap."
+          }
+        },
+        {
+          "id": "pm-brief-8754",
+          "label": "Fix release publish ordering ahead of protected main push",
+          "source_ref": {
+            "item_id": "pm-brief-8754",
+            "item_hash": "dab413bc93850a8d31e17a21818482b44be70bc608e03668fad481e45776575b",
+            "field_pointer": "",
+            "content_digest": "78e67c67a2434a5aaeb25e0701edfa844690188aba76c407aa375049a96cf050"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 8981,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-8up0",
+          "label": "Merge-receipt display cap silently drops item warning markers past the tenth receipt",
+          "source_ref": {
+            "item_id": "pm-brief-8up0",
+            "item_hash": "518b1b263d0711c84441eb2a16ea7d2574238dee2db340fc0b9d90e4d7016b0d",
+            "field_pointer": "",
+            "content_digest": "abb211e15dbe347095f646f593e58c7946f9434055ef9ecc028637b386dcdbed"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 2675,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        },
+        {
+          "id": "pm-brief-93z7",
+          "label": "Harden release bun-verify so registry-mirror lag cannot block the GitHub release",
+          "source_ref": {
+            "item_id": "pm-brief-93z7",
+            "item_hash": "6b56cb16c5ec5bb41c3241435b2d57d13421826369c7c9302766fafff64c4f4b",
+            "field_pointer": "",
+            "content_digest": "2dda49e417e0b8e5f3bef9084d5708af663962e8ce78b85f6f6f8817af28fca4"
+          },
+          "public_snapshot": "https://github.com/unbraind/pm-brief/tree/283df04e37bf3144c1beb7026918b774495768ed/.agents/pm",
+          "raw_bytes": 2565,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited."
+          }
+        }
+      ]
+    },
+    {
+      "key": "search-hits",
+      "question": "Which returned search hits report lost or omitted context?",
+      "inclusion": "Recorded loss, omission or overwrite during import, reconciliation or bounded output",
+      "exclusion": "Release-only failure or unsupported feature request",
+      "complete": false,
+      "rows": [
+        {
+          "id": "pm-csv-214",
+          "label": "Admission omits installed extension type/field registries from validation and revision lookup",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-csv/issues/214",
+            "content_digest": "ef08d1f38ed2a8a7f9bd63a522fe5c77ac459e696d040ff156e98d9f53c66f3b"
+          },
+          "raw_bytes": 3539,
+          "assessment": {
+            "inclusion": "met",
+            "exclusion": "not_met",
+            "reason": "Evidence identifies omitted extension context in admission and revision lookup."
+          }
+        },
+        {
+          "id": "pm-beads-192",
+          "label": "Forecast contract reader can block before rejecting nonregular inputs",
+          "source_ref": {
+            "public_uri": "https://github.com/unbraind/pm-beads/issues/192",
+            "content_digest": "a18b220e599db1686927de76a834700355a67b03c01fc2e4cd87c103af0f101e"
+          },
+          "raw_bytes": 3016,
+          "assessment": {
+            "inclusion": "not_met",
+            "exclusion": "not_met",
+            "reason": "The bounded-file read can block; this report does not establish lost or omitted context."
+          }
+        }
+      ]
+    }
+  ]
+}

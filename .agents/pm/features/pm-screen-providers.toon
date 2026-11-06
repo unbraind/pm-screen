@@ -1,0 +1,15 @@
+id: pm-screen-providers
+title: Certify additional authorized native backend adapters
+description: "Pinned PmClientOptions in sdk/runtime-public-contracts.d.ts exposes directory workspace options, not arbitrary remote provider injection. Directory and injected directory contract adapters are tested. Public upstream pm-cli issues 1399,1587,1588 own broader backend capabilities. No hosted provider is claimed or accessed."
+type: Feature
+status: open
+priority: 2
+tags[3]: "gh:unbraind/pm-cli#1399",sdk-gap,"upstream:pm-cli#1399"
+created_at: "2026-11-06T19:12:14.254Z"
+updated_at: "2026-11-06T19:48:24.384Z"
+author: codex-agent
+acceptance_criteria: "A real authorized backend provides create-if-absent, guarded updates and complete reads and passes the package conformance suite"
+parent: pm-screen-later
+docs[1]{path,scope}:
+  docs/review-status.md,project
+body: ""

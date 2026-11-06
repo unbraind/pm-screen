@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "method": "Independent explicit ID sets recorded before reducer evaluation",
+  "sets": [
+    {
+      "key": "open-issues",
+      "included": [
+        "pm-csv-226",
+        "pm-beads-204",
+        "pm-brief-187"
+      ],
+      "excluded": [
+        "pm-csv-214",
+        "pm-beads-192"
+      ],
+      "uncertain": [],
+      "pending": [],
+      "conflict": []
+    },
+    {
+      "key": "tracker-items",
+      "included": [
+        "pm-csv-3d3b",
+        "pm-beads-51fi"
+      ],
+      "excluded": [
+        "pm-csv-017m",
+        "pm-csv-0aal",
+        "pm-csv-0orl",
+        "pm-csv-0pmb",
+        "pm-csv-0rvm",
+        "pm-csv-0wj8",
+        "pm-csv-137e",
+        "pm-csv-158c",
+        "pm-csv-1pty",
+        "pm-csv-21ik",
+        "pm-csv-28sk",
+        "pm-csv-2ms0",
+        "pm-csv-2thu",
+        "pm-csv-3044",
+        "pm-csv-3lxi",
+        "pm-csv-4bvs",
+        "pm-csv-545f",
+        "pm-csv-59yv",
+        "pm-beads-00wh",
+        "pm-beads-080q",
+        "pm-beads-1bgo",
+        "pm-beads-1d0b",
+        "pm-beads-1hs9",
+        "pm-beads-1rmb",
+        "pm-beads-1uz3",
+        "pm-beads-27rw",
+        "pm-beads-3cun",
+        "pm-beads-3pk9",
+        "pm-beads-3uet",
+        "pm-beads-42kv",
+        "pm-beads-4kw8",
+        "pm-beads-56vl",
+        "pm-beads-5t1j",
+        "pm-beads-6a9l",
+        "pm-beads-7mj4",
+        "pm-beads-7uxj",
+        "pm-beads-7wd9",
+        "ops-042o",
+        "ops-073p",
+        "ops-0c8k",
+        "ops-0u7l",
+        "ops-3ete",
+        "ops-3j1z",
+        "ops-3o3w",
+        "ops-3w9m",
+        "ops-3wbz",
+        "ops-3xs4",
+        "ops-3xyb",
+        "ops-3ype",
+        "ops-45xp",
+        "ops-4b34",
+        "ops-4phd",
+        "ops-55sh",
+        "ops-5jp6",
+        "ops-5mv7",
+        "ops-61n2",
+        "pm-brief-03r3",
+        "pm-brief-0dru",
+        "pm-brief-1oo2",
+        "pm-brief-1p5o",
+        "pm-brief-2e5v",
+        "pm-brief-352i",
+        "pm-brief-3y2c",
+        "pm-brief-3zb6",
+        "pm-brief-4ohy",
+        "pm-brief-4yx9",
+        "pm-brief-58en",
+        "pm-brief-5a57",
+        "pm-brief-5fv2",
+        "pm-brief-6xr0",
+        "pm-brief-7z60",
+        "pm-brief-8754",
+        "pm-brief-8up0",
+        "pm-brief-93z7"
+      ],
+      "uncertain": [
+        "pm-csv-02hc",
+        "ops-54ed",
+        "pm-brief-00tc",
+        "pm-brief-3luv"
+      ],
+      "pending": [],
+      "conflict": []
+    },
+    {
+      "key": "search-hits",
+      "included": [
+        "pm-csv-214"
+      ],
+      "excluded": [
+        "pm-beads-192"
+      ],
+      "uncertain": [],
+      "pending": [],
+      "conflict": []
+    }
+  ]
+}
