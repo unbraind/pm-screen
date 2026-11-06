@@ -4,17 +4,18 @@ description: Implement companion specification pm-cli-website-u21s using native 
 type: Epic
 status: in_progress
 priority: 2
-tags: []
+tags[1]: "gh:unbraind/pm-screen#1"
 created_at: "2026-11-06T18:46:49.805Z"
-updated_at: "2026-11-06T19:50:53.431Z"
+updated_at: "2026-11-06T20:15:08.364Z"
 author: codex-agent
 acceptance_criteria: Seven CLI and SDK operations; replay-safe native CAS; public corpus evidence; complete release gates
-comments[5]{created_at,author,text}:
+comments[6]{created_at,author,text}:
   "2026-11-06T18:46:49.805Z",codex-agent,"Companion reference: pm-cli-website-u21s. Companion is read-only. Package-local delivery follows its screening specification; no source tracker is changed."
   "2026-11-06T18:46:58.870Z",codex-agent,"Scaffold copied from pm-unit, including exact identity allowlist and sync-pin regression. Pinned host remains 2026.11.5; registry currently advertises 2026.11.6. Schema activation is metadata only. Local main will contain only the initial scaffold commit."
   "2026-11-06T18:53:16.327Z",codex-agent,"Implemented strict frozen schemas, ternary eligibility and conservation accounting. Owner updates use native expected-revision locking with no retry/rebase; replay lookup precedes stale revision refusal only for identical canonical requests. Budget preflight runs before mutations. Starting real no-git SDK tests."
   "2026-11-06T19:47:59.515Z",codex-agent,"Implementation and public evidence are complete for local verification. All seven CLI and SDK operations preserve frozen populations, exact criterion derivations, unknowns, operation receipts and native expected-revision mutations. Claims about independent corpus review and maintainer protocol approval remain explicitly outstanding in pm-screen-independent-review; arbitrary provider certification and native producer cursor transport remain separate Features. No remote repository, push, PR, release, publication or hosted change was performed. Final npm and Bun release checks will run on the locally committed candidate after tracker writes end."
   "2026-11-06T19:50:46.617Z",codex-agent,"Linked delivery test passes: npm pack --dry-run accepts exactly 45 allowlisted text files and the production dependency audit reports zero vulnerabilities. Protocol, workflow and evidence linked commands pass 5, 34 and 3 tests respectively. Final static checks report zero duplication across 38 sources and 95 documented declarations. Release claims before final gates; all items remain open or in progress for orchestrator verification."
+  "2026-11-06T20:14:21.805Z",codex-agent,"Resumed for public PR #1 review ownership. Worktree is clean and matches the pushed feature branch. Created pm-screen-compact-packet as a deferred Feature using the real full-stream overhead, with measurable compactness and evidence-preservation acceptance criteria. Review and final-head CI verification remain in this PR; compactness implementation is out of scope."
 files[5]{path,scope}:
   index.ts,project
   manifest.json,project

@@ -1,0 +1,21 @@
+id: pm-screen-compact-packet
+title: "Make the screening packet compact: decisions and pointers well below raw candidate text"
+description: "Follow-up after PR #1; no compact-packet implementation belongs to this PR. The frozen public proof currently expands the five-issue frame from 1865 raw estimated tokens to 4248 across all packet pages (7459 versus 16992 bytes). The 80-item frame falls from 103661 to 97953 estimated tokens, only about 5 percent savings (414644 versus 391811 bytes). The 98.97 percent cold-resume saving uses a different complete-frame reread baseline and does not establish compact full-corpus transport. Design decisions-and-pointers packets with reusable protocol/source identities and explicit access to the complete audit witnesses."
+type: Feature
+status: open
+priority: 2
+tags[2]: compact,follow-up
+created_at: "2026-11-06T20:14:14.824Z"
+updated_at: "2026-11-06T20:14:14.824Z"
+author: codex-agent
+acceptance_criteria: "Measure final UTF-8 bytes and ceil(bytes/4) for JSON and TOON, including every envelope, receipt, shared protocol and continuation page; report full-stream and cold-resume baselines separately.; On each existing frozen public frame, compact full-stream delivery costs at most 50 percent of raw candidate bytes, including the five-issue frame; preserve exact measured before/after numbers and do not satisfy this by changing candidates or shortening source baselines.; Preserve every candidate decision, source/version pointer, criterion reason and unresolved/conflict state, alias and population denominator, conservation equation and completeness qualification; retain a documented route to all original audit vectors.; Version and document compatibility explicitly; keep native expected-revision mutations, replay, privacy, stale-cursor refusal, JSON/TOON equivalence, 1600-token defaults and 32 KiB page ceilings.; Add positive and negative regressions and a behavioral revert proof, rerun the frozen corpus and ten resume answers with identical decisions and reasons, and pass the unchanged full npm/Bun release gates."
+parent: pm-screen-later
+files[3]{path,scope}:
+  src/output.ts,project
+  src/api.ts,project
+  test/corpus.ts,project
+docs[3]{path,scope}:
+  ARCHITECTURE.md,project
+  docs/real-data-receipt.json,project
+  docs/real-data.md,project
+body: ""
