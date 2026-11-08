@@ -10,13 +10,26 @@ export function canonical(value: unknown): string {
 }
 /** SHA-256 content identity for source, requests and results. */
 export function digest(value: unknown): string { return createHash('sha256').update(canonical(value)).digest('hex'); }
+/** Transform surrounding text while preserving parseable web URI bytes as inert data. */
+export function mapOutsideWebUris(value: string, transform: (text: string) => string): string {
+  let end = 0; let result = '';
+  for (const match of value.matchAll(/\bhttps?:\/\/[^\s"'`<>\\]+/giu)) {
+    if (!URL.canParse(match[0])) continue;
+    result += transform(value.slice(end, match.index)) + match[0]; end = match.index + match[0].length;
+  }
+  return result + transform(value.slice(end));
+}
 /** Refuse unsafe data before it can enter immutable native history. */
 export function guardSubmitted(value: unknown, seen = new Set<object>(), depth = 0): void {
   insist(depth <= 16, 'invalid_input', 'Input nesting exceeds sixteen levels');
   if (typeof value === 'string') {
     insist(value.length <= 8000 && value.isWellFormed(), 'invalid_input', 'Text is oversized or malformed Unicode');
     insist(!/[\u0000-\u0008\u000b-\u000c\u000e-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/u.test(value), 'invalid_input', 'Control sequences are forbidden');
-    insist(!/(?:[\\/](?:home|Users)[\\/]|[\\/]root(?:[\\/]|\b)|(?<![\w.+-])[\w.+-]+@[\w.-]+\.[a-z]{2,})/iu.test(value), 'invalid_input', 'Private paths and email addresses are forbidden');
+    mapOutsideWebUris(value, text => {
+      insist(!/(?:[\\/](?:home|Users)[\\/]|[\\/]root(?:[\\/]|\b))/iu.test(text), 'invalid_input', 'Private paths are forbidden'); return text;
+    });
+    /** Email addresses stay forbidden everywhere, including inside public URI text. */
+    insist(!/(?<![\w.+-])[\w.+-]+@[\w.-]+\.[a-z]{2,}/iu.test(value), 'invalid_input', 'Email addresses are forbidden');
     insist(scanMutationSecrets(value).length === 0, 'invalid_input', 'SDK privacy guard detected credential-shaped content');
   } else if (value !== null && typeof value === 'object') {
     const prototype = Object.getPrototypeOf(value);

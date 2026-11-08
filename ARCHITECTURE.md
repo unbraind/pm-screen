@@ -38,7 +38,7 @@ CLI and SDK use the same API, strict nested schemas, pure eligibility reducer an
 
 Write-result preflight reserves the actual result, request digest and fixed-length current revision before mutation. An indivisible witness refuses with a measured minimum retry budget or a narrower-query remedy. Native post-processing that removes witnesses is refused by the final renderer. Package `--budget` and `--cursor` are explicit compatibility controls for pinned host transport limits; native flags are never shadowed. The optional host setting is `screen.output_budget`.
 
-The mutation privacy guard scans every submitted string with SDK `scanMutationSecrets`, then strict schemas enforce limits. Absolute home paths, unsafe controls/bidi, malformed Unicode and prototype keys refuse; instructions are never evaluated. Identity keys use maps and own-key checks. Secret scanning is heuristic. Historical correction does not erase append-only native history. Hosts own permissions, redaction and retention.
+The mutation privacy guard scans every submitted string with SDK `scanMutationSecrets`, then strict schemas enforce limits. Absolute home paths outside public web URI text, unsafe controls/bidi, malformed Unicode and prototype keys refuse; instructions are never evaluated. Email addresses refuse everywhere, including inside URI text. Identity keys use maps and own-key checks. Secret scanning is heuristic. Historical correction does not erase append-only native history. Hosts own permissions, redaction and retention.
 
 ## Limits and release boundary
 

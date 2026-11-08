@@ -83,6 +83,7 @@ export async function evaluateCorpus(write = false) {
         for (const key of selected) {
           const row = set.rows.find(r => r.id === key)!; const packet = await screeningPacket(host, { id, candidate: key }); const output = wire(fitEnvelope(host, envelope(packet)), 'toon'); const decision = packet.rows[0].decision;
           assert.equal(decision.assessments[0].vector.find(v => v.criterion_id === 'include')!.reason, row.assessment.reason); assert.deepEqual(packet.report.counts, report.counts);
+          assert.ok(Buffer.byteLength(output) <= 6400, 'Resume packet exceeds 1600-token byte budget');
           resumes.push({ question: `What is the decision, reason and complete population count for ${key}?`, candidate: key, disposition: decision.disposition, restored_reason: row.assessment.reason, baseline_bytes: rawBytes + Buffer.byteLength(JSON.stringify(set.rows.map(row => row.assessment))), packet_bytes: Buffer.byteLength(output), identical_counts_and_reason: true });
         }
       }
@@ -102,8 +103,9 @@ export async function syntheticControls() {
     for (const row of set.rows.slice(0, 10)) for (const reviewer of ['first', 'second']) { const owner = await readScreening(host, id); await assessCandidate(host, { id, op: `${row.id}-${reviewer}`, revision: owner.revision, candidate: row.id, reviewer, protocol_digest: owner.state.protocol_digest, source_digest: digest(row.source_ref), vector: submittedVector(row).map(v => ({ ...v, value: 'unknown', evidence_refs: [], reason: 'Synthetic unavailable source' })) }); }
     const unavailable = deriveScreeningReport((await readScreening(host, id)).state); assert.equal(unavailable.counts.uncertain, 10); assert.equal(unavailable.counts.excluded, 0); assert.equal(unavailable.aliases, 5);
     for (const row of set.rows.slice(0, 3)) { const owner = await readScreening(host, id); const prior = owner.state.assessments.find(a => a.candidate === row.id && a.reviewer === 'second')!; await assessCandidate(host, { id, op: `${row.id}-conflict`, revision: owner.revision, candidate: row.id, reviewer: 'second', protocol_digest: owner.state.protocol_digest, source_digest: digest(row.source_ref), previous_digest: prior.assessment_digest, amendment_reason: 'Synthetic opposed vector', vector: submittedVector(row).map(v => ({ ...v, value: v.criterion_id === 'include' ? 'met' : 'not_met', evidence_refs: [row.source_ref] })) }); }
-    const conflicts = deriveScreeningReport((await readScreening(host, id)).state); assert.equal(conflicts.counts.conflict, 3); assert.equal(conflicts.counts.uncertain, 7);
+    const before = await readScreening(host, id); const conflicts = deriveScreeningReport(before.state); assert.equal(conflicts.counts.conflict, 3); assert.equal(conflicts.counts.uncertain, 7);
     let inspected = 0; const fresh = await checkScreening({ ...host, inspectSource: async () => inspected++ === 0 ? 'changed' : 'current' }, { id }); assert.equal(fresh.current_freshness, 'changed');
+    assert.deepEqual(await readScreening(host, id), before, 'Freshness inspection must preserve state and revision');
     return { synthetic: true, aliases: 5, unavailable_sources: 10, opposed_vectors: 3, changed_sources: 1, counts_after_disagreement: conflicts.counts, receipt: conflicts.receipt, current_freshness: fresh.current_freshness };
   } finally { await rm(root, { recursive: true, force: true }); }
 }

@@ -83,7 +83,9 @@ async function mutate(host: Host, input: AssessCandidateInput | ResolveInput, ki
     const normalized = { ...input, id: snapshot.id, vector: normalizeVector(snapshot.state.definition.protocol, input.vector), ...('assessment_digests' in input ? { assessment_digests: [...input.assessment_digests].sort() } : {}) };
     const previous = replay(snapshot.state, input.op, normalized); if (previous) { preflight(host, snapshot.id, previous, options); return await receipt(host, snapshot.id, previous, true); }
     insist(snapshot.revision === input.revision, 'revision_conflict', 'Caller revision is stale', 'Reread and consciously retry with a reviewed revision');
-    const state = structuredClone(snapshot.state); const result = apply(state, normalized, parse(KeySchema, host.author));
+    const recorder = KeySchema.safeParse(host.author);
+    insist(recorder.success, 'invalid_input', 'Recorder attribution requires a compatible key', 'Select an author key of 1-96 ASCII letters, digits, underscores, periods, colons or hyphens, starting with a letter or digit; reserved prototype names are forbidden');
+    const state = structuredClone(snapshot.state); const result = apply(state, normalized, parse(KeySchema, recorder.data));
     const operation = remember(state, input.op, normalized, kind, input.candidate, result); preflight(host, snapshot.id, operation, options); await boundary(host, 'after_plan');
     await boundary(host, 'before_guard'); await boundary(host, 'before_update');
     const checked = await host.client.withExpectedItemRevisions([{ id: snapshot.id, itemHash: input.revision }], () => host.client.update(snapshot.id, { field: [`screen_state=${canonical(state)}`], comment: [`screen:${kind} explicit judgment; source records unchanged`] }));

@@ -137,7 +137,7 @@ Token estimates are bytes/4 rounded up. Full streams repeat proof context across
 
 ## Privacy and exit codes
 
-Unsafe controls, bidi sequences, malformed Unicode, prototype keys, absolute home paths and SDK-detected credential-shaped values refuse before persistence. Ordinary quoted instructions remain inert data. The SDK secret guard is heuristic, not a privacy certification. Native history retains prior text; correction is not erasure. Deletion, redaction and retention remain host policy.
+Unsafe controls, bidi sequences, malformed Unicode, prototype keys, absolute home paths outside public web URIs and SDK-detected credential-shaped values refuse before persistence. Public web URI path segments (such as `users` or `root-cause`) remain inert data, while email addresses refuse everywhere, including inside URI text. Ordinary quoted instructions remain inert data. The SDK secret guard is heuristic, not a privacy certification. Native history retains prior text; correction is not erasure. Deletion, redaction and retention remain host policy.
 
 | Exit | Meaning |
 | --- | --- |

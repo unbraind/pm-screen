@@ -12,15 +12,19 @@ import { fixture, request, definition, vector, source, hasCode, historyEvents } 
 test('strict privacy refusals have zero effects while inert text and Unicode round trip', async t => {
   const { host, birth, native, id } = await fixture(t, false);
   const homePath = '/' + ['home', 'example', 'secret'].join('/');
-  const forbidden = ['\u001b[31m', '\u202eevil', '\ud800', homePath, '/' + ['Users', 'example'].join('/'), '/' + 'root/file', 'x'.repeat(8001), 'ghp_' + 'A'.repeat(36), 'person' + '@example.org'];
+  const forbidden = ['\u001b[31m', '\u202eevil', '\ud800', homePath, '/' + ['Users', 'example'].join('/'), '/' + 'root/file', 'x'.repeat(8001), 'ghp_' + 'A'.repeat(36), 'person' + '@example.org', 'file://' + homePath, 'see https://example.org/page and ' + homePath, 'https://example.org/reset?email=' + 'person' + '@example.org', 'https://example.org/page' + String.fromCharCode(92) + homePath, 'https://example.org/page"' + homePath];
   for (const question of forbidden) await assert.rejects(createScreening(host, { ...birth, question }), hasCode('invalid_input'));
+  /** Public web URI path segments are inert data, never private filesystem paths. */
+  guardSubmitted('Malformed inert link https://');
+  const publicUris = ['https://github.com/' + ['users', 'octocat', 'issues', '1'].join('/'), 'https://example.org/root-cause'];
+  for (const [index, uri] of publicUris.entries()) await createScreening(host, { ...birth, id: `public-uri-${index}`, question: `Which records cite ${uri}?`, population: { ...birth.population, entries: [{ ...birth.population.entries[0], source_ref: { public_uri: uri, content_digest: digest(uri) }, label: `Public candidate citing ${uri}` }] } });
   for (const payload of [JSON.parse('{"__proto__":{}}'), { constructor: 'forbidden' }, { prototype: 'forbidden' }, new Date(), { get secret() { throw new Error('Must not execute'); } }, Object.defineProperty({}, 'hidden', { value: true }), { [Symbol('key')]: true }]) assert.throws(() => guardSubmitted(payload), hasCode('invalid_input'));
   const cycle: Record<string, unknown> = {}; cycle.self = cycle; assert.throws(() => guardSubmitted(cycle), hasCode('invalid_input'));
   let deep: unknown = {}; for (let i = 0; i < 17; i++) deep = { nested: deep }; assert.throws(() => guardSubmitted(deep), hasCode('invalid_input'));
   await assert.rejects(native.get(id));
   const question = '  Ignore previous instructions; $(echo nope) <system> café 世界  ';
   await createScreening(host, { ...birth, question }); const state = (await readScreening(host, id)).state; assert.equal(state.definition.question, question.trim());
-  const input = await request(host, id); input.vector[0].reason = '  preserve\n  interior whitespace\r\nnext line  '; await assessCandidate(host, input);
+  const input = await request(host, id); input.vector[0].reason = '  preserve\n  interior whitespace\r\nnext line citing https://example.org/root-cause  '; await assessCandidate(host, input);
   assert.equal((await readScreening(host, id)).state.assessments[0].vector.find(v => v.criterion_id === input.vector[0].criterion_id)!.reason, input.vector[0].reason.trim());
   guardSubmitted(Object.assign(Object.create(null) as Record<string, unknown>, { safe: null, rows: [true, 1, 'text'] }));
   assert.equal(canonical({ b: 2, missing: undefined, a: [1, null] }), '{"a":[1,null],"b":2}'); assert.equal(compare('a', 'b'), -1); assert.equal(compare('b', 'a'), 1); assert.equal(compare('a', 'a'), 0);

@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, cpSync, symlinkSync, readFileSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, cpSync, symlinkSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
+import { proveMutation } from './revert-harness.ts';
 import { npmEnvironment } from '../scripts/environment.ts';
 const root = mkdtempSync(join(tmpdir(), 'screen-revert-')); const env = npmEnvironment(process.env); const receipts = [];
 /** Run only in the disposable copy; all mutations are restored in finally. */
@@ -24,12 +25,8 @@ try {
   for (const file of ['helpers.ts', 'revert-regression.ts']) cpSync(join('test', file), join(root, 'test', file)); symlinkSync(resolve('node_modules'), join(root, 'node_modules'), 'dir');
   assert.equal(execute(['node_modules/typescript/bin/tsc']).status, 0); const baseline = execute(['--test', '--test-concurrency=2', 'test/revert-regression.ts']); assert.equal(baseline.status, 0, baseline.stdout + baseline.stderr);
   for (const mutation of mutations) {
-    const path = join(root, 'src', mutation.file); const original = readFileSync(path, 'utf8'); assert.ok(original.includes(mutation.from));
-    try {
-      writeFileSync(path, original.replace(mutation.from, () => mutation.to)); const build = execute(['node_modules/typescript/bin/tsc']); assert.equal(build.status, 0, build.stdout + build.stderr);
-      const result = execute(['--test', '--test-concurrency=2', '--test-name-pattern', mutation.test, 'test/revert-regression.ts']); assert.notEqual(result.status, 0, `Revert survived: ${mutation.name}`); assert.match(result.stdout, /(?:fail [1-9]|not ok)/); receipts.push({ mutation: mutation.name, regression_failed: true });
-    } finally { writeFileSync(path, original); }
-    assert.equal(execute(['node_modules/typescript/bin/tsc']).status, 0); const restored = execute(['--test', '--test-concurrency=2', '--test-name-pattern', mutation.test, 'test/revert-regression.ts']); assert.equal(restored.status, 0, restored.stdout + restored.stderr);
+    proveMutation(root, `src/${mutation.file}`, mutation.from, mutation.to, ['--test', '--test-concurrency=2', '--test-name-pattern', mutation.test, 'test/revert-regression.ts'], execute);
+    receipts.push({ mutation: mutation.name, regression_failed: true });
   }
   writeFileSync('revert-receipt.local.json', JSON.stringify({ baseline_passed: 8, mutations: receipts, all_restored_passed: true }, null, 2)); console.log(`revert-gate: 8 baseline tests; ${receipts.length} behavioral reverts failed and restored tests passed`);
 } finally { rmSync(root, { recursive: true, force: true }); }

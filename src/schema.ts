@@ -8,7 +8,7 @@ export function textSchema(max: number) { return z.string().trim().min(1).refine
 /** Native snapshot or explicitly supplied public artifact; no source is fetched. */
 export const SourceRefSchema = z.union([
   z.strictObject({ item_id: KeySchema, item_hash: DigestSchema, field_pointer: z.string().max(256).regex(/^(?:\/(?:[^~]|~[01])*)?$/), content_digest: DigestSchema, citation_id: KeySchema.optional() }),
-  z.strictObject({ public_uri: z.url().startsWith('https://').max(512).refine(value => { const url = new URL(value); return url.username === '' && url.password === ''; }), content_digest: DigestSchema }),
+  z.strictObject({ public_uri: z.url().startsWith('https://').max(512).refine(value => { if (!URL.canParse(value)) return false; const url = new URL(value); return url.username === '' && url.password === ''; }), content_digest: DigestSchema }),
 ]);
 /** Explicit eligibility requirement and evidence obligation. */
 export const CriterionSchema = z.strictObject({ criterion_id: KeySchema, kind: z.enum(['inclusion', 'exclusion']), text: textSchema(400), required_evidence: z.boolean() });

@@ -7,4 +7,4 @@
 
 Native nested expected-revision scopes intentionally advance after a nested mutation. The package's scope callback therefore contains only its one native update, with no caller callback inside it. The interleaving regression protects this implementation choice; it is not presented as a newly filed upstream defect.
 
-All work remains local. No repository was created remotely, no PR was opened, no code was pushed and no package was published.
+Implementation and review fixes are tracked in PR #1 on `feat/screen`. Review threads remain open for the orchestrator and reviewers to verify. Publication and maintainer approval remain separate gates.

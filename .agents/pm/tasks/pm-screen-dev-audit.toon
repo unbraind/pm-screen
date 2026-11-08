@@ -1,0 +1,16 @@
+id: pm-screen-dev-audit
+title: Review the c8 development-tool glob advisory
+description: "Full npm audit reports three moderate development dependency entries from one advisory: c8 to test-exclude to glob, GHSA-3g3m-2fjr-6pw4 (AbortSignal cancellation bypass permits post-timeout filesystem traversal). The production-only audit reports zero vulnerabilities. Searches for vulnerability, advisories and c8 found no existing item. Assess or upgrade this development chain separately from PR 1 review fixes; the suggested c8 downgrade is a major change and was not applied."
+type: Task
+status: open
+priority: 3
+tags[2]: dependencies,follow-up
+created_at: "2026-11-08T12:12:32.661Z"
+updated_at: "2026-11-08T12:12:32.661Z"
+author: codex-agent
+acceptance_criteria: "Assess the pinned development chain against https://github.com/advisories/GHSA-3g3m-2fjr-6pw4 and document applicability or remove the affected dependency range; preserve 100 percent coverage and zero duplication policies; production audit remains clean."
+parent: pm-screen-later
+files[2]{path,scope}:
+  package.json,project
+  package-lock.json,project
+body: ""

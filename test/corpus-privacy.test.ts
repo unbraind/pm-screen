@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { parse } from '@babel/parser';
 import { scanMutationSecrets } from '@unbrained/pm-cli/sdk';
+import { mapOutsideWebUris } from '../dist/src/privacy.js';
 
 const forbidden = ['pm-observer', 'pm-web-hosted', 'pm-gpt'];
 /** Guard minimized public fixtures without reading the named private repositories. */
 function publicText(text: string): void {
   for (const name of forbidden) assert.ok(!new RegExp(`(?<![\\w-])${name}(?![\\w-])`, 'i').test(text), 'Private repository citation');
-  assert.ok(!/\/(?:home|Users)\//.test(text), 'Private path'); assert.equal(scanMutationSecrets(text).length, 0);
+  mapOutsideWebUris(text, part => { assert.ok(!/\/(?:home|Users)\//.test(part), 'Private path'); return part; }); assert.equal(scanMutationSecrets(text).length, 0);
 }
 /** Walk syntax without executing acquisition or dynamic imports. */
 function walk(value: unknown, visit: (node: Record<string, unknown>) => void): void {
@@ -27,7 +28,7 @@ function readBoundaries(source: string): void {
     "new PmClient({ cwd: copy, pmRoot: join(copy, '.agents/pm'), noExtensions: true })",
     "execFileSync('tar', ['-xz', '--strip-components=1', '--wildcards', '-C', copy, '*/.agents/pm/*'], { input: archive, env: npmEnvironment(process.env) })",
   ]);
-  const actual: string[] = []; const imports = new Set(['node:assert/strict', 'node:fs/promises', 'node:path', 'node:os', 'node:child_process', 'node:crypto', '@unbrained/pm-cli/sdk', './environment.ts']);
+  const actual: string[] = []; const imports = new Set(['node:assert/strict', 'node:fs/promises', 'node:path', 'node:os', 'node:child_process', 'node:crypto', '@unbrained/pm-cli/sdk', './environment.ts', './corpus-input.ts']);
   walk(parse(source, { sourceType: 'module', plugins: ['typescript'] }), node => {
     if (node.type === 'ImportDeclaration') assert.ok(imports.has((node.source as { value: string }).value), 'Unreviewed import');
     assert.ok(node.type !== 'ImportExpression', 'Dynamic import');
@@ -43,8 +44,9 @@ function readBoundaries(source: string): void {
 }
 
 test('public fixture guard rejects private citations and credential/path canaries', async () => {
-  for (const file of ['scripts/acquire-corpus.ts', 'test/corpus.ts', 'test/fixtures/public-corpus.json', 'test/fixtures/expected-decisions.json', 'test/fixtures/search-hits.json', 'docs/real-data-receipt.json']) publicText(await readFile(file, 'utf8'));
+  for (const file of ['scripts/acquire-corpus.ts', 'scripts/corpus-input.ts', 'test/corpus.ts', 'test/fixtures/public-corpus.json', 'test/fixtures/expected-decisions.json', 'test/fixtures/search-hits.json', 'docs/real-data-receipt.json']) publicText(await readFile(file, 'utf8'));
   for (const name of forbidden) { assert.throws(() => publicText(`https://github.com/example/${name}`), /Private repository/); assert.throws(() => publicText(name.toUpperCase()), /Private repository/); publicText(`${name}-tools`); }
+  publicText('https://example.org/' + ['users', 'public', 'artifact'].join('/'));
   assert.throws(() => publicText('/' + ['home', 'example', 'file'].join('/')), /Private path/);
 });
 
