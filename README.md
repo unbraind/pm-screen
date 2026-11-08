@@ -2,23 +2,32 @@
 
 Evidence selection is context. An agent may remember five useful results but forget which other candidates it considered, why it excluded them, or which sources it could not assess. `pm-screen` preserves that selection protocol and every disposition in native pm items, so another agent can resume from explicit reasons and unknowns.
 
-This is an unpublished first-release candidate. Substitute a locally packed tarball for `pm-screen` until the maintainer publishes it. Maintainer protocol approval and a second independent corpus reviewer remain outstanding; the implementation does not claim either.
+This is an unpublished first-release candidate. Create the local archive before installing this candidate. Maintainer protocol approval and a second independent corpus reviewer remain outstanding; the implementation does not claim either.
 
 ## Install
 
+In a source checkout, build the archive into a consumer directory first, then choose either npm or Bun below.
+
 ```sh
-npm install pm-screen @unbrained/pm-cli
+npm ci
+mkdir -p ../screen-consumer
+npm pack --pack-destination ../screen-consumer
+cd ../screen-consumer
+```
+
+```sh
+npm install ./pm-screen-2026.11.6.tgz @unbrained/pm-cli
 npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
 npx --no-install pm package install ./node_modules/pm-screen
 ```
 
 ```sh
-bun add pm-screen @unbrained/pm-cli
+bun add ./pm-screen-2026.11.6.tgz @unbrained/pm-cli
 bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
 bunx --bun --no-install pm package install ./node_modules/pm-screen
 ```
 
-For an existing tracker: `pm package install npm:pm-screen`. Run `pm screen --help`, `npx --no-install pm screen --help`, or `bunx --bun --no-install pm screen --help`. Node >=22.19 and native Bun are supported; development and acceptance use SDK 2026.11.5.
+For an existing tracker, skip initialization and register the installed archive with `pm package install ./node_modules/pm-screen`. After publication, `pm package install npm:pm-screen` is also available. Run `pm screen --help`, `npx --no-install pm screen --help`, or `bunx --bun --no-install pm screen --help`. Node >=22.19 and native Bun are supported; development and acceptance use SDK 2026.11.5.
 
 ## Commands
 
@@ -80,6 +89,11 @@ import {
   digest, deriveEligibility
 } from 'pm-screen';
 import type { Definition, Vector } from 'pm-screen';
+import { PmClient } from '@unbrained/pm-cli/sdk/core';
+
+// Once per new tracker; omit init when opening an existing tracker.
+const native = new PmClient({ cwd: process.cwd(), pmRoot: '.agents/pm', author: 'my-agent', noExtensions: true });
+await native.init('screening', { defaults: true, agentGuidance: 'skip', mergeFence: false });
 
 const host = createDirectoryHost('.agents/pm', 'my-agent');
 // Supply your reviewed definition and vector; no source is fetched by this API.
@@ -137,7 +151,7 @@ Token estimates are bytes/4 rounded up. Full streams repeat proof context across
 
 ## Privacy and exit codes
 
-Unsafe controls, bidi sequences, malformed Unicode, prototype keys, absolute home paths outside public web URIs and SDK-detected credential-shaped values refuse before persistence. Public web URI path segments (such as `users` or `root-cause`) remain inert data, while email addresses refuse everywhere, including inside URI text. Ordinary quoted instructions remain inert data. The SDK secret guard is heuristic, not a privacy certification. Native history retains prior text; correction is not erasure. Deletion, redaction and retention remain host policy.
+New submissions have an aggregate distinct-text scanning budget of 1,048,576 UTF-16 code units; repeated strings are scanned once. Stored records retain strict schema and identity checks without being treated as new submissions. Unsafe controls, bidi sequences, malformed Unicode, prototype keys, absolute home paths outside public web URIs and SDK-detected credential-shaped values refuse before persistence. Public web URI path segments (such as `users` or `root-cause`) remain inert data, while email addresses refuse everywhere, including inside URI text. Ordinary quoted instructions remain inert data. The SDK secret guard is heuristic, not a privacy certification. Native history retains prior text; correction is not erasure. Deletion, redaction and retention remain host policy.
 
 | Exit | Meaning |
 | --- | --- |

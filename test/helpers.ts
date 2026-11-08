@@ -44,3 +44,9 @@ export async function verifyCriterionOrder(t: TestContext): Promise<void> {
   await persistedSchemaPort(native).update(id, { field: [`screen_state=${canonical(state)}`] });
   const report = await screeningReport(host, { id }); assert.equal(report.counts.included, 1); assert.equal(report.counts.conflict, 0);
 }
+
+/** Prepare an adjudication request from the complete current native assessment set. */
+export async function resolutionRequest(host: Host, id: string) {
+  const current = await readScreening(host, id);
+  return { vector: vector(), rationale: 'Reviewed', assessment_digests: current.state.assessments.map(row => row.assessment_digest), candidate: 'candidate-0', id, op: 'resolve', revision: current.revision };
+}

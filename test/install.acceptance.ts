@@ -2,16 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync, readFileSync, copyFileSync, chmodSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, isAbsolute, extname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { decode } from '@toon-format/toon';
+import { locateTool, commandShell, commandPath } from '../scripts/consumer-tools.ts';
 import { npmEnvironment } from '../scripts/environment.ts';
+import { privateCases } from './path-cases.ts';
 import { definition, vector } from './helpers.ts';
 import { digest } from '../dist/index.js';
 /** Execute a bounded, credential-free consumer process and assert its real exit code. */
 function execute(executable: string, args: string[], cwd: string, env: NodeJS.ProcessEnv, input?: string, expected = 0): string {
-  const result = spawnSync(executable, args, { cwd, env, input, encoding: 'utf8', timeout: 180000, maxBuffer: 4 * 1024 * 1024 });
+  const command = isAbsolute(executable) ? executable : locateTool(executable, commandPath(env));
+  const result = spawnSync(command, args, { cwd, env, input, shell: commandShell(command), encoding: 'utf8', timeout: 180000, maxBuffer: 4 * 1024 * 1024 });
   assert.equal(result.status, expected, `${executable} ${args.slice(0, 4).join(' ')}: ${result.stderr.slice(-1500)} ${result.stdout.slice(-1500)}`); return result.stdout || result.stderr;
 }
 
@@ -20,8 +23,8 @@ test('one captured tarball works through npm bun npx bunx and both SDK runtimes 
   try {
     const packed = JSON.parse(execute('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', root], process.cwd(), env)) as { filename: string; files: { path: string }[] }[];
     const archive = join(root, packed[0].filename); const sha256 = createHash('sha256').update(readFileSync(archive)).digest('hex'); const bin = join(root, 'bin'); mkdirSync(bin);
-    const tools = new Map(['bun', 'npm', 'npx'].map(name => [name, execute('bash', ['-c', `command -v ${name}`], process.cwd(), env).trim()]));
-    for (const [name, target] of [['sh', '/bin/sh'], ['node', process.execPath], ['bun', tools.get('bun')!], ['bunx', tools.get('bun')!], ['npm', tools.get('npm')!], ['npx', tools.get('npx')!]]) symlinkSync(target, join(bin, name));
+    const tools = new Map(['bun', 'npm', 'npx'].map(name => [name, locateTool(name, commandPath(env))]));
+    for (const [name, target] of [...(process.platform === 'win32' ? [] : [['sh', '/bin/sh']]), ['node', process.execPath], ['bun', tools.get('bun')!], ['bunx', tools.get('bun')!], ['npm', tools.get('npm')!], ['npx', tools.get('npx')!]]) symlinkSync(target, join(bin, name + (process.platform === 'win32' ? extname(target) : '')));
     for (const manager of ['npm', 'bun']) {
       const cwd = join(root, manager); mkdirSync(cwd); writeFileSync(join(cwd, 'package.json'), JSON.stringify({ name: 'screen-consumer', version: '1.0.0', private: true, type: 'module' }));
       execute(manager, manager === 'npm' ? ['install', '--ignore-scripts', '--no-audit', '--no-fund', archive, '@unbrained/pm-cli@2026.11.5'] : ['add', '--ignore-scripts', archive, '@unbrained/pm-cli@2026.11.5'], cwd, env);
@@ -50,17 +53,23 @@ test('one captured tarball works through npm bun npx bunx and both SDK runtimes 
       assert.equal(JSON.parse(run(['screen', 'assess', 'packed-ledger', '--op', 'stale', '--revision', birth.revision, '--input', '-', '--json'], JSON.stringify(assessment), 4)).refusal.code, 'revision_conflict');
       assert.equal(JSON.parse(run(['screen', 'assess', 'packed-ledger', '--op', 'first', '--revision', birth.revision, '--input', '-', '--json'], JSON.stringify(assessment))).data.replayed, true);
       assert.equal(JSON.parse(run(['screen', 'assess', 'packed-ledger', '--op', 'first', '--revision', birth.revision, '--input', '-', '--json'], JSON.stringify({ ...assessment, vector: vector('unknown', 'unknown') }), 4)).refusal.code, 'operation_conflict');
-      for (const reason of ['\u001b[31m', '/' + ['home', 'example', 'secret'].join('/'), 'ghp_' + 'A'.repeat(36)]) {
+      for (const reason of [...privateCases().flatMap(path => [path, path + '...']), '\u001b[31m', '/' + ['home', 'example', 'secret'].join('/'), 'ghp_' + 'A'.repeat(36)]) {
         const invalid = { ...assessment, vector: [{ ...assessment.vector[0], reason }, assessment.vector[1]] };
-        assert.equal(JSON.parse(run(['screen', 'assess', 'packed-ledger', '--op', 'unsafe', '--revision', resolved.revision, '--input', '-', '--json'], JSON.stringify(invalid), 2)).refusal.code, 'invalid_input');
+        const args = ['screen', 'assess', 'packed-ledger', '--op', 'unsafe', '--revision', resolved.revision, '--input', '-'];
+        const json = JSON.parse(run([...args, '--json'], JSON.stringify(invalid), 2));
+        assert.equal(json.refusal.code, 'invalid_input'); assert.deepEqual(decode(run(args, JSON.stringify(invalid), 2)), json);
+
       }
+      assert.equal(JSON.parse(run(['screen', 'report', 'packed-ledger', '--json'])).revision, resolved.revision);
       assert.equal(JSON.parse(run(['screen', 'report', 'packed-absent', '--json'], undefined, 3)).refusal.code, 'not_found');
       const minimum = JSON.parse(run(['screen', 'report', 'packed-ledger', '--budget', '1', '--json'], undefined, 2)).refusal.details.minimum_usable_budget;
       assert.ok(minimum > 1); assert.equal(JSON.parse(run(['screen', 'report', 'packed-ledger', '--budget', String(minimum), '--json'])).ok, true);
       assert.equal(JSON.parse(run(['screen', 'create', '--id', 'packed-refused', '--op', 'tiny', '--input', '-', '--budget', '1', '--json'], birthInput, 2)).refusal.code, 'output_budget');
       assert.equal(JSON.parse(run(['screen', 'report', 'packed-refused', '--json'], undefined, 3)).refusal.code, 'not_found');
-      writeFileSync(join(cwd, 'sdk.ts'), `import assert from 'node:assert/strict';import {createDirectoryHost,readScreening,assessCandidate,screeningReport,digest} from 'pm-screen';const host=createDirectoryHost(process.cwd()+'/.agents/pm','consumer');const owner=await readScreening(host,'packed-ledger');const entry=owner.state.definition.population.entries[1];await assessCandidate(host,{id:owner.id,op:'sdk',revision:owner.revision,candidate:entry.canonical_candidate_id,reviewer:'first',protocol_digest:owner.state.protocol_digest,source_digest:digest(entry.source_ref),vector:${JSON.stringify(vector('unknown', 'not_met'))}});assert.equal((await screeningReport(host,{id:owner.id})).counts.included,1);console.log('SDK OK '+(globalThis.Bun?'bun':'node'));`);
+      writeFileSync(join(cwd, 'sdk.ts'), `import assert from 'node:assert/strict';import {createDirectoryHost,readScreening,assessCandidate,screeningReport,screeningPacket,nextScreening,digest,canonical} from 'pm-screen';const host=createDirectoryHost(process.cwd()+'/.agents/pm','consumer');const owner=await readScreening(host,'packed-ledger');const entry=owner.state.definition.population.entries[1];await assessCandidate(host,{id:owner.id,op:'sdk',revision:owner.revision,candidate:entry.canonical_candidate_id,reviewer:'first',protocol_digest:owner.state.protocol_digest,source_digest:digest(entry.source_ref),vector:${JSON.stringify(vector('unknown', 'not_met'))}});assert.equal((await screeningReport(host,{id:owner.id})).counts.included,1);const legacy=await readScreening(host,owner.id);const row=legacy.state.assessments.find(a=>a.candidate===entry.canonical_candidate_id);row.vector[0].reason='Legacy ~...';const {assessment_digest:old,...content}=row;row.assessment_digest=digest(content);await host.client.update(owner.id,{field:['screen_state='+canonical(legacy.state)]});assert.equal((await screeningReport(host,{id:owner.id})).counts.included,1);await nextScreening(host,{id:owner.id,reviewer:'first'});await screeningPacket(host,{id:owner.id},{budget:8192});console.log('SDK OK '+(globalThis.Bun?'bun':'node'));`);
       const runtime = manager === 'npm' ? 'node' : 'bun'; assert.match(execute(runtime, ['sdk.ts'], cwd, safe), new RegExp(`SDK OK ${runtime}`));
+      const legacyArgs = ['screen', 'packet', 'packed-ledger', '--candidate', 'candidate-1', '--budget', '8192'];
+      const legacyJson = JSON.parse(run([...legacyArgs, '--json'])); assert.equal(legacyJson.ok, true); assert.deepEqual(decode(run(legacyArgs)), legacyJson);
       const revision = JSON.parse(run(['screen', 'report', 'packed-ledger', '--json'])).revision; assert.notEqual(revision, resolved.revision);
       assert.equal(JSON.parse(run(['screen', 'packet', 'packed-ledger', '--limit', '1', '--cursor', page.next_cursor, '--budget', '8192', '--json'], undefined, 4)).refusal.code, 'stale_cursor');
       assert.equal(digest(spec.protocol).length, 64); journeys.push({ manager, commands, runtime });

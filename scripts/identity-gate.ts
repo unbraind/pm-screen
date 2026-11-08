@@ -1,7 +1,7 @@
 /** Check real event commit identities and tracked content without revealing private matches. */
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { mapOutsideWebUris } from '../src/privacy.ts';
+import { mapOutsideWebUris, mapPrivatePaths } from '../src/privacy.ts';
 import { gitEnvironment } from './environment.ts';
 const env = { ...gitEnvironment(process.env), GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_NOSYSTEM: '1' };
 const approved = new Set(readFileSync('.github/approved-git-identities.txt','utf8').split('\n').filter(line=>line !== '' && !line.startsWith('#')));
@@ -26,7 +26,6 @@ for (const identity of identities) {
   if (!approved.has(author) || author === 'noreply@github.com' || !approved.has(committer) || (committer === 'noreply@github.com' && committerName !== 'GitHub')) throw new Error('Unapproved commit identity');
 }
 const files = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8', env }).split('\0').filter(Boolean);
-for (const file of files) mapOutsideWebUris(readFileSync(file, 'utf8'), text => {
-  if (/(?<![\w.-])(?:[\\/](?:home|Users)[\\/]|[\\/]root[\\/])/iu.test(text)) throw new Error(`Private path policy failed in ${file}`); return text;
-});
+// Shell home variables in workflow source are operator configuration, not literal private identities.
+for (const file of files) mapOutsideWebUris(readFileSync(file, 'utf8'), text => mapPrivatePaths(text, () => { throw new Error(`Private path policy failed in ${file}`); }, false));
 console.log(`identity-gate: ${identities.length} commits, ${files.length} tracked files, zero violations`);

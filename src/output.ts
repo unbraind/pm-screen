@@ -52,7 +52,7 @@ export function refusalEnvelope(error: ScreeningRefusal): ScreeningEnvelope {
 }
 /** Fit the complete self-inclusive transport using the host's measured serializer receipts. */
 export function fitEnvelope(host: Pick<Host, 'fitOutputEnvelope'>, value: ScreeningEnvelope, budget = 1600) {
-  guardSubmitted(value); parse(ScreeningEnvelopeSchema, value, true); insist(Number.isSafeInteger(budget) && budget > 0, 'invalid_input', 'Budget must be a positive integer');
+  guardSubmitted(value.warnings); parse(ScreeningEnvelopeSchema, value, true); insist(Number.isSafeInteger(budget) && budget > 0, 'invalid_input', 'Budget must be a positive integer');
   /** Include framing and the native fitter metadata in both measured formats. */
   const measure = (tokens: number) => (host.fitOutputEnvelope ?? fitOutputEnvelope)([], { tokenBudget: tokens, buildEnvelope: () => value, renderers: { json: output => wire(output, 'json'), toon: output => wire(output, 'toon') } });
   try {

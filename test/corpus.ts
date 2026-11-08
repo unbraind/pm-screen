@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { readFile, mkdtemp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { createHash } from 'node:crypto';
@@ -56,7 +56,7 @@ export function expectedEligibility(inclusion: string, exclusion: string): strin
   const value = table.get(`${inclusion}/${exclusion}`); assert.ok(value); return value;
 }
 /** Run frozen public judgments through real no-git SDK owners and measure exact output bytes. */
-export async function evaluateCorpus(write = false) {
+export async function evaluateCorpus() {
   const input = await corpus(); const expected = JSON.parse(await readFile('test/fixtures/expected-decisions.json', 'utf8')) as { sets: { key: string; included: string[]; excluded: string[]; uncertain: string[]; pending: string[]; conflict: string[] }[] };
   const root = await mkdtemp(join(tmpdir(), 'screen-proof-')); const reports = []; const resumes = [];
   try {
@@ -88,24 +88,27 @@ export async function evaluateCorpus(write = false) {
         }
       }
     }
-    const baseline = resumes.reduce((n, row) => n + row.baseline_bytes, 0); const delivered = resumes.reduce((n, row) => n + row.packet_bytes, 0); assert.equal(resumes.length, 10); assert.ok(delivered * 2 <= baseline);
-    const result = { schema_version: 1, mechanical_agreement: '87/87 explicit submitted vectors and independent ID decisions', reviewer_agreement: 'Not measured: no independent second reviewer supplied', corpus: reports, resume_questions: resumes, resume_baseline_bytes: baseline, resume_packet_bytes: delivered, resume_reduction_percent: Number((100 * (1 - delivered / baseline)).toFixed(2)) };
-    if (write) await writeFile('docs/real-data-receipt.json', JSON.stringify(result, null, 2) + '\n'); return result;
+    const expectedResumes = input.sets.filter(set => set.key === 'tracker-items').reduce((n, set) => n + Math.min(10, set.rows.length), 0);
+    const baseline = resumes.reduce((n, row) => n + row.baseline_bytes, 0); const delivered = resumes.reduce((n, row) => n + row.packet_bytes, 0); assert.ok(expectedResumes > 0); assert.equal(resumes.length, expectedResumes); assert.ok(delivered * 2 <= baseline);
+    const vectors = input.sets.reduce((n, set) => n + set.rows.length, 0);
+    const result = { schema_version: 1, mechanical_agreement: `${vectors}/${vectors} explicit submitted vectors and independent ID decisions`, reviewer_agreement: 'Not measured: no independent second reviewer supplied', corpus: reports, resume_questions: resumes, resume_baseline_bytes: baseline, resume_packet_bytes: delivered, resume_reduction_percent: Number((100 * (1 - delivered / baseline)).toFixed(2)) };
+    return result;
   } finally { await rm(root, { recursive: true, force: true }); }
 }
 /** Separate synthetic controls cannot inflate the real public candidate counts. */
 export async function syntheticControls() {
   const set = (await corpus()).sets.find(s => s.key === 'tracker-items')!; const definition = definitionFor({ ...set, rows: set.rows.slice(0, 10) }); definition.protocol.reviewer_slots = ['first', 'second'];
   for (let i = 0; i < 5; i++) { const entry = definition.population.entries[i]; definition.population.entries.push({ ...entry, entry_id: `zz-alias-${i}` }); definition.population.alias_witnesses.push({ entry_id: `zz-alias-${i}`, canonical_entry_id: entry.entry_id, reason: 'Synthetic exact alias', evidence_refs: [entry.source_ref] }); }
+  const selected = set.rows.slice(0, 10); const opposed = selected.slice(0, 3); const aliasCount = definition.population.alias_witnesses.length;
   const root = await mkdtemp(join(tmpdir(), 'screen-controls-')); const pmRoot = join(root, '.agents/pm');
   try {
     const native = new PmClient({ cwd: root, pmRoot, author: 'synthetic', noExtensions: true }); await native.init('controls', { defaults: true, agentGuidance: 'skip', mergeFence: false }); const host = createDirectoryHost(pmRoot, 'synthetic'); const id = 'controls-ledger'; await createScreening(host, { id, op: 'birth', ...definition });
-    for (const row of set.rows.slice(0, 10)) for (const reviewer of ['first', 'second']) { const owner = await readScreening(host, id); await assessCandidate(host, { id, op: `${row.id}-${reviewer}`, revision: owner.revision, candidate: row.id, reviewer, protocol_digest: owner.state.protocol_digest, source_digest: digest(row.source_ref), vector: submittedVector(row).map(v => ({ ...v, value: 'unknown', evidence_refs: [], reason: 'Synthetic unavailable source' })) }); }
-    const unavailable = deriveScreeningReport((await readScreening(host, id)).state); assert.equal(unavailable.counts.uncertain, 10); assert.equal(unavailable.counts.excluded, 0); assert.equal(unavailable.aliases, 5);
-    for (const row of set.rows.slice(0, 3)) { const owner = await readScreening(host, id); const prior = owner.state.assessments.find(a => a.candidate === row.id && a.reviewer === 'second')!; await assessCandidate(host, { id, op: `${row.id}-conflict`, revision: owner.revision, candidate: row.id, reviewer: 'second', protocol_digest: owner.state.protocol_digest, source_digest: digest(row.source_ref), previous_digest: prior.assessment_digest, amendment_reason: 'Synthetic opposed vector', vector: submittedVector(row).map(v => ({ ...v, value: v.criterion_id === 'include' ? 'met' : 'not_met', evidence_refs: [row.source_ref] })) }); }
-    const before = await readScreening(host, id); const conflicts = deriveScreeningReport(before.state); assert.equal(conflicts.counts.conflict, 3); assert.equal(conflicts.counts.uncertain, 7);
+    for (const row of selected) for (const reviewer of ['first', 'second']) { const owner = await readScreening(host, id); await assessCandidate(host, { id, op: `${row.id}-${reviewer}`, revision: owner.revision, candidate: row.id, reviewer, protocol_digest: owner.state.protocol_digest, source_digest: digest(row.source_ref), vector: submittedVector(row).map(v => ({ ...v, value: 'unknown', evidence_refs: [], reason: 'Synthetic unavailable source' })) }); }
+    const unavailable = deriveScreeningReport((await readScreening(host, id)).state); assert.equal(unavailable.counts.uncertain, selected.length); assert.equal(unavailable.counts.excluded, 0); assert.equal(unavailable.aliases, aliasCount);
+    for (const row of opposed) { const owner = await readScreening(host, id); const prior = owner.state.assessments.find(a => a.candidate === row.id && a.reviewer === 'second')!; await assessCandidate(host, { id, op: `${row.id}-conflict`, revision: owner.revision, candidate: row.id, reviewer: 'second', protocol_digest: owner.state.protocol_digest, source_digest: digest(row.source_ref), previous_digest: prior.assessment_digest, amendment_reason: 'Synthetic opposed vector', vector: submittedVector(row).map(v => ({ ...v, value: v.criterion_id === 'include' ? 'met' : 'not_met', evidence_refs: [row.source_ref] })) }); }
+    const before = await readScreening(host, id); const conflicts = deriveScreeningReport(before.state); assert.equal(conflicts.counts.conflict, opposed.length); assert.equal(conflicts.counts.uncertain, selected.length - opposed.length);
     let inspected = 0; const fresh = await checkScreening({ ...host, inspectSource: async () => inspected++ === 0 ? 'changed' : 'current' }, { id }); assert.equal(fresh.current_freshness, 'changed');
     assert.deepEqual(await readScreening(host, id), before, 'Freshness inspection must preserve state and revision');
-    return { synthetic: true, aliases: 5, unavailable_sources: 10, opposed_vectors: 3, changed_sources: 1, counts_after_disagreement: conflicts.counts, receipt: conflicts.receipt, current_freshness: fresh.current_freshness };
+    return { synthetic: true, aliases: aliasCount, unavailable_sources: selected.length, opposed_vectors: opposed.length, changed_sources: fresh.sources.filter(source => source.status === 'changed').length, counts_after_disagreement: conflicts.counts, receipt: conflicts.receipt, current_freshness: fresh.current_freshness };
   } finally { await rm(root, { recursive: true, force: true }); }
 }

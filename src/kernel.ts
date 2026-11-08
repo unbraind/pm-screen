@@ -44,14 +44,14 @@ export function candidate(state: ScreeningState, key: string) {
   const found = candidates(state).find(entry => entry.canonical_candidate_id === key); insist(found, 'invalid_population', 'Candidate is outside the frozen population', 'Use a canonical ID from screen packet'); return found;
 }
 /** Normalize a complete vector against the exact declared criteria. */
-export function normalizeVector(protocol: Protocol, raw: Vector): Vector {
-  const vector = parse(VectorSchema, raw);
+export function normalizeVector(protocol: Protocol, raw: Vector, stored = false): Vector {
+  const vector = parse(VectorSchema, raw, stored);
   insist(canonical(vector.map(v => v.criterion_id).sort()) === canonical(protocol.criteria.map(c => c.criterion_id).sort()), 'missing_criterion', 'Assessment must contain each criterion exactly once', 'Supply unknown with a reason when evidence is unavailable');
   return vector.map(value => ({ ...value, evidence_refs: sortedRefs(value.evidence_refs) })).sort((a, b) => compare(a.criterion_id, b.criterion_id));
 }
 /** Pure ternary eligibility; unavailable evidence never causes an exclusion. */
-export function deriveEligibility(rawProtocol: Protocol, rawVector: Vector) {
-  const protocol = parse(ProtocolSchema, rawProtocol); validateProtocol(protocol); const vector = normalizeVector(protocol, rawVector);
+export function deriveEligibility(rawProtocol: Protocol, rawVector: Vector, stored = false) {
+  const protocol = parse(ProtocolSchema, rawProtocol, stored); validateProtocol(protocol); const vector = normalizeVector(protocol, rawVector, stored);
   const exclusions: string[] = []; const unknown: string[] = [];
   for (const criterion of protocol.criteria) {
     const value = vector.find(v => v.criterion_id === criterion.criterion_id)!;
@@ -69,12 +69,12 @@ export function disposition(state: ScreeningState, key: string) {
   const adjudication = state.adjudications.find(a => a.candidate === key) ?? null;
   const stale = adjudication !== null && canonical([...adjudication.assessment_digests].sort()) !== canonical(assessments.map(a => a.assessment_digest).sort());
   const opposed = assessments.length === 2 && assessments[0].vector.some(value => value.value !== assessments[1].vector.find(other => other.criterion_id === value.criterion_id)!.value);
-  const eligible = assessments.map(a => deriveEligibility(state.definition.protocol, a.vector));
+  const eligible = assessments.map(a => deriveEligibility(state.definition.protocol, a.vector, true));
   const labelsDiffer = eligible.length === 2 && eligible[0].disposition !== eligible[1].disposition;
   const conflict = stale || opposed || labelsDiffer;
   const effective = absent.length > 0 ? 'pending' : adjudication && !stale ? 'resolved' : conflict ? 'conflict' : 'assessed';
   const vector = effective === 'resolved' ? adjudication!.vector : assessments[0]?.vector ?? [];
-  const derived = ['resolved', 'assessed'].includes(effective) ? deriveEligibility(state.definition.protocol, vector) : { disposition: effective as 'pending' | 'conflict', primary_reason: null, exclusion_reasons: [], unknown_criteria: state.definition.protocol.criteria.map(c => c.criterion_id) };
+  const derived = ['resolved', 'assessed'].includes(effective) ? deriveEligibility(state.definition.protocol, vector, true) : { disposition: effective as 'pending' | 'conflict', primary_reason: null, exclusion_reasons: [], unknown_criteria: state.definition.protocol.criteria.map(c => c.criterion_id) };
   return { candidate: key, ...derived, missing_reviewers: absent, stale_adjudication: stale, assessments, adjudication };
 }
 /** Exact attrition with the submitted population as the explicit denominator. */
@@ -107,9 +107,9 @@ export function readState(raw: unknown): ScreeningState {
   for (const assessment of state.assessments) {
     const { assessment_digest: expected, ...content } = assessment;
     insist(digest(content) === expected && state.protocol_digest === assessment.protocol_digest && digest(candidate(state, assessment.candidate).source_ref) === assessment.source_digest && definition.protocol.reviewer_slots.includes(assessment.reviewer), 'invalid_record', 'Stored assessment binding differs');
-    normalizeVector(definition.protocol, assessment.vector);
+    normalizeVector(definition.protocol, assessment.vector, true);
   }
-  for (const decision of state.adjudications) { candidate(state, decision.candidate); normalizeVector(definition.protocol, decision.vector); }
+  for (const decision of state.adjudications) { candidate(state, decision.candidate); normalizeVector(definition.protocol, decision.vector, true); }
   for (const [i, operation] of state.operation_receipts.entries()) insist(operation.result.sequence === i + 1 && operation.result_digest === digest(operation.result), 'invalid_record', 'Replay result identity differs');
   return state;
 }
