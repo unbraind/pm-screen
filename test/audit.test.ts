@@ -52,8 +52,11 @@ test('every CI and release runtime setup pins exact versions and release gates p
     }
     if (path.endsWith('ci.yml')) assert.match(workflow, /node-version: \['22\.19\.0', '26\.0\.0'\]/);
     else {
-      const release = workflow.slice(workflow.indexOf('\n  release:'), workflow.indexOf('\n  resume_release:'));
-      assert.match(release, /uses: oven-sh\/setup-bun@/, 'Release checks require Bun in their own job');
+      const jobs = workflow.split(/(?=^  [a-z_]+:\s*$)/m).slice(1);
+      for (const job of jobs) {
+        if (/^  (?:prepare|verify_bun):/.test(job)) assert.match(job, /uses: oven-sh\/setup-bun@/, 'Build and Bun acceptance jobs require Bun');
+        if (/^      (?:[\w-]+): write$/m.test(job)) assert.doesNotMatch(job, /uses: oven-sh\/setup-bun@|\brun:.*\bbun\b/, 'Privileged jobs must exclude unused Bun execution');
+      }
     }
   }
   const readme = readFileSync('README.md', 'utf8'); assert.ok(readme.indexOf('npm pack') < readme.indexOf('npm install ./pm-screen-'));

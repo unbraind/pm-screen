@@ -42,7 +42,7 @@ export async function verifyCriterionOrder(t: TestContext): Promise<void> {
   const { assessment_digest: _original, ...content } = state.assessments[1]; content.vector.reverse();
   state.assessments[1] = { ...content, assessment_digest: digest(content) };
   await persistedSchemaPort(native).update(id, { field: [`screen_state=${canonical(state)}`] });
-  const report = await screeningReport(host, { id }); assert.equal(report.counts.included, 1); assert.equal(report.counts.conflict, 0);
+  const report = await screeningReport(host, { id }); assert.equal(report.counts.included, 1, 'defect:criterion-identity'); assert.equal(report.counts.conflict, 0, 'defect:criterion-identity');
 }
 
 /** Prepare an adjudication request from the complete current native assessment set. */

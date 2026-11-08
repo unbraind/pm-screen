@@ -6,6 +6,8 @@ interface Result { /** Process exit status. */ status: number | null; /** Standa
 /** Prove one behavioral defect fails, restore exact source in finally, then prove the fixed test passes. */
 export function proveMutation(root: string, file: string, from: string, to: string, args: string[], execute: (args: string[]) => Result, failure: RegExp): void {
   const path = join(root, file); const original = readFileSync(path, 'utf8'); assert.ok(original.includes(from), `Missing mutation anchor in ${file}`);
+  const named = args[args.indexOf('--test-name-pattern') + 1];
+  assert.ok(!failure.test(named), 'Failure oracle must not match the test name');
   /** Every production mutation must still compile before the regression is exercised. */
   const build = () => { const result = execute(['node_modules/typescript/bin/tsc']); assert.equal(result.status, 0, result.stdout + result.stderr); };
   const baseline = execute(args); passingCount(baseline);
@@ -13,7 +15,6 @@ export function proveMutation(root: string, file: string, from: string, to: stri
     writeFileSync(path, original.replace(from, () => to)); build();
     const result = execute(args); assert.equal(result.status, 1, `Expected test assertion failure in ${file}\n${result.stdout}${result.stderr}`);
     const output = result.stdout + result.stderr;
-    const named = args[args.indexOf('--test-name-pattern') + 1];
     assert.ok(output.split('\n').some(line => /^(?:not ok \d+ - |✖ )/.test(line) && line.includes(named)), 'The named regression must fail');
     assert.match(output, failure);
   } finally { writeFileSync(path, original); }

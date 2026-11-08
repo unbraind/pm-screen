@@ -91,6 +91,8 @@ test('freshness adapters classify supplied references without fetching or changi
   assert.equal((await checkScreening({ ...host, inspectSource: async () => { throw new Error('Adapter access refused'); } }, { id })).current_freshness, 'inaccessible');
   assert.equal(await historyEvents(pmRoot, id), before);
   await assessCandidate(host, await request(host, id, 'candidate-0', 'first', 'unknown', vector('unknown', 'not_met')));
+  const untouched = await nextScreening(host, { id, reviewer: 'first' }); assert.equal(untouched.candidate?.canonical_candidate_id, 'candidate-1'); assert.deepEqual(untouched.missing_criteria, ['release', 'relevant']);
+  await assessCandidate(host, await request(host, id, 'candidate-1', 'first', 'complete-second'));
   const next = await nextScreening(host, { id, reviewer: 'first' }); assert.deepEqual(next.missing_criteria, ['relevant']);
   await assert.rejects(nextScreening(host, { id, reviewer: 'absent' }), hasCode('invalid_input'));
 });

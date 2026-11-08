@@ -38,6 +38,7 @@ test('stored legacy text remains readable evaluable and exportable through every
   const { host, id, native, pmRoot } = await fixture(t);
   await assessCandidate(host, await request(host, id, 'candidate-0', 'first', 'unknown', vector('unknown', 'not_met')));
   await resolveScreening(host, await resolutionRequest(host, id));
+  await assessCandidate(host, await request(host, id, 'candidate-1', 'first', 'known-second'));
   const owner = await readScreening(host, id); const state = owner.state;
   state.definition.protocol.criteria[0].text = 'Review $HOME...';
   state.protocol_digest = digest(state.definition.protocol);
@@ -47,7 +48,7 @@ test('stored legacy text remains readable evaluable and exportable through every
     assessment.protocol_digest = state.protocol_digest; assessment.vector[0].reason = 'Legacy ~/. evidence';
     const { assessment_digest: _old, ...content } = assessment; assessment.assessment_digest = digest(content);
   }
-  state.adjudications[0].assessment_digests = state.assessments.map(a => a.assessment_digest); state.adjudications[0].vector[0].reason = 'Legacy %USERPROFILE%...';
+  state.adjudications[0].assessment_digests = state.assessments.filter(a => a.candidate === 'candidate-0').map(a => a.assessment_digest); state.adjudications[0].vector[0].reason = 'Legacy %USERPROFILE%...';
   await persistedSchemaPort(native).update(id, { field: [`screen_state=${canonical(state)}`] });
   const before = await readScreening(host, id); const history = await historyEvents(pmRoot, id);
   assert.deepEqual(readState(state), state, 'Stored records must use stored validation');

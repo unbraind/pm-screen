@@ -6,10 +6,12 @@ status: in_progress
 priority: 2
 tags[1]: "gh:unbraind/pm-screen#1"
 created_at: "2026-11-06T18:46:49.805Z"
-updated_at: "2026-11-08T17:56:25.606Z"
+updated_at: "2026-11-08T19:28:24.877Z"
+assignee: codex-agent
+claim_principal: codex-agent
 author: codex-agent
 acceptance_criteria: Seven CLI and SDK operations; replay-safe native CAS; public corpus evidence; complete release gates
-comments[20]{created_at,author,text}:
+comments[24]{created_at,author,text}:
   "2026-11-06T18:46:49.805Z",codex-agent,"Companion reference: pm-cli-website-u21s. Companion is read-only. Package-local delivery follows its screening specification; no source tracker is changed."
   "2026-11-06T18:46:58.870Z",codex-agent,"Scaffold copied from pm-unit, including exact identity allowlist and sync-pin regression. Pinned host remains 2026.11.5; registry currently advertises 2026.11.6. Schema activation is metadata only. Local main will contain only the initial scaffold commit."
   "2026-11-06T18:53:16.327Z",codex-agent,"Implemented strict frozen schemas, ternary eligibility and conservation accounting. Owner updates use native expected-revision locking with no retry/rebase; replay lookup precedes stale revision refusal only for identical canonical requests. Budget preflight runs before mutations. Starting real no-git SDK tests."
@@ -30,7 +32,11 @@ comments[20]{created_at,author,text}:
   "2026-11-08T17:13:40.237Z",codex-agent,"Focused verification complete: npm run test:revert passed 10 original behavioral reverts (8-test baseline) and 27 review/class mutations (27-test baseline), every mutation failed its named regression and passed after restoration. Corpus receipt mutation anchors and all baseline counts are now derived from measured receipts. npm run test:install passed both manager/runtime journeys, 71 commands each with Git absent. The pm-linked adversarial command passed 14/14. npm run coverage passed 78/78 including 500 seeded operations, with statements 595/595, branches 347/347, functions 149/149 and lines 509/509. Typecheck, lint, zero duplication, docstrings and identity including all four new tracked files passed. Isolated tracker health is clean; starting the required sequential npm and Bun full release gates at unchanged thresholds."
   "2026-11-08T17:37:58.982Z",codex-agent,"Complete isolated-HOME bun run release:check passed: 78 tests with zero skips/failures; all nine emitted production files at 100 percent statement/branch/function/line coverage; 45 allowlisted packed files; zero production vulnerabilities; 142 installed CLI operations across npm/Node and Bun without Git; 10 original plus 27 review/class behavioral mutations failed their named tests and passed after restoration. The first npm full gate passed coverage but encountered an advisory endpoint timeout; a direct npm audit retry then passed with zero vulnerabilities. Re-running the full npm gate from the beginning to certify it as one complete successful invocation."
   "2026-11-08T17:56:24.347Z",codex-agent,"Final verification: both complete npm run release:check and bun run release:check passed with isolated HOME and no Git identity/config inheritance, at unchanged thresholds and at most two workers. Each run passed 78 tests with zero skips/failures, 100 percent in all four coverage dimensions across nine production modules, zero duplication, 105 documented declarations, healthy tracker history, identity/privacy, changelog, 45-file package allowlist, publication attestation, zero production vulnerabilities, packed npm/Node and Bun acceptance (71 commands each, no Git, JSON/TOON parity), and all 37 named behavioral reverts with passing baseline/restoration. The initial npm registry timeout cleared on retry and the entire npm gate was rerun successfully. All four review findings and audited sibling classes are fixed; review threads were left untouched. Existing independent-review/provider follow-ups and the ambient global extension-version skew remain separate. Releasing the claim for orchestrator verification; remote CI will run on the pushed commit."
-files[51]{path,scope}:
+  "2026-11-08T18:19:49.625Z",codex-agent,"Continuation at existing PR head 7e45ba3; main is already an ancestor and no duplicate PR or item is needed. Verified all five round-2 findings. Rules: privileged jobs execute only required publishing tools; untouched reviewer work precedes uncertain retries; submitted object traversal has a finite aggregate budget; disposable repositories exclude parent CI context; revert evidence identifies the defect-specific cause. Audit all SDK/CLI/output/consumer paths, then focused regressions, isolated behavioral reverts and npm/Bun full release gates with two workers."
+  "2026-11-08T18:25:24.372Z",codex-agent,"Class audit: next selection has one API implementation shared by native CLI dispatch and JSON/TOON renderers; unassessed candidates now precede uncertain retries independently per reviewer. All submitted schema validation and output warnings share guardSubmitted; count every value visit (objects and primitives) to bound DAG expansion and large arrays without changing stored-record reads. The identity-gate fixture is the only disposable Git repository invoking the event-aware gate; it now strips case-insensitive GitHub/runner/CI context through a reusable environment helper and tests foreign synthetic SHAs. Audited all Bun setup occurrences: read-only prepare/CI/verify_bun retain exact pins; no write-permission release job executes Bun. Both revert suites use independent failure diagnostics; the shared harness refuses a test-name oracle and rejects unrelated named errors. Focused pm-linked suite passes 8/8; original revert suite passes 8 baseline tests and detects all 10 defects with successful restoration. Packed consumers additionally test queue progression and all three mutation guards with Git absent."
+  "2026-11-08T18:45:11.911Z",codex-agent,"Round-2 revert proof: node test/review-revert.acceptance.ts passes 30 baseline tests and detects all 32 isolated defects; every source is restored in finally, rebuilt and rerun successfully. New proofs: untouched-before-retry -> test/round2.test.ts (Untouched work must precede uncertain retries); node-budget -> test/round2.test.ts (Every graph visit must consume a finite budget); ci-repository-isolation -> test/identity.test.ts (Disposable repositories must exclude parent CI context); privileged-bun -> test/audit.test.ts (Privileged jobs must exclude unused Bun execution); revert-cause-oracle -> test/revert-harness.test.ts (Unrelated failures must never certify a behavioral revert). The original suite independently passes 8 baseline tests and all 10 cause-specific mutations. Complete GraphQL enumeration reads all 16 threads and every comment; exactly these five are unresolved, with no extra outside-diff findings in the latest review. Extended freshness and legacy fixtures to complete untouched candidates before testing uncertain fallback, retaining their existing assertions. Focused edge/review/round2 suite passes 14/14. Starting final npm and Bun release gates sequentially with isolated home/Git configuration and at most two test workers."
+  "2026-11-08T19:28:24.877Z",codex-agent,"Final local validation: npm run release:check and bun run release:check both exit 0 with isolated home and Git configuration; test concurrency is limited to two. Each full gate passes 81/81 tests and exactly 100 percent of 600 statements, 344 branches, 151 functions and 513 lines across all nine emitted production files. Typecheck, lint, zero-percent duplication, docstrings, identity/privacy, tracker health, changelog, production audit (zero vulnerabilities), package allowlist and publication attestation all pass at unchanged thresholds. Packed acceptance passes one journey test with 45 text assets and 76 real CLI commands per manager, native Node/Bun SDK journeys, no Git executable and verified exact-archive handoff. Original reverts: 8 passing baseline tests and 10 detected defects. Review reverts: 30 passing baseline tests and 32 detected defects. Every restored regression passes. Prior stale queue fixtures were extended without deleting or weakening their original assertions. No dependency pins or persisted compatibility policy changed. Source verification is complete; pushing to the existing PR and recording its CI receipt next."
+files[54]{path,scope}:
   .github/workflows/ci.yml,project
   .github/workflows/release.yml,project
   index.ts,project
@@ -76,13 +82,16 @@ files[51]{path,scope}:
   test/real-data.acceptance.ts,project
   test/real-data.test.ts,project
   test/release-verification.test.ts,project
+  test/revert-harness.test.ts,project
   test/revert-harness.ts,project
+  test/revert-mutations.ts,project
   test/revert-regression.ts,project
   test/revert.acceptance.ts,project
   test/review-revert.acceptance.ts,project
   test/review.test.ts,project
+  test/round2.test.ts,project
   test/workflow.test.ts,project
-tests[8]:
+tests[9]:
   - command: "npm run pack:dry-run && npm run audit:prod"
     scope: project
     provenance:
@@ -139,6 +148,13 @@ tests[8]:
     provenance:
       author: codex-agent
       created_at: "2026-11-08T17:04:23.666Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: node --test --test-concurrency=2 test/round2.test.ts test/identity.test.ts test/audit.test.ts test/revert-harness.test.ts
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T18:24:17.618Z"
       source_kind: local_mutation
       source_ref: fix/screen-review-1108
 docs[5]{path,scope}:

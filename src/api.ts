@@ -111,7 +111,9 @@ export async function screeningReport(host: Host, raw: ReportInput, options: Out
 export async function nextScreening(host: Host, raw: NextScreeningInput, options: OutputOptions = {}) {
   options = await outputOptions(host, options); const input = parse(NextScreeningInputSchema, raw); const owner = await readScreening(host, input.id); const protocol = owner.state.definition.protocol;
   insist(protocol.reviewer_slots.includes(input.reviewer), 'invalid_input', 'Reviewer is not a declared slot');
-  const next = candidates(owner.state).find(entry => { const assessment = owner.state.assessments.find(a => a.candidate === entry.canonical_candidate_id && a.reviewer === input.reviewer); return !assessment || deriveEligibility(protocol, assessment.vector, true).unknown_criteria.length > 0; }) ?? null;
+  const mine = new Map(owner.state.assessments.filter(row => row.reviewer === input.reviewer).map(row => [row.candidate, row]));
+  const all = candidates(owner.state);
+  const next = all.find(entry => !mine.has(entry.canonical_candidate_id)) ?? all.find(entry => deriveEligibility(protocol, mine.get(entry.canonical_candidate_id)!.vector, true).unknown_criteria.length > 0) ?? null;
   const assessment = owner.state.assessments.find(a => a.candidate === next?.canonical_candidate_id && a.reviewer === input.reviewer);
   return bounded(host, { owner_id: owner.id, revision: owner.revision, reviewer: input.reviewer, candidate: next, missing_criteria: assessment ? deriveEligibility(protocol, assessment.vector, true).unknown_criteria : next ? protocol.criteria.map(c => c.criterion_id) : [], protocol_digest: owner.state.protocol_digest, source_digest: next ? digest(next.source_ref) : null, allocation: false as const }, options);
 }

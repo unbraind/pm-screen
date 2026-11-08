@@ -40,9 +40,10 @@ export function mapPrivatePaths(text: string, replace: (path: string) => string,
 }
 /** Refuse unsafe data with bounded aggregate scanning and fully validated string caching. */
 export function guardSubmitted(value: unknown): void {
-  const seen = new Set<object>(); const validated = new Set<string>(); let scanned = 0;
+  const seen = new Set<object>(); const validated = new Set<string>(); let scanned = 0; let nodes = 0;
   /** Visit plain JSON data without invoking getters or accepting cyclic graphs. */
   function visit(value: unknown, depth: number): void {
+    insist(++nodes <= 262144, 'invalid_input', 'Aggregate node scanning budget exceeded');
     insist(depth <= 16, 'invalid_input', 'Input nesting exceeds sixteen levels');
     if (typeof value === 'string') {
       if (validated.has(value)) return;
