@@ -2,12 +2,32 @@ id: pm-screen-evidence
 title: Public corpus proof and release certification
 description: ""
 type: Feature
-status: open
+status: in_progress
 priority: 2
 tags: []
 created_at: "2026-11-06T18:46:56.201Z"
-updated_at: "2026-11-06T18:46:56.201Z"
+updated_at: "2026-11-06T19:50:51.874Z"
 author: codex-agent
 acceptance_criteria: Public-only corpus guard; independent mechanical oracle; three candidate sets; 500 seeded sequences; complete coverage and release gates
 parent: pm-screen-delivery
+comments[4]{created_at,author,text}:
+  "2026-11-06T19:10:10.170Z",codex-agent,"Seed 51ce2026: 500 real-SDK operation sequences passed; 168 accepted mutations, 257 refusals and 75 replays. All 500 sequence readbacks verified native state and relationships. Public acquisition certified complete snapshots of 138,119,163,103 items; selected first 20 IDs from each. Three public repositories have five open issues, with complete REST pagination. Independent external reviewer judgments and maintainer protocol approval are not supplied and are not fabricated."
+  "2026-11-06T19:19:07.562Z",codex-agent,"Public proof currently records 5 open issues (3 included,2 excluded), 80 tracker items (2 included,74 excluded,4 uncertain), and 2 search hits (1 included,1 excluded). All conservation equations pass. Ten cold-resume answers retain exact counts and recorded reasons. Full packet-stream bytes are reported separately: small frames can grow because complete witnesses and receipts are retained. Independent reviewer agreement is not measured."
+  "2026-11-06T19:46:10.130Z",codex-agent,"Pinned pm test --run --progress passes 3 linked model and corpus tests. Seed 51ce2026 runs 500 audited operation sequences: 168 accepted, 257 refused and 75 old-request replays, with 500 native state and relationship read-backs. All 87 public candidate vectors and ID classifications agree mechanically; external reviewer agreement remains unmeasured."
+  "2026-11-06T19:47:50.027Z",codex-agent,"Regenerated public receipt: open issues 5 = 3 included + 2 excluded; public tracker frame 80 = 2 included + 74 excluded + 4 uncertain; search hits 2 = 1 included + 1 excluded. All conservation receipts pass. Full packet versus raw estimated tokens: 4248/1865, 97953/103661 and 1517/1639. Ten cold-resume answers preserve reasons and exact counts in 43812 bytes versus 4265430 baseline bytes, 98.97 percent fewer. This is an explicit complete-frame reread baseline, not a universal compression or independent-review claim."
+files[8]{path,scope}:
+  scripts/acquire-corpus.ts,project
+  test/corpus-privacy.test.ts,project
+  test/corpus.ts,project
+  test/fixtures/expected-decisions.json,project
+  test/fixtures/public-corpus.json,project
+  test/fixtures/search-hits.json,project
+  test/model.test.ts,project
+  test/real-data.acceptance.ts,project
+tests[1]{command,scope,provenance{author,created_at,source_kind,source_ref}}:
+  node --test --test-concurrency=2 test/model.test.ts test/real-data.test.ts,project,codex-agent,"2026-11-06T19:18:57.007Z",local_mutation,feat/screen
+docs[3]{path,scope}:
+  docs/policy-examples.md,project
+  docs/real-data-receipt.json,project
+  docs/real-data.md,project
 body: ""

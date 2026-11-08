@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "mechanical_agreement": "87/87 explicit submitted vectors and independent ID decisions",
+  "reviewer_agreement": "Not measured: no independent second reviewer supplied",
+  "corpus": [
+    {
+      "key": "open-issues",
+      "candidates": 5,
+      "included": 3,
+      "excluded": 2,
+      "excluded_by_primary_criterion": [
+        {
+          "criterion": "exclude",
+          "count": 2
+        }
+      ],
+      "unresolved": [],
+      "counts": {
+        "included": 3,
+        "excluded": 2,
+        "pending": 0,
+        "uncertain": 0,
+        "conflict": 0
+      },
+      "completeness_receipt": {
+        "population_digest": "46f68869f827ea2f677e596fb6c9fc3ecc4283d2f526ff22344d14e9d58624e1",
+        "protocol_digest": "f35420b04c69291fdf8e55f304faff4a993121c940d0618de9ccca75a0e93e14",
+        "source_manifest_digest": "fa54a62b5cea8ed43a6df0f5cb346b2dc732437595225fa8079a52687ba074fc",
+        "imported_equals_canonical_plus_aliases": true,
+        "canonical_equals_disposition_sum": true,
+        "accounted_for": 5,
+        "decisions": 5,
+        "unresolved": 0,
+        "complete_accounting": true,
+        "screening_complete": true
+      },
+      "raw_candidate_bytes": 7459,
+      "raw_estimated_tokens": 1865,
+      "all_packet_bytes": 16992,
+      "all_packet_estimated_tokens": 4248,
+      "pages": 3,
+      "largest_page_estimated_tokens": 1587,
+      "independent_review_verified": false
+    },
+    {
+      "key": "tracker-items",
+      "candidates": 80,
+      "included": 2,
+      "excluded": 74,
+      "excluded_by_primary_criterion": [
+        {
+          "criterion": "exclude",
+          "count": 10
+        },
+        {
+          "criterion": "include",
+          "count": 64
+        }
+      ],
+      "unresolved": [
+        {
+          "candidate": "ops-54ed",
+          "disposition": "uncertain"
+        },
+        {
+          "candidate": "pm-brief-00tc",
+          "disposition": "uncertain"
+        },
+        {
+          "candidate": "pm-brief-3luv",
+          "disposition": "uncertain"
+        },
+        {
+          "candidate": "pm-csv-02hc",
+          "disposition": "uncertain"
+        }
+      ],
+      "counts": {
+        "included": 2,
+        "excluded": 74,
+        "pending": 0,
+        "uncertain": 4,
+        "conflict": 0
+      },
+      "completeness_receipt": {
+        "population_digest": "1beb21746b88073c6189037a95c573f6848968a64b84a94bdb28f8e74ba4eb5c",
+        "protocol_digest": "b9e600e4b69a37b45ef9ab925b572de7213f060f3d734e0295f6b1faca885bad",
+        "source_manifest_digest": "34fb81c089fa2f950660ae9e9e86ce268a9743ab071d8b247d588db3e4c7465a",
+        "imported_equals_canonical_plus_aliases": true,
+        "canonical_equals_disposition_sum": true,
+        "accounted_for": 80,
+        "decisions": 76,
+        "unresolved": 4,
+        "complete_accounting": true,
+        "screening_complete": false
+      },
+      "raw_candidate_bytes": 414644,
+      "raw_estimated_tokens": 103661,
+      "all_packet_bytes": 391811,
+      "all_packet_estimated_tokens": 97953,
+      "pages": 80,
+      "largest_page_estimated_tokens": 1251,
+      "independent_review_verified": false
+    },
+    {
+      "key": "search-hits",
+      "candidates": 2,
+      "included": 1,
+      "excluded": 1,
+      "excluded_by_primary_criterion": [
+        {
+          "criterion": "include",
+          "count": 1
+        }
+      ],
+      "unresolved": [],
+      "counts": {
+        "included": 1,
+        "excluded": 1,
+        "pending": 0,
+        "uncertain": 0,
+        "conflict": 0
+      },
+      "completeness_receipt": {
+        "population_digest": "2a59898b4ab6ff82f0db7a16fd64abe33ecffb54e7086f4086c4b32a1ee1a2ae",
+        "protocol_digest": "eab974c073a61d34e81ad7aeeb1b5ee05058149ecf418f842f08fdb63d5a3522",
+        "source_manifest_digest": "d92a4cf88e66bc1c0ddf2590f407bee0c456a76a4914d059b12df5f27de51224",
+        "imported_equals_canonical_plus_aliases": true,
+        "canonical_equals_disposition_sum": true,
+        "accounted_for": 2,
+        "decisions": 2,
+        "unresolved": 0,
+        "complete_accounting": true,
+        "screening_complete": true
+      },
+      "raw_candidate_bytes": 6555,
+      "raw_estimated_tokens": 1639,
+      "all_packet_bytes": 6066,
+      "all_packet_estimated_tokens": 1517,
+      "pages": 1,
+      "largest_page_estimated_tokens": 1517,
+      "independent_review_verified": false
+    }
+  ],
+  "resume_questions": [
+    {
+      "question": "What is the decision, reason and complete population count for pm-csv-3d3b?",
+      "candidate": "pm-csv-3d3b",
+      "disposition": "included",
+      "restored_reason": "The SDK renderer rejects CSV; an explicit capability limitation is recorded.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4425,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-beads-51fi?",
+      "candidate": "pm-beads-51fi",
+      "disposition": "included",
+      "restored_reason": "Atomic inspected-version updates require a missing SDK capability at the recorded revision.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4465,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-csv-02hc?",
+      "candidate": "pm-csv-02hc",
+      "disposition": "uncertain",
+      "restored_reason": "SDK read ceiling is cited with standalone import constraints; capability responsibility needs review.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4285,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for ops-54ed?",
+      "candidate": "ops-54ed",
+      "disposition": "uncertain",
+      "restored_reason": "Upstream receipt limitations are cited; their SDK-specific scope is unresolved.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4212,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-brief-00tc?",
+      "candidate": "pm-brief-00tc",
+      "disposition": "uncertain",
+      "restored_reason": "SDK receipt behavior and an upstream bug are cited; gap versus intentional contract needs review.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4298,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-brief-3luv?",
+      "candidate": "pm-brief-3luv",
+      "disposition": "uncertain",
+      "restored_reason": "A historical CLI workaround is removed; SDK capability scope is not established.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4210,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-csv-017m?",
+      "candidate": "pm-csv-017m",
+      "disposition": "excluded",
+      "restored_reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4480,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-csv-0aal?",
+      "candidate": "pm-csv-0aal",
+      "disposition": "excluded",
+      "restored_reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4460,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-csv-0orl?",
+      "candidate": "pm-csv-0orl",
+      "disposition": "excluded",
+      "restored_reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4503,
+      "identical_counts_and_reason": true
+    },
+    {
+      "question": "What is the decision, reason and complete population count for pm-csv-0pmb?",
+      "candidate": "pm-csv-0pmb",
+      "disposition": "excluded",
+      "restored_reason": "The recorded subject is package behavior or tooling; no explicit SDK capability gap is cited.",
+      "baseline_bytes": 426543,
+      "packet_bytes": 4474,
+      "identical_counts_and_reason": true
+    }
+  ],
+  "resume_baseline_bytes": 4265430,
+  "resume_packet_bytes": 43812,
+  "resume_reduction_percent": 98.97,
+  "synthetic_controls": {
+    "synthetic": true,
+    "aliases": 5,
+    "unavailable_sources": 10,
+    "opposed_vectors": 3,
+    "changed_sources": 1,
+    "counts_after_disagreement": {
+      "included": 0,
+      "excluded": 0,
+      "pending": 0,
+      "uncertain": 7,
+      "conflict": 3
+    },
+    "receipt": {
+      "population_digest": "63c3fdacf38c47d0aee490406351109e3f55e7940264c84ab2902fba749ce31c",
+      "protocol_digest": "2eae493bd8fcbbe15b87402b1f58ce1b9b80c8ea61402f7b81f2cce1f8e1959e",
+      "source_manifest_digest": "3ac62154f3adec24addb6485069629c9792d2166823c85160a4b60a67098a730",
+      "imported_equals_canonical_plus_aliases": true,
+      "canonical_equals_disposition_sum": true,
+      "accounted_for": 10,
+      "decisions": 0,
+      "unresolved": 10,
+      "complete_accounting": true,
+      "screening_complete": false
+    },
+    "current_freshness": "changed"
+  }
+}

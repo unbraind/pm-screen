@@ -5,6 +5,11 @@ export function gitEnvironment(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   return Object.fromEntries(Object.entries(env).filter(([key]) => !/^GIT_/i.test(key)));
 }
 
+/** Isolate disposable repositories from parent Git overrides, credentials and CI event identity. */
+export function repositoryEnvironment(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
+  return Object.fromEntries(Object.entries(gitEnvironment(npmEnvironment(env))).filter(([key]) => !/^(?:GITHUB_|RUNNER_|CI$)/i.test(key)));
+}
+
 /** Remove all npm policy/config variants before setting one isolated user config. */
 export function npmEnvironment(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   return { ...Object.fromEntries(Object.entries(env).filter(([key]) => !/^npm_config_(allow_scripts|userconfig|registry|_auth|username)$/i.test(key) && !/(?:TOKEN|SECRET|PASSWORD|CREDENTIAL|(?:^|_)KEY(?:_|$)|(?:^|_)AUTH(?:_|$)|NPM_MEDIA_SERVER)/i.test(key))), npm_config_userconfig: devNull, npm_config_registry: 'https://registry.npmjs.org' };

@@ -4,14 +4,162 @@ description: Implement companion specification pm-cli-website-u21s using native 
 type: Epic
 status: in_progress
 priority: 2
-tags: []
+tags[1]: "gh:unbraind/pm-screen#1"
 created_at: "2026-11-06T18:46:49.805Z"
-updated_at: "2026-11-06T18:46:58.870Z"
-assignee: codex-agent
-claim_principal: codex-agent
+updated_at: "2026-11-08T19:30:09.869Z"
 author: codex-agent
 acceptance_criteria: Seven CLI and SDK operations; replay-safe native CAS; public corpus evidence; complete release gates
-comments[2]{created_at,author,text}:
+comments[25]{created_at,author,text}:
   "2026-11-06T18:46:49.805Z",codex-agent,"Companion reference: pm-cli-website-u21s. Companion is read-only. Package-local delivery follows its screening specification; no source tracker is changed."
   "2026-11-06T18:46:58.870Z",codex-agent,"Scaffold copied from pm-unit, including exact identity allowlist and sync-pin regression. Pinned host remains 2026.11.5; registry currently advertises 2026.11.6. Schema activation is metadata only. Local main will contain only the initial scaffold commit."
+  "2026-11-06T18:53:16.327Z",codex-agent,"Implemented strict frozen schemas, ternary eligibility and conservation accounting. Owner updates use native expected-revision locking with no retry/rebase; replay lookup precedes stale revision refusal only for identical canonical requests. Budget preflight runs before mutations. Starting real no-git SDK tests."
+  "2026-11-06T19:47:59.515Z",codex-agent,"Implementation and public evidence are complete for local verification. All seven CLI and SDK operations preserve frozen populations, exact criterion derivations, unknowns, operation receipts and native expected-revision mutations. Claims about independent corpus review and maintainer protocol approval remain explicitly outstanding in pm-screen-independent-review; arbitrary provider certification and native producer cursor transport remain separate Features. No remote repository, push, PR, release, publication or hosted change was performed. Final npm and Bun release checks will run on the locally committed candidate after tracker writes end."
+  "2026-11-06T19:50:46.617Z",codex-agent,"Linked delivery test passes: npm pack --dry-run accepts exactly 45 allowlisted text files and the production dependency audit reports zero vulnerabilities. Protocol, workflow and evidence linked commands pass 5, 34 and 3 tests respectively. Final static checks report zero duplication across 38 sources and 95 documented declarations. Release claims before final gates; all items remain open or in progress for orchestrator verification."
+  "2026-11-06T20:14:21.805Z",codex-agent,"Resumed for public PR #1 review ownership. Worktree is clean and matches the pushed feature branch. Created pm-screen-compact-packet as a deferred Feature using the real full-stream overhead, with measurable compactness and evidence-preservation acceptance criteria. Review and final-head CI verification remain in this PR; compactness implementation is out of scope."
+  "2026-11-08T01:55:50.954Z",pi-glm,"Review round (PR 1, head 1475596): fetched all 7 unresolved CodeRabbit threads plus the rollup review (no outside-diff-range findings). Verified every finding against the code with a live reproduction; all 7 are valid: (1) scripts/acquire-corpus.ts null issue body interpolates the literal word null into text and digest; (2) src/api.ts recorder key failure surfaces as generic 'Strict screening contract failed' for an author like 'Jane Doe' selected via the CLI; (3) src/privacy.ts guardSubmitted refuses public URIs such as github.com/users/octocat/issues/1 and example.org/root-cause (path-segment false positive, major); (4) src/schema.ts public_uri refinement lets new URL throw for 'https://' so create reports outcome_unknown instead of invalid_input (zod url check continues after format failure); (5) test/corpus.ts resume loop never asserts serialized packet bytes; (6) synthetic changed-source check does not assert stored state preservation; (7) test/real-data.test.ts never compares regenerated evaluateCorpus/syntheticControls results with the committed docs/real-data-receipt.json. Plan: fix each with a regression test that fails on behavioural revert, self-review the diff for the same defect classes (same-class instance found in scripts/acquire-corpus.ts safe() scrubbing public URI paths, will fix), then targeted gates plus the repo release gate."
+  "2026-11-08T01:57:14.793Z",pi-glm,"Fix (thread PRRT_kwDOVll0Ws60u-qR, src/privacy.ts:19): guardSubmitted now strips public web URI text (https?:// up to whitespace) before the private-filesystem-path test, while the email test stays on the full string, so public URIs like github.com/users/octocat/issues/1 and example.org/root-cause are allowed as question, source_ref, label and reason text; bare private paths, non-web URIs such as file:// with local paths, paths mixed with URIs, and emails (including inside URI text) still refuse, now with split messages 'Private paths are forbidden' / 'Email addresses are forbidden'. Regression corpus in test/edge.test.ts (must-allow: two public URIs through createScreening question+source_ref+label and an assess reason; must-refuse: file:// local path, URI-adjacent local path, email inside a URI query). Revert proof: restoring only the pre-fix src/privacy.ts and rebuilding dist makes 'strict privacy refusals have zero effects while inert text and Unicode round trip' fail (node --test test/edge.test.ts: 8 pass, 1 fail); with the fix restored the same run passes 9/9. README and ARCHITECTURE privacy wording updated."
+  "2026-11-08T11:28:17.042Z",codex-agent,"Continuation inspected remote feat/screen at 1475596, all seven unresolved threads and every comment, latest review with no outside-diff findings, and prior uncommitted privacy changes. Retained valid prior work in an isolated worktree. Main is an ancestor. Taking over the interrupted claim as codex-agent; no duplicate PR or tracker item. Will verify all seven fixes with disposable behavioral reverts and both full release gates at unchanged thresholds."
+  "2026-11-08T11:35:18.434Z",codex-agent,"All seven findings are valid. Implemented explicit missing/present issue body state with JSON title/body digests; recorder-key diagnostic before assessment/resolution writes while retaining replay behavior; URL-aware privacy checks; nonthrowing URI refinement; independent resume-byte assertion; before/after stored state and revision assertion for freshness; full regenerated receipt equality. Same-class self-review also fixed public URI minimization, public corpus validation, and identity-gate false positives (including scheme-less public repository references). Prior history is retained unchanged. Focused domain tests pass 13/13; corpus privacy passes 2/2; identity policy canaries pass. Extracted shared revert harness to retain the zero-duplication threshold. Native health currently discovers an unrelated global extension newer than the pinned host; final CI-equivalent gates will run with an isolated home and Git configuration."
+  "2026-11-08T11:48:11.186Z",codex-agent,"Review revert proof complete: node test/review-revert.acceptance.ts passes 16 baseline tests and detects 12 independent defects; every restored test passes. PRRT_kwDOVll0Ws60u-qD: null-body interpolation revert fails issue acquisition test. PRRT_kwDOVll0Ws60u-qJ: original mutate attribution parse fails recorder-key diagnostic test (assessment and resolution, with zero history writes and replay preserved). PRRT_kwDOVll0Ws60u-qR: disabling URI recognition fails strict privacy test; acquisition scrubber and identity-gate reverts also fail their canaries. PRRT_kwDOVll0Ws60u-qY: removing URL.canParse fails malformed-public-URI test with the prior unknown-outcome refusal. PRRT_kwDOVll0Ws60u-qg: injecting a 6401-byte resume serialization fails the independent 6400-byte assertion. PRRT_kwDOVll0Ws60u-qk: injecting a state-changing freshness check fails the stored-state/revision equality assertion. PRRT_kwDOVll0Ws60u-qn: independently corrupting committed counts, byte measurements, manifest digest or synthetic controls fails regenerated receipt equality. All mutations run in disposable copies and restore source in finally before rerunning the passing test. No threads answered or resolved. Linked pm test index 3 passed 7/7. Typecheck, lint, 99 documented declarations, zero clones across 44 sources, privacy canaries and isolated-home tracker health pass. Starting full npm and Bun release gates sequentially with unchanged 100/100/100/100 coverage thresholds."
+  "2026-11-08T12:12:33.698Z",codex-agent,"Full npm release:check passed: 69/69 unskipped tests, 571/571 statements, 335/335 branches, 142/142 functions and 489/489 lines; one packed-consumer acceptance test covering 29 CLI commands per manager and both SDK runtimes; 10 original plus 12 review defect checks with all restored cases passing. Bun release:check has passed the same coverage and packed acceptance and is completing its proof stage. npm audit --omit=dev reports zero vulnerabilities; the separate full audit reports three moderate dev-only entries for one glob advisory, recorded after deduplication in pm-screen-dev-audit. No dependency pins or thresholds changed."
+  "2026-11-08T12:23:18.379Z",codex-agent,"Final local verification: npm run release:check and bun run release:check both pass in about 18 minutes each, using isolated home and Git configuration to exclude unrelated global extension skew. Each run: 69/69 tests without skips; 100 percent coverage across 571 statements, 335 branches, 142 functions and 489 lines in all 9 emitted files; 99 documented declarations; zero clones across 44 sources; zero production audit vulnerabilities; 45 allowlisted package assets; one captured-tarball acceptance test with 29 CLI commands per manager, both SDK runtimes, no Git executable and archive-handoff integrity; 10 original and 12 review defect checks, all restored tests passing. Typecheck, lint, changelog, identity, tracker health and publish attestation pass. No timeout or threshold adjustment was needed. The committed public receipt and fixture digests are unchanged. Review comments remain unanswered and unresolved by this agent, with no merge or release. pm-screen-dev-audit retains the dev-only advisory follow-up; independent judgments, maintainer protocol approval and compact packets remain their existing separate items. Releasing this claim for orchestrator verification; final CI will be checked after the push."
+  "2026-11-08T12:27:28.381Z",codex-agent,"Post-push evidence for implementation commit 08e08a38d954f02d4cd8176803fb3793bdbc31b6: existing PR 1 and published description verified exactly. CI https://github.com/unbraind/pm-screen/actions/runs/42480049032 and CodeQL https://github.com/unbraind/pm-screen/actions/runs/42480049020 are queued, not passing evidence yet. CodeRabbit and Sourcery checks were skipped; cubic is neutral, so no fresh automated review approval is claimed. Latest checks for the existing PR are at https://github.com/unbraind/pm-screen/pull/1/checks. This receipt adds no code changes; all local gate evidence remains for the unchanged implementation. Items remain open, this claim remains released, and review threads remain untouched. The isolated implementation worktree is clean; prior canonical uncommitted work is preserved separately."
+  "2026-11-08T16:37:55.637Z",codex-agent,"Continuation: preserved the existing review branch at e4e95a6, confirmed remote equality and no missing main commits. Reusing this PR item. Auditing shared privacy/path rules, stored-state validation, corpus receipt purity and measured counts, portable install/release harnesses and named revert proofs; no review threads will be changed."
+  "2026-11-08T16:48:04.810Z",codex-agent,"Class audit: centralized absolute filesystem matching for submissions, acquisition and identity; identity intentionally permits shell variables and bare generic roots in source because these are operator placeholders, not local identities. New submissions additionally reject punctuated home aliases, WSL paths and resolved home locations. Distinct scanned text is capped at 1 MiB and fully validated strings are cached. Stored vector/protocol reads, report/packet rendering and next-candidate inspection preserve prior data while new writes retain privacy validation. Corpus agreement and synthetic counts are measured; evaluation is read-only. Added portable executable lookup and exact Node/Bun workflow provisioning. Focused tests passed 10/10 plus corpus/portable provisioning tests 4/4; running unchanged full gates next."
+  "2026-11-08T17:04:17.638Z",codex-agent,"Review mapping: PRRT_kwDOVll0Ws61Atwo closes the shared path-classifier class (privacy-policy tests; shared-private-policy mutation). PRRT_kwDOVll0Ws61Atwq separates submitted and stored validation in all kernel/API/view paths (stored legacy text test; stored-vector, stored-protocol, stored-next and stored-output mutations). PRRT_kwDOVll0Ws61Atwu derives agreement from actual fixture rows (10-row and 11-row evaluation oracles; measured-agreement mutation). PRRT_kwDOVll0Ws61Atww makes evaluation pure, retaining the complete receipt writer only in real-data.acceptance (pure-evaluation mutation). Each named mutation has failed its regression and passed after restoration in a disposable copy. Sibling checks cover alias punctuation, resolved/WSL homes, cached and aggregate scanning, SDK init/archive docs, exact runtime provisioning, portable command lookup and member/optional/dynamic production imports. The scan budget counts 1,048,576 UTF-16 code units, not bytes. Packed acceptance passed 142 CLI operations (71 npm/Node and 71 Bun) with no Git and both formats. Ambient health retains the previously documented global extension host-version skew; isolated HOME gates will certify package state."
+  "2026-11-08T17:13:40.237Z",codex-agent,"Focused verification complete: npm run test:revert passed 10 original behavioral reverts (8-test baseline) and 27 review/class mutations (27-test baseline), every mutation failed its named regression and passed after restoration. Corpus receipt mutation anchors and all baseline counts are now derived from measured receipts. npm run test:install passed both manager/runtime journeys, 71 commands each with Git absent. The pm-linked adversarial command passed 14/14. npm run coverage passed 78/78 including 500 seeded operations, with statements 595/595, branches 347/347, functions 149/149 and lines 509/509. Typecheck, lint, zero duplication, docstrings and identity including all four new tracked files passed. Isolated tracker health is clean; starting the required sequential npm and Bun full release gates at unchanged thresholds."
+  "2026-11-08T17:37:58.982Z",codex-agent,"Complete isolated-HOME bun run release:check passed: 78 tests with zero skips/failures; all nine emitted production files at 100 percent statement/branch/function/line coverage; 45 allowlisted packed files; zero production vulnerabilities; 142 installed CLI operations across npm/Node and Bun without Git; 10 original plus 27 review/class behavioral mutations failed their named tests and passed after restoration. The first npm full gate passed coverage but encountered an advisory endpoint timeout; a direct npm audit retry then passed with zero vulnerabilities. Re-running the full npm gate from the beginning to certify it as one complete successful invocation."
+  "2026-11-08T17:56:24.347Z",codex-agent,"Final verification: both complete npm run release:check and bun run release:check passed with isolated HOME and no Git identity/config inheritance, at unchanged thresholds and at most two workers. Each run passed 78 tests with zero skips/failures, 100 percent in all four coverage dimensions across nine production modules, zero duplication, 105 documented declarations, healthy tracker history, identity/privacy, changelog, 45-file package allowlist, publication attestation, zero production vulnerabilities, packed npm/Node and Bun acceptance (71 commands each, no Git, JSON/TOON parity), and all 37 named behavioral reverts with passing baseline/restoration. The initial npm registry timeout cleared on retry and the entire npm gate was rerun successfully. All four review findings and audited sibling classes are fixed; review threads were left untouched. Existing independent-review/provider follow-ups and the ambient global extension-version skew remain separate. Releasing the claim for orchestrator verification; remote CI will run on the pushed commit."
+  "2026-11-08T18:19:49.625Z",codex-agent,"Continuation at existing PR head 7e45ba3; main is already an ancestor and no duplicate PR or item is needed. Verified all five round-2 findings. Rules: privileged jobs execute only required publishing tools; untouched reviewer work precedes uncertain retries; submitted object traversal has a finite aggregate budget; disposable repositories exclude parent CI context; revert evidence identifies the defect-specific cause. Audit all SDK/CLI/output/consumer paths, then focused regressions, isolated behavioral reverts and npm/Bun full release gates with two workers."
+  "2026-11-08T18:25:24.372Z",codex-agent,"Class audit: next selection has one API implementation shared by native CLI dispatch and JSON/TOON renderers; unassessed candidates now precede uncertain retries independently per reviewer. All submitted schema validation and output warnings share guardSubmitted; count every value visit (objects and primitives) to bound DAG expansion and large arrays without changing stored-record reads. The identity-gate fixture is the only disposable Git repository invoking the event-aware gate; it now strips case-insensitive GitHub/runner/CI context through a reusable environment helper and tests foreign synthetic SHAs. Audited all Bun setup occurrences: read-only prepare/CI/verify_bun retain exact pins; no write-permission release job executes Bun. Both revert suites use independent failure diagnostics; the shared harness refuses a test-name oracle and rejects unrelated named errors. Focused pm-linked suite passes 8/8; original revert suite passes 8 baseline tests and detects all 10 defects with successful restoration. Packed consumers additionally test queue progression and all three mutation guards with Git absent."
+  "2026-11-08T18:45:11.911Z",codex-agent,"Round-2 revert proof: node test/review-revert.acceptance.ts passes 30 baseline tests and detects all 32 isolated defects; every source is restored in finally, rebuilt and rerun successfully. New proofs: untouched-before-retry -> test/round2.test.ts (Untouched work must precede uncertain retries); node-budget -> test/round2.test.ts (Every graph visit must consume a finite budget); ci-repository-isolation -> test/identity.test.ts (Disposable repositories must exclude parent CI context); privileged-bun -> test/audit.test.ts (Privileged jobs must exclude unused Bun execution); revert-cause-oracle -> test/revert-harness.test.ts (Unrelated failures must never certify a behavioral revert). The original suite independently passes 8 baseline tests and all 10 cause-specific mutations. Complete GraphQL enumeration reads all 16 threads and every comment; exactly these five are unresolved, with no extra outside-diff findings in the latest review. Extended freshness and legacy fixtures to complete untouched candidates before testing uncertain fallback, retaining their existing assertions. Focused edge/review/round2 suite passes 14/14. Starting final npm and Bun release gates sequentially with isolated home/Git configuration and at most two test workers."
+  "2026-11-08T19:28:24.877Z",codex-agent,"Final local validation: npm run release:check and bun run release:check both exit 0 with isolated home and Git configuration; test concurrency is limited to two. Each full gate passes 81/81 tests and exactly 100 percent of 600 statements, 344 branches, 151 functions and 513 lines across all nine emitted production files. Typecheck, lint, zero-percent duplication, docstrings, identity/privacy, tracker health, changelog, production audit (zero vulnerabilities), package allowlist and publication attestation all pass at unchanged thresholds. Packed acceptance passes one journey test with 45 text assets and 76 real CLI commands per manager, native Node/Bun SDK journeys, no Git executable and verified exact-archive handoff. Original reverts: 8 passing baseline tests and 10 detected defects. Review reverts: 30 passing baseline tests and 32 detected defects. Every restored regression passes. Prior stale queue fixtures were extended without deleting or weakening their original assertions. No dependency pins or persisted compatibility policy changed. Source verification is complete; pushing to the existing PR and recording its CI receipt next."
+  "2026-11-08T19:30:09.074Z",codex-agent,"Pushed fix commit 8657d7caa55bdbd8a4b512005aa0959e10362746 to the existing feat/screen PR #1 and updated its thread-to-fix table. Exact source-head CI is queued: https://github.com/unbraind/pm-screen/actions/runs/42515270641 ; CodeQL is queued: https://github.com/unbraind/pm-screen/actions/runs/42515270666 . Both local full release gates are green; automated CI and reviewer verification remain pending and are not approval. The final handoff commit changes only tracker evidence and claim state; its fresh exact-head checks remain visible at https://github.com/unbraind/pm-screen/actions?query=branch%3Afeat%2Fscreen . Post-write metadata checks pass with the same isolated configuration as the full gates; unrelated user-level extensions are outside this package verification. No new SDK gap was found. Releasing this claim without closing the delivery item; review threads remain untouched for the orchestrator."
+files[54]{path,scope}:
+  .github/workflows/ci.yml,project
+  .github/workflows/release.yml,project
+  index.ts,project
+  manifest.json,project
+  package.json,project
+  scripts/acquire-corpus.ts,project
+  scripts/consumer-tools.ts,project
+  scripts/corpus-input.ts,project
+  scripts/coverage-gate.ts,project
+  scripts/docstring-gate.ts,project
+  scripts/duplication-gate.ts,project
+  scripts/environment.ts,project
+  scripts/identity-gate.ts,project
+  scripts/inventory.ts,project
+  scripts/lint.ts,project
+  scripts/main-invocation.ts,project
+  scripts/pack-gate.ts,project
+  scripts/tracker-health.ts,project
+  scripts/verify-release-publish-attestation.ts,project
+  src/api.ts,project
+  src/commands.ts,project
+  src/errors.ts,project
+  src/host.ts,project
+  src/kernel.ts,project
+  src/output.ts,project
+  src/privacy.ts,project
+  src/schema.ts,project
+  test/adapters.test.ts,project
+  test/audit.test.ts,project
+  test/concurrency.test.ts,project
+  test/contracts.test.ts,project
+  test/core.test.ts,project
+  test/corpus-input.test.ts,project
+  test/corpus-privacy.test.ts,project
+  test/corpus.ts,project
+  test/edge.test.ts,project
+  test/helpers.ts,project
+  test/identity.test.ts,project
+  test/install.acceptance.ts,project
+  test/model.test.ts,project
+  test/path-cases.ts,project
+  test/privacy-policy.test.ts,project
+  test/real-data.acceptance.ts,project
+  test/real-data.test.ts,project
+  test/release-verification.test.ts,project
+  test/revert-harness.test.ts,project
+  test/revert-harness.ts,project
+  test/revert-mutations.ts,project
+  test/revert-regression.ts,project
+  test/revert.acceptance.ts,project
+  test/review-revert.acceptance.ts,project
+  test/review.test.ts,project
+  test/round2.test.ts,project
+  test/workflow.test.ts,project
+tests[9]:
+  - command: "npm run pack:dry-run && npm run audit:prod"
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-06T19:48:29.921Z"
+      source_kind: local_mutation
+      source_ref: feat/screen
+  - command: node --test --test-concurrency=2 test/edge.test.ts
+    scope: project
+    provenance:
+      author: pi-glm
+      created_at: "2026-11-08T01:57:17.939Z"
+      source_kind: local_mutation
+      source_ref: feat/screen
+  - command: node --test --test-concurrency=2 test/review.test.ts test/corpus-input.test.ts test/corpus-privacy.test.ts test/identity.test.ts
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T11:35:20.523Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: node test/review-revert.acceptance.ts
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T11:35:21.429Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: "npm run release:check"
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T11:48:12.154Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: "bun run release:check"
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T11:48:13.084Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: node --test --test-concurrency=2 test/privacy-policy.test.ts test/review.test.ts test/audit.test.ts test/corpus-privacy.test.ts test/identity.test.ts
+    scope: project
+    timeout_seconds: 300
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T16:48:18.612Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: "npm run test:install"
+    scope: project
+    timeout_seconds: 900
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T17:04:23.666Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+  - command: node --test --test-concurrency=2 test/round2.test.ts test/identity.test.ts test/audit.test.ts test/revert-harness.test.ts
+    scope: project
+    provenance:
+      author: codex-agent
+      created_at: "2026-11-08T18:24:17.618Z"
+      source_kind: local_mutation
+      source_ref: fix/screen-review-1108
+docs[5]{path,scope}:
+  ARCHITECTURE.md,project
+  docs/real-data-receipt.json,project
+  docs/real-data.md,project
+  docs/review-status.md,project
+  README.md,project
 body: ""

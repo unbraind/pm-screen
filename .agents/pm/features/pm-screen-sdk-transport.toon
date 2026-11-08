@@ -1,0 +1,15 @@
+id: pm-screen-sdk-transport
+title: Adopt native producer cursor and mutation budget transport when available
+description: "Pinned SDK read-output-contracts.d.ts defines PmReadOutputCursorEnvelope for host row collections, without a public producer-owned continuation callback. Packed tests reproduce read_output_cursor_invalid before extension dispatch. Native mutation budget controls are not read contracts. Distinct package --cursor and --budget are the specified tested fallback. Open upstream issue searches found no exact producer-extension cursor owner."
+type: Feature
+status: open
+priority: 2
+tags[1]: sdk-gap
+created_at: "2026-11-06T19:12:11.277Z"
+updated_at: "2026-11-06T19:48:21.938Z"
+author: codex-agent
+acceptance_criteria: Published SDK exposes producer continuation and preserves whole mutation-result budgets; repeat packed Node and native Bun parity without fallback flags
+parent: pm-screen-later
+docs[1]{path,scope}:
+  docs/review-status.md,project
+body: ""

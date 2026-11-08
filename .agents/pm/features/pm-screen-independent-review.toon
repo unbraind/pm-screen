@@ -1,0 +1,15 @@
+id: pm-screen-independent-review
+title: Obtain independent public-corpus judgments and protocol approval
+description: "The package mechanical oracle is independent of its reducer, but corpus judgments currently have one implementing recorder. The no-agents instruction prohibits launching a second reviewer. Preserve this distinction for maintainer review."
+type: Feature
+status: open
+priority: 2
+tags: []
+created_at: "2026-11-06T19:10:13.182Z"
+updated_at: "2026-11-06T19:48:19.588Z"
+author: codex-agent
+acceptance_criteria: Maintainer approves the frozen protocol; a second independent reviewer supplies attributed vectors; disagreements are explicitly adjudicated and actual agreement is measured
+parent: pm-screen-delivery
+docs[1]{path,scope}:
+  docs/review-status.md,project
+body: ""
