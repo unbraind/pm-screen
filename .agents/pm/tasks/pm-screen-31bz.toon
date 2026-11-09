@@ -1,0 +1,20 @@
+id: pm-screen-31bz
+title: Keep required CI check names stable under exact Node pins
+description: "Branch protection requires test (22) and test (26), but the exact-version matrix reports test (22.19.0) and test (26.0.0), so every pull request stays BLOCKED with all checks green (Dependabot 2 and 3 included)."
+type: Task
+status: in_progress
+priority: 1
+tags[2]: branch-protection,ci
+created_at: "2026-11-09T10:24:34.931Z"
+updated_at: "2026-11-09T10:24:42.378Z"
+assignee: "harness:claude-code"
+author: "harness:claude-code"
+acceptance_criteria: The test job reports test (22) and test (26); the audit test requires exactly 22.19.0 and 26.0.0 and the major-only job name; mutating a major fails it.
+comments[1]{created_at,author,text}:
+  "2026-11-09T10:24:42.378Z","harness:claude-code",audit.test.ts 4/4 with the include matrix; mutating major 26 to 25 fails 1. Same fix as pm-case a56d4b5 (pm-case#1 was BLOCKED the same way).
+files[2]{path,scope}:
+  .github/workflows/ci.yml,project
+  test/audit.test.ts,project
+tests[1]{command,scope,provenance{author,created_at,source_kind,source_ref}}:
+  node --test test/audit.test.ts,project,"harness:claude-code","2026-11-09T10:24:41.722Z",local_mutation,ci/stable-required-check-names
+body: ""
