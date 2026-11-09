@@ -58,8 +58,9 @@ export function guardSubmitted(value: unknown): void {
     } else if (value !== null && typeof value === 'object') {
       const prototype = Object.getPrototypeOf(value);
       insist(Array.isArray(value) || prototype === Object.prototype || prototype === null, 'invalid_input', 'Only plain JSON data is supported');
-      // The node budget counts visited entries; a sparse array has few of them but a length schema validation walks slot by slot.
-      insist(!Array.isArray(value) || value.length <= 32768, 'invalid_input', 'Input arrays exceed the traversal budget');
+      // The node budget counts visited entries, but schema validation walks every slot of an array, holes included. Charge
+      // the holes (length minus present entries, which are charged when visited) to the same aggregate budget.
+      if (Array.isArray(value)) { nodes += value.length - Object.keys(value).length; insist(nodes <= 262144, 'invalid_input', 'Aggregate node scanning budget exceeded'); }
       insist(!seen.has(value), 'invalid_input', 'Cyclic input is forbidden'); seen.add(value);
       for (const name of Reflect.ownKeys(value)) {
         const descriptor = Object.getOwnPropertyDescriptor(value, name)!;

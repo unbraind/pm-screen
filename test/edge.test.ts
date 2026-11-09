@@ -127,8 +127,12 @@ test('typed refusals expose stable exit categories and never arbitrary exception
   assert.throws(() => insist(false, 'invalid_input', 'Safe'), hasCode('invalid_input')); insist(true, 'invalid_input', 'Safe');
 });
 
-test('guardSubmitted refuses sparse arrays whose length exceeds the traversal budget', () => {
+test('guardSubmitted charges sparse array holes against the aggregate node budget', () => {
   // Few own entries, huge length: the node budget alone never sees the slots that schema validation iterates.
-  for (const rows of [new Array(2 ** 31), new Array(32769)]) assert.throws(() => guardSubmitted({ rows }), (error: unknown) => error instanceof Error && /traversal budget/u.test(error.message));
+  for (const rows of [new Array(2 ** 31), new Array(262144)]) assert.throws(() => guardSubmitted({ rows }), /Aggregate node scanning budget exceeded/u);
   guardSubmitted({ rows: new Array(64).fill('public') });
+  // Many moderately sparse arrays still add up: their holes share one aggregate budget.
+  assert.throws(() => guardSubmitted({ aliases: Array.from({ length: 127 }, () => ({ evidence_refs: new Array(32768) })) }), /Aggregate node scanning budget exceeded/u);
+  // Dense arrays are charged once per entry when visited, so the documented dense boundary is unchanged.
+  guardSubmitted(Array.from({ length: 262143 }, () => null));
 });
