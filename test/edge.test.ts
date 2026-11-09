@@ -126,3 +126,9 @@ test('typed refusals expose stable exit categories and never arbitrary exception
   assert.equal(exitCode('native', 9), 9); const error = new ScreeningRefusal('invalid_input', 'Safe'); assert.equal(refusal(error), error); assert.equal(refusal(new Error('Never echo raw failure')).code, 'outcome_unknown');
   assert.throws(() => insist(false, 'invalid_input', 'Safe'), hasCode('invalid_input')); insist(true, 'invalid_input', 'Safe');
 });
+
+test('guardSubmitted refuses sparse arrays whose length exceeds the traversal budget', () => {
+  // Few own entries, huge length: the node budget alone never sees the slots that schema validation iterates.
+  for (const rows of [new Array(2 ** 31), new Array(32769)]) assert.throws(() => guardSubmitted({ rows }), (error: unknown) => error instanceof Error && /traversal budget/u.test(error.message));
+  guardSubmitted({ rows: new Array(64).fill('public') });
+});

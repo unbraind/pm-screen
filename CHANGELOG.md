@@ -8,6 +8,10 @@
 - Native concurrent screening workflow and bounded CLI SDK ([pm-screen-workflow](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/features/pm-screen-workflow.toon))
 - Frozen protocol and exact eligibility accounting ([pm-screen-protocol](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/features/pm-screen-protocol.toon))
 
+### Fixed
+
+- Refuse sparse arrays longer than the traversal budget before schema validation ([pm-screen-buon](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/issues/pm-screen-buon.toon))
+
 ### Other
 
 - Durable evidence screening first release ([pm-screen-delivery](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/epics/pm-screen-delivery.toon))
