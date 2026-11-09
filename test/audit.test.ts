@@ -48,13 +48,16 @@ test('every CI and release runtime setup pins exact versions and release gates p
     const workflow = readFileSync(path, 'utf8');
     for (const step of workflow.split(/(?=^      - name:)/m)) {
       if (/uses: oven-sh\/setup-bun@/.test(step)) assert.match(step, /bun-version: '1\.3\.5'/, 'Bun provisioning must pin the claimed version');
-      if (/uses: actions\/setup-node@/.test(step)) assert.match(step, /node-version: (?:'22\.19\.0'|\$\{\{ matrix.node-version \}\})/, 'Node provisioning must pin the claimed version');
+      // CI must take the matrix version, so the 26 job really runs Node 26; release jobs may pin the floor directly.
+      if (/uses: actions\/setup-node@/.test(step)) assert.match(step, path.endsWith('ci.yml') ? /node-version: \$\{\{ matrix\.node-version \}\}/ : /node-version: (?:'22\.19\.0'|\$\{\{ matrix.node-version \}\})/, 'Node provisioning must pin the claimed version');
     }
     if (path.endsWith('ci.yml')) {
       // Versions are listed in an include with a major key so the required check names stay test (22) and test (26).
       const included = [...workflow.matchAll(/^[ \t]+- node-version: '([^']+)'\s*\n[ \t]+major: (\d+)[ \t]*$/gm)].map(entry => `${entry[2]}=${entry[1]}`).join(',');
       assert.equal(included, '22=22.19.0,26=26.0.0', 'The CI matrix must provision exactly the claimed runtimes');
-      assert.match(workflow, /name: test \(\$\{\{ matrix\.major \}\}\)/, 'Required check names must not carry the patch version');
+      // Scope the name to the test job's own key, so a comment or another job cannot satisfy it.
+      const testJob = workflow.split(/(?=^  [A-Za-z0-9_-]+:\s*$)/m).find(job => /^  test:\s*$/m.test(job.split('\n')[0]));
+      assert.equal(testJob?.match(/^    name: (.+)$/m)?.[1]?.trim(), 'test (${{ matrix.major }})', 'Required check names must not carry the patch version');
     }
     else {
       const jobs = workflow.split(/(?=^  [a-z_]+:\s*$)/m).slice(1);
