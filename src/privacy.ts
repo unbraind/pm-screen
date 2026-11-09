@@ -58,9 +58,14 @@ export function guardSubmitted(value: unknown): void {
     } else if (value !== null && typeof value === 'object') {
       const prototype = Object.getPrototypeOf(value);
       insist(Array.isArray(value) || prototype === Object.prototype || prototype === null, 'invalid_input', 'Only plain JSON data is supported');
-      // The node budget counts visited entries, but schema validation walks every slot of an array, holes included. Charge
-      // the holes (length minus present entries, which are charged when visited) to the same aggregate budget.
-      if (Array.isArray(value)) { nodes += value.length - Object.keys(value).length; insist(nodes <= 262144, 'invalid_input', 'Aggregate node scanning budget exceeded'); }
+      // JSON arrays never have holes. A hole lets schema validation walk empty slots and read values inherited from
+      // Array.prototype that this guard never scans, so only arrays whose keys are exactly 0..length-1 are accepted. The
+      // length is checked against the aggregate node budget first, so a huge array never allocates its key list.
+      if (Array.isArray(value)) {
+        insist(nodes + value.length <= 262144, 'invalid_input', 'Aggregate node scanning budget exceeded');
+        const keys = Object.keys(value);
+        insist(keys.length === value.length && keys.every((key, index) => key === String(index)), 'invalid_input', 'Sparse arrays are not plain JSON data');
+      }
       insist(!seen.has(value), 'invalid_input', 'Cyclic input is forbidden'); seen.add(value);
       for (const name of Reflect.ownKeys(value)) {
         const descriptor = Object.getOwnPropertyDescriptor(value, name)!;
