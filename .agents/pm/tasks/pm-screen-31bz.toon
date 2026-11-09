@@ -6,13 +6,14 @@ status: in_progress
 priority: 1
 tags[2]: branch-protection,ci
 created_at: "2026-11-09T10:24:34.931Z"
-updated_at: "2026-11-09T12:40:52.923Z"
+updated_at: "2026-11-09T13:41:57.499Z"
 assignee: "harness:claude-code"
 author: "harness:claude-code"
 acceptance_criteria: The test job reports test (22) and test (26); the audit test requires exactly 22.19.0 and 26.0.0 and the major-only job name; mutating a major fails it.
-comments[2]{created_at,author,text}:
+comments[3]{created_at,author,text}:
   "2026-11-09T10:24:42.378Z","harness:claude-code",audit.test.ts 4/4 with the include matrix; mutating major 26 to 25 fails 1. Same fix as pm-case a56d4b5 (pm-case#1 was BLOCKED the same way).
   "2026-11-09T12:40:52.923Z","harness:claude-code","CodeRabbit PRRT_kwDOVll0Ws61QETs and PRRT_kwDOVll0Ws61QET1: the audit now requires CI setup-node to use matrix.node-version (release jobs may still pin the floor), and checks the test job's own name key instead of matching anywhere in the file. Mutations: a fixed 22.19.0 in CI setup-node fails 1, and moving the right name into a comment while the job uses the patch version fails 1; restored 4/4."
+  "2026-11-09T13:41:57.499Z","harness:claude-code","CodeRabbit PRRT_kwDOVll0Ws61RYA4 and PRRT_kwDOVll0Ws61RYBC: every CI assertion now reads the test job's own block (name, matrix include, setup-node), and the job must contain at least one setup-node step that uses matrix.node-version. Mutations: removing the setup-node step fails 1; moving the right matrix text into a comment outside the job while the job pins 26.1.0 fails 1; restored 4/4."
 files[2]{path,scope}:
   .github/workflows/ci.yml,project
   test/audit.test.ts,project
