@@ -38,8 +38,11 @@ test('aggregate node scanning bounds shared graphs and primitive arrays before e
   guardSubmitted(Array.from({ length: 262143 }, () => null));
   let dag: unknown = leaf;
   for (let i = 0; i < 4; i++) dag = Array.from({ length: 24 }, () => dag);
+  // Objects never take the up-front array-length charge, so only the per-visit budget bounds a shared object graph.
+  let objects: unknown = leaf;
+  for (let i = 0; i < 4; i++) { const child = objects; objects = Object.fromEntries(Array.from({ length: 24 }, (_, key) => [`k${key}`, child])); }
   const assessment = await request(host, id); const resolution = await resolutionRequest(host, id);
-  for (const extra of [dag, Array.from({ length: 262144 }, () => null)]) {
+  for (const extra of [dag, objects, Array.from({ length: 262144 }, () => null)]) {
     assert.throws(() => guardSubmitted(extra), /Aggregate node scanning budget exceeded/, 'Every graph visit must consume a finite budget');
     await assert.rejects(createScreening(host, Object.assign({ ...birth, id: 'corpus-refused' }, { extra })), /Aggregate node scanning budget exceeded/);
     await assert.rejects(assessCandidate(host, Object.assign({ ...assessment }, { extra })), /Aggregate node scanning budget exceeded/);
