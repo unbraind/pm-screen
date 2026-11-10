@@ -10,7 +10,7 @@
 
 ### Fixed
 
-- Refuse sparse arrays longer than the traversal budget before schema validation ([pm-screen-buon](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/issues/pm-screen-buon.toon))
+- Refuse sparse arrays of any length, and dense arrays past the aggregate node budget, before schema validation ([pm-screen-buon](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/issues/pm-screen-buon.toon))
 
 ### Other
 
