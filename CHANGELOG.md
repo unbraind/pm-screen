@@ -8,6 +8,10 @@
 - Native concurrent screening workflow and bounded CLI SDK ([pm-screen-workflow](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/features/pm-screen-workflow.toon))
 - Frozen protocol and exact eligibility accounting ([pm-screen-protocol](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/features/pm-screen-protocol.toon))
 
+### Fixed
+
+- Refuse sparse arrays of any length, and dense arrays past the aggregate node budget, before schema validation ([pm-screen-buon](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/issues/pm-screen-buon.toon))
+
 ### Other
 
 - Keep required CI check names stable under exact Node pins ([pm-screen-31bz](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/tasks/pm-screen-31bz.toon))

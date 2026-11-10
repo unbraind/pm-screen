@@ -126,3 +126,17 @@ test('typed refusals expose stable exit categories and never arbitrary exception
   assert.equal(exitCode('native', 9), 9); const error = new ScreeningRefusal('invalid_input', 'Safe'); assert.equal(refusal(error), error); assert.equal(refusal(new Error('Never echo raw failure')).code, 'outcome_unknown');
   assert.throws(() => insist(false, 'invalid_input', 'Safe'), hasCode('invalid_input')); insist(true, 'invalid_input', 'Safe');
 });
+
+test('guardSubmitted accepts only dense JSON arrays within the aggregate node budget', () => {
+  const refused = (input: unknown) => assert.throws(() => guardSubmitted(input), /Aggregate node scanning budget exceeded|Sparse arrays are not plain JSON data/u);
+  // Holes are never JSON, whatever the length; a key count alone would accept named properties standing in for holes.
+  for (const rows of [new Array(2 ** 31), new Array(262144), new Array(2), Object.assign(new Array(2), { x: 'public', y: 'public' })]) refused({ rows });
+  refused({ aliases: Array.from({ length: 127 }, () => ({ evidence_refs: new Array(32768) })) });
+  guardSubmitted({ rows: new Array(64).fill('public') });
+  // Dense arrays are charged once per entry when visited, so the documented dense boundary is unchanged.
+  guardSubmitted(Array.from({ length: 262143 }, () => null));
+  // A credential-shaped value inherited through a hole must never reach validation unscanned.
+  Object.defineProperty(Array.prototype, 0, { value: 'AIza' + 'x'.repeat(35), configurable: true, writable: true });
+  try { refused({ related: Object.assign(new Array(2), { 1: 'public' }) }); }
+  finally { delete (Array.prototype as unknown as Record<number, unknown>)[0]; }
+});
