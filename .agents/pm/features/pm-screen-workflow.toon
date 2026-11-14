@@ -2,19 +2,22 @@ id: pm-screen-workflow
 title: Native concurrent screening workflow and bounded CLI SDK
 description: ""
 type: Feature
-status: in_progress
+status: closed
 priority: 2
 tags: []
 created_at: "2026-11-06T18:46:54.854Z"
-updated_at: "2026-11-06T19:50:50.362Z"
+updated_at: "2026-11-14T10:14:36.031Z"
+closed_at: "2026-11-14T09:00:17.960Z"
+completed_at: "2026-11-08T19:45:38.000Z"
 author: codex-agent
 acceptance_criteria: Revision-checked assessment amendment and adjudication; replay and crash convergence; privacy; seven commands; no-git packed consumers
 parent: pm-screen-delivery
-comments[4]{created_at,author,text}:
+comments[5]{created_at,author,text}:
   "2026-11-06T19:10:08.031Z",codex-agent,"Native concurrency suite passes 30/30, including every exposed boundary, two OS writers and hard process exits. The boundary callback must remain outside the expected-revision scope because native nested mutations intentionally advance invocation expectations. Fixed locally and verified. Packed npm, Bun, npx and native bunx journeys pass on the captured tarball with Git absent."
   "2026-11-06T19:33:34.414Z",codex-agent,"Revert proof completed in a disposable copy: 7 baseline tests pass; all 9 behavioral reverts fail their focused regression after rebuilding, and all 9 restorations pass. Safeguards covered: witnessed exclusions, unknown retention, native CAS, original-request replay, criterion disagreement, stale adjudication, write-budget preflight, exact aliases and host compaction. CLI and SDK now share the settings policy validator; 9 focused adapter/contract tests pass."
   "2026-11-06T19:46:08.574Z",codex-agent,"Pinned pm test --run --progress passes the linked concurrency and contracts command: 34 tests, no failures or skips. The two-process run observed 20 requests, 10 acknowledged judgments retained exactly once and 10 explicit stale-revision conflicts. No source candidate is fetched or mutated."
   "2026-11-06T19:50:44.883Z",codex-agent,"Final expanded revert proof passes: 8 baseline regressions, 10 behavioral reverts each fail after rebuild, and all 10 restored focused regressions pass. The additional revert proves criterion comparison by identity after a native SDK round trip with reordered vectors. Source changes are finished; exact-commit npm and Bun release checks follow."
+  "2026-11-14T10:14:36.031Z",codex-sweep-1114,"Release-attribution correction: completed_at = 2026-11-08T19:45:38Z from https://github.com/unbraind/pm-screen/pull/1 (merge SHA 8e08769f502809c8e986b9849bde1d97730130e1); no fetched release tag contains that merge commit, so release remains unset and this work is genuinely unreleased."
 files[11]{path,scope}:
   src/api.ts,project
   src/commands.ts,project
@@ -31,4 +34,5 @@ tests[1]{command,scope,provenance{author,created_at,source_kind,source_ref}}:
   node --test --test-concurrency=2 test/concurrency.test.ts test/contracts.test.ts,project,codex-agent,"2026-11-06T19:18:44.303Z",local_mutation,feat/screen
 docs[1]{path,scope}:
   README.md,project
+close_reason: "https://github.com/unbraind/pm-screen/pull/1 merged 2026-11-08T19:45:38Z; merge SHA 8e08769f502809c8e986b9849bde1d97730130e1; PR head 7ff5d6b4eea02fc40f73ea4bc2c4eae64a771b6a. Delivered: Revision-checked assessment/amendment/adjudication with replay, crash convergence, privacy and no-git packed npm/Bun consumers. Green at that head: test (22.19.0), codeql, test (26.0.0), CodeQL, CodeRabbit. Other check outcomes: enable-auto-merge: SKIPPED; cubic · AI code reviewer: NEUTRAL; Sourcery review: SKIPPED (not counted as green)."
 body: ""

@@ -2,17 +2,20 @@ id: pm-screen-protocol
 title: Frozen protocol and exact eligibility accounting
 description: ""
 type: Feature
-status: in_progress
+status: closed
 priority: 2
 tags: []
 created_at: "2026-11-06T18:46:53.557Z"
-updated_at: "2026-11-06T19:50:48.401Z"
+updated_at: "2026-11-14T10:14:39.058Z"
+closed_at: "2026-11-14T09:00:21.265Z"
+completed_at: "2026-11-08T19:45:38.000Z"
 author: codex-agent
 acceptance_criteria: Strict immutable population and aliases; ternary eligibility; deterministic primary and secondary reasons; conservation equations
 parent: pm-screen-delivery
-comments[2]{created_at,author,text}:
+comments[3]{created_at,author,text}:
   "2026-11-06T19:41:52.056Z",codex-agent,"The complete suite passed 63 tests with 100 percent statements, branches, functions and lines over all 9 production modules. Additional review then found and reproduced a criterion-order defect through an actual native SDK round trip: equivalent vectors in a different array order falsely conflicted. Comparison now uses criterion IDs. The new test failed before the fix and passes afterward; all 5 focused core tests pass, and the final gates will recertify the expanded suite."
   "2026-11-06T19:46:06.877Z",codex-agent,"Pinned pm test --run --progress passes the linked protocol command: 5 tests, no failures or skips. Includes the native criterion-array ordering regression and exact final-page omission accounting."
+  "2026-11-14T10:14:39.058Z",codex-sweep-1114,"Release-attribution correction: completed_at = 2026-11-08T19:45:38Z from https://github.com/unbraind/pm-screen/pull/1 (merge SHA 8e08769f502809c8e986b9849bde1d97730130e1); no fetched release tag contains that merge commit, so release remains unset and this work is genuinely unreleased."
 files[3]{path,scope}:
   src/kernel.ts,project
   src/schema.ts,project
@@ -21,4 +24,5 @@ tests[1]{command,scope,provenance{author,created_at,source_kind,source_ref}}:
   "npm run test:core",project,codex-agent,"2026-11-06T19:18:28.677Z",local_mutation,feat/screen
 docs[1]{path,scope}:
   ARCHITECTURE.md,project
+close_reason: "https://github.com/unbraind/pm-screen/pull/1 merged 2026-11-08T19:45:38Z; merge SHA 8e08769f502809c8e986b9849bde1d97730130e1; PR head 7ff5d6b4eea02fc40f73ea4bc2c4eae64a771b6a. Delivered: Frozen population/aliases, ternary eligibility, deterministic primary/secondary reasons and exact conservation equations. Green at that head: test (22.19.0), codeql, test (26.0.0), CodeQL, CodeRabbit. Other check outcomes: enable-auto-merge: SKIPPED; cubic · AI code reviewer: NEUTRAL; Sourcery review: SKIPPED (not counted as green)."
 body: ""
