@@ -62,6 +62,8 @@ test('every CI and release runtime setup pins exact versions and release gates p
       assert.ok(setups.length > 0 && setups.every(step => /node-version: \$\{\{ matrix\.node-version \}\}/.test(step)), 'The test job must provision Node from the matrix');
     }
     else {
+      assert.doesNotMatch(workflow, /uses: oven-sh\/setup-bun@|\brun:.*\bbun\b/, 'Privileged jobs must exclude unused Bun execution');
+      assert.match(workflow, /uses: unbraind\/pm-ops\/\.github\/workflows\/daily-release\.yml@[a-f0-9]{40}/u);
       const jobs = workflow.split(/(?=^  [a-z_]+:\s*$)/m).slice(1);
       for (const job of jobs) {
         if (/^  (?:prepare|verify_bun):/.test(job)) assert.match(job, /uses: oven-sh\/setup-bun@/, 'Build and Bun acceptance jobs require Bun');
