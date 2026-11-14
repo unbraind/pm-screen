@@ -2,11 +2,13 @@ id: pm-screen-evidence
 title: Public corpus proof and release certification
 description: ""
 type: Feature
-status: in_progress
+status: closed
 priority: 2
 tags: []
 created_at: "2026-11-06T18:46:56.201Z"
-updated_at: "2026-11-06T19:50:51.874Z"
+updated_at: "2026-11-14T09:00:15.024Z"
+closed_at: "2026-11-14T09:00:14.971Z"
+completed_at: "2026-11-14T09:00:14.971Z"
 author: codex-agent
 acceptance_criteria: Public-only corpus guard; independent mechanical oracle; three candidate sets; 500 seeded sequences; complete coverage and release gates
 parent: pm-screen-delivery
@@ -30,4 +32,5 @@ docs[3]{path,scope}:
   docs/policy-examples.md,project
   docs/real-data-receipt.json,project
   docs/real-data.md,project
+close_reason: "https://github.com/unbraind/pm-screen/pull/1 merged 2026-11-08T19:45:38Z; merge SHA 8e08769f502809c8e986b9849bde1d97730130e1; PR head 7ff5d6b4eea02fc40f73ea4bc2c4eae64a771b6a. Delivered: Public-only corpus guard, independent mechanical oracle, three candidate sets, 500 seeded sequences and complete source coverage. Green at that head: test (22.19.0), codeql, test (26.0.0), CodeQL, CodeRabbit. Other check outcomes: enable-auto-merge: SKIPPED; cubic · AI code reviewer: NEUTRAL; Sourcery review: SKIPPED (not counted as green)."
 body: ""

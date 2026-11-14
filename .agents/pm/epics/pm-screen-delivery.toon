@@ -2,11 +2,13 @@ id: pm-screen-delivery
 title: Durable evidence screening first release
 description: Implement companion specification pm-cli-website-u21s using native SDK records and exact eligibility accounting.
 type: Epic
-status: in_progress
+status: closed
 priority: 2
 tags[1]: "gh:unbraind/pm-screen#1"
 created_at: "2026-11-06T18:46:49.805Z"
-updated_at: "2026-11-08T19:30:09.869Z"
+updated_at: "2026-11-14T09:00:11.907Z"
+closed_at: "2026-11-14T09:00:11.850Z"
+completed_at: "2026-11-14T09:00:11.850Z"
 author: codex-agent
 acceptance_criteria: Seven CLI and SDK operations; replay-safe native CAS; public corpus evidence; complete release gates
 comments[25]{created_at,author,text}:
@@ -162,4 +164,5 @@ docs[5]{path,scope}:
   docs/real-data.md,project
   docs/review-status.md,project
   README.md,project
+close_reason: "https://github.com/unbraind/pm-screen/pull/1 merged 2026-11-08T19:45:38Z; merge SHA 8e08769f502809c8e986b9849bde1d97730130e1; PR head 7ff5d6b4eea02fc40f73ea4bc2c4eae64a771b6a. Delivered: Seven native CLI/SDK operations, replay-safe CAS, exact eligibility accounting, public corpus evidence and complete release gates. Green at that head: test (22.19.0), codeql, test (26.0.0), CodeQL, CodeRabbit. Other check outcomes: enable-auto-merge: SKIPPED; cubic · AI code reviewer: NEUTRAL; Sourcery review: SKIPPED (not counted as green)."
 body: ""
