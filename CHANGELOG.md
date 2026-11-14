@@ -14,6 +14,6 @@
 
 ### Other
 
+- Close delivered items and return idle in-progress items to open (2026-11-14 sweep) ([pm-screen-sweep-1114](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/chores/pm-screen-sweep-1114.toon))
 - Durable evidence screening first release ([pm-screen-delivery](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/epics/pm-screen-delivery.toon))
 - Keep required CI check names stable under exact Node pins ([pm-screen-31bz](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/tasks/pm-screen-31bz.toon))
-- Close delivered items and return idle in-progress items to open (2026-11-14 sweep) ([pm-screen-sweep-1114](https://github.com/unbraind/pm-screen/blob/main/.agents/pm/chores/pm-screen-sweep-1114.toon))
