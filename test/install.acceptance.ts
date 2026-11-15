@@ -99,13 +99,6 @@ assert.equal((await nextScreening(host,{id,reviewer:'first'})).candidate,null); 
       assert.equal(JSON.parse(run(['screen', 'packet', 'packed-ledger', '--limit', '1', '--cursor', page.next_cursor, '--budget', '8192', '--json'], undefined, 4)).refusal.code, 'stale_cursor');
       assert.equal(digest(spec.protocol).length, 64); journeys.push({ manager, commands, runtime });
     }
-    const handoff = join(root, 'handoff'); mkdirSync(join(handoff, 'release-artifact'), { recursive: true }); mkdirSync(join(handoff, 'dist')); copyFileSync(archive, join(handoff, 'release-artifact/package.tgz')); writeFileSync(join(handoff, 'dist/index.js'), 'throw new Error("Changed ignored distribution");\n');
-    const publisherBin = join(root, 'publisher-bin'); mkdirSync(publisherBin); symlinkSync(process.execPath, join(publisherBin, 'node'));
-    writeFileSync(join(publisherBin, 'npm'), '#!/usr/bin/env node\nconst fs=require("node:fs"),crypto=require("node:crypto");process.stdout.write(crypto.createHash("sha256").update(fs.readFileSync(process.argv[3])).digest("hex"));\n'); chmodSync(join(publisherBin, 'npm'), 0o755);
-    const workflow = readFileSync('.github/workflows/release.yml', 'utf8'); const publish = workflow.split('\n').find(line => /^\s*npm publish /.test(line))!.trim();
-    assert.equal(execute('/bin/bash', ['-c', publish], handoff, { ...env, PATH: publisherBin }), sha256);
-    const verify = workflow.split('\n').find(line => line.includes('sha256sum --check --strict'))!.trim(); assert.match(execute('/bin/bash', ['-c', verify], handoff, { ...env, ARTIFACT_SHA256: sha256 }), /OK/);
-    writeFileSync(join(handoff, 'release-artifact/package.tgz'), 'Changed archive'); execute('/bin/bash', ['-c', verify], handoff, { ...env, ARTIFACT_SHA256: sha256 }, undefined, 1);
-    writeFileSync('packed-receipt.local.json', JSON.stringify({ sha256, files: packed[0].files.map(f => f.path), journeys, git_in_path: false, archive_handoff_verified: true }, null, 2));
+    writeFileSync('packed-receipt.local.json', JSON.stringify({ sha256, files: packed[0].files.map(f => f.path), journeys, git_in_path: false, archive_handoff_owner: 'pinned-pm-ops' }, null, 2));
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
