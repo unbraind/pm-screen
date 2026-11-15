@@ -86,6 +86,7 @@ jobs:
           ./node_modules/.bin/pm health --strict-exit
           npm run identity:check
           npm run changelog:check
+          npm run verify:release-publish-attestation
           npm run build
           npm run pack:dry-run
           node --test test/identity.test.ts test/privacy-policy.test.ts test/corpus-privacy.test.ts test/audit.test.ts test/real-data.test.ts

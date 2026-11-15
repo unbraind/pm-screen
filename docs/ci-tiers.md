@@ -10,13 +10,13 @@ hosted job to 30 minutes. The runtime pins remain Node 22.19.0 and 26.0.0.
 | Strict pm health | — | — | yes | authoritative health in gates |
 | Commit identity / tracked private paths | — | yes | yes | npm + Bun gates |
 | Build / test typecheck | yes | yes | build for docs/package tests | npm + Bun gates |
-| Unit, concurrency, SDK and model tests | quick | quick coverage | applicable privacy/docs tests | full, npm + Bun gates |
+| Unit, concurrency, SDK and model tests | quick | quick coverage | applicable privacy/docs tests | full Node suite, npm + Bun launchers |
 | Lint, duplication, docstrings | — | yes | — | npm + Bun gates |
-| Coverage: 100% statements/branches/functions/lines | — | quick | — | full, npm + Bun gates |
+| Coverage: 100% statements/branches/functions/lines | — | quick | — | full Node suite, npm + Bun launchers |
 | Production dependency audit | — | yes | — | npm + Bun gates |
 | Package public file allowlist | — | yes | yes | npm + Bun gates |
 | Changelog consistency | — | yes | yes | npm + Bun gates |
-| Publish attestation verification | — | yes | — | npm + Bun gates |
+| Publish attestation verification | — | yes | yes | npm + Bun gates |
 | Packed npm/Bun/npx/bunx consumer acceptance | — | yes | — | npm + Bun gates |
 | Behavioral revert proofs | — | yes | — | npm + Bun gates |
 | Bun dependency graph install smoke | — | yes | — | yes |
@@ -24,8 +24,9 @@ hosted job to 30 minutes. The runtime pins remain Node 22.19.0 and 26.0.0.
 | CodeQL | separate required workflow on every PR/main push and weekly Monday 01:47 UTC | same | same | same |
 
 Deep runs on main pushes, dispatch and nightly at 02:31 UTC, separate from
-release (05:37 UTC plus the hourly :41 recovery cron). Checks `deep (22)` and
-`deep (26)` run both complete npm and Bun release gates with full depth and
+release (05:37 UTC plus the hourly :41 recovery cron). Checks `deep (22, npm)`,
+`deep (22, bun)`, `deep (26, npm)` and `deep (26, bun)` each run one complete
+release gate with full depth and
 `PM_TEST_TIME_SCALE=3`. Jobs use the `pm-local` pool unless `PM_LOCAL_DEEP=off`,
 then GitHub-hosted runners; per-ref concurrency cancels superseded runs and each
 job has a 120-minute limit. Local npm uses its persistent cache, local Bun is
@@ -40,7 +41,7 @@ remains 100% in all four dimensions without exclusions.
 
 Docs/tracker detection compares NUL-delimited PR base/head paths with renames
 disabled. Executable tracker files select the code tier. The cheap path retains
-identity/private-path and corpus-privacy checks, README assertions, real-data
+identity/private-path and corpus-privacy checks, publish attestation, README assertions, real-data
 receipt/policy tests and the package allowlist because they read public documents.
 It builds the package to make these checks meaningful. CodeQL is required and
 has no path filters. The packed acceptance already installs using npm and Bun
@@ -55,4 +56,12 @@ certifies it after merge. Local quick coverage passed 87/87 tests in 354.52s of 
 100% thresholds; the model took 52.18s under contention. These measurements
 are not directly comparable with hosted full-depth timings. Existing release
 packed-install and revert-proof scripts retain their original budgets and remain untouched.
+The Bun matrix leg invokes `bun run release:check` as a launcher. That script
+calls `npm run`, and its test and coverage commands explicitly start Node.
+Consequently, both launcher legs prove the full Node suite and Node coverage;
+they do not prove that the unit suite or coverage collector runs under Bun.
+Bun evidence comes from the dependency-graph install smoke and the packed
+Bun install and bunx consumer acceptance within the release gate. Splitting
+launchers into four jobs also gives each full gate its own 120-minute budget.
+
 New PR timing is recorded in the task and PR body.

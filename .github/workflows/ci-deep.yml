@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   deep:
-    name: deep (${{ matrix.major }})
+    name: deep (${{ matrix.major }}, ${{ matrix.package-manager }})
     runs-on: ${{ vars.PM_LOCAL_DEEP != 'off' && fromJSON('["self-hosted","pm-local"]') || 'ubuntu-latest' }}
     timeout-minutes: 120
     env:
@@ -25,8 +25,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        package-manager: [npm, bun]
         # 22 is the floor declared in `engines` and the first line that strips
         # TypeScript without a flag; 26 is what the fleet develops against.
+        node-version: ['22.19.0', '26.0.0']
         include:
           - node-version: '22.19.0'
             major: 22
@@ -58,11 +60,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Full npm release gate
+      - name: Full Node release gate through npm
+        if: matrix.package-manager == 'npm'
         run: npm run release:check
 
-      - name: Full Bun release gate
+      # Bun launches the scripts; their explicit node commands run tests/coverage on Node.
+      - name: Full Node release gate through Bun launcher
+        if: matrix.package-manager == 'bun'
         run: bun run release:check
 
       - name: Bun package graph smoke
+        if: matrix.package-manager == 'bun'
         run: bun install --no-save
