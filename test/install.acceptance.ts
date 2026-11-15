@@ -1,3 +1,4 @@
+import { testTime } from './support/depth.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync, readFileSync, copyFileSync, chmodSync } from 'node:fs';
@@ -14,7 +15,7 @@ import { digest } from '../dist/index.js';
 /** Execute a bounded, credential-free consumer process and assert its real exit code. */
 function execute(executable: string, args: string[], cwd: string, env: NodeJS.ProcessEnv, input?: string, expected = 0): string {
   const command = isAbsolute(executable) ? executable : locateTool(executable, commandPath(env));
-  const result = spawnSync(command, args, { cwd, env, input, shell: commandShell(command), encoding: 'utf8', timeout: 180000, maxBuffer: 4 * 1024 * 1024 });
+  const result = spawnSync(command, args, { cwd, env, input, shell: commandShell(command), encoding: 'utf8', timeout: testTime(180000), maxBuffer: 4 * 1024 * 1024 });
   assert.equal(result.status, expected, `${executable} ${args.slice(0, 4).join(' ')}: ${result.stderr.slice(-1500)} ${result.stdout.slice(-1500)}`); return result.stdout || result.stderr;
 }
 

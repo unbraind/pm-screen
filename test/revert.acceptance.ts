@@ -1,3 +1,4 @@
+import { testTime } from './support/depth.ts';
 import assert from 'node:assert/strict';
 import { mkdtempSync, cpSync, symlinkSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -8,7 +9,7 @@ import { mutations } from './revert-mutations.ts';
 import { npmEnvironment } from '../scripts/environment.ts';
 const root = mkdtempSync(join(tmpdir(), 'screen-revert-')); const env = npmEnvironment(process.env); const receipts = [];
 /** Run only in the disposable copy; all mutations are restored in finally. */
-function execute(args: string[]) { return spawnSync(process.execPath, args, { cwd: root, env, encoding: 'utf8', timeout: 120000, maxBuffer: 4 * 1024 * 1024 }); }
+function execute(args: string[]) { return spawnSync(process.execPath, args, { cwd: root, env, encoding: 'utf8', timeout: testTime(120000), maxBuffer: 4 * 1024 * 1024 }); }
 
 try {
   for (const path of ['src', 'index.ts', 'package.json', 'tsconfig.json']) cpSync(path, join(root, path), { recursive: true }); mkdirSync(join(root, 'test'));
