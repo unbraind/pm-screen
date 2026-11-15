@@ -1,3 +1,4 @@
+import { testTime } from './support/depth.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, cpSync, readFileSync, writeFileSync, rmSync, chmodSync, symlinkSync } from 'node:fs';
@@ -20,7 +21,7 @@ for (const rows of [10, 11]) test(`corpus measurement derives ${rows} agreements
     writeFileSync(join(root, 'test/fixtures/expected-decisions.json'), JSON.stringify(gold));
     const receipt = join(root, 'docs/real-data-receipt.json'); const before = readFileSync(receipt, 'utf8');
     const code = `import {evaluateCorpus} from ${JSON.stringify(new URL('./corpus.ts', import.meta.url).href)}; console.log(JSON.stringify(await Reflect.apply(evaluateCorpus, undefined, [true])));`;
-    const run = spawnSync(process.execPath, ['--input-type=module', '-e', code], { cwd: root, env: testEnvironment(npmEnvironment(process.env)), encoding: 'utf8', timeout: 180000 });
+    const run = spawnSync(process.execPath, ['--input-type=module', '-e', code], { cwd: root, env: testEnvironment(npmEnvironment(process.env)), encoding: 'utf8', timeout: testTime(180000) });
     assert.equal(run.status, 0, run.stdout + run.stderr); const measured = JSON.parse(run.stdout);
     assert.equal(measured.mechanical_agreement, `${rows}/${rows} explicit submitted vectors and independent ID decisions`, 'Agreement must count the evaluated corpus');
     assert.equal(measured.corpus[0].candidates, rows); assert.equal(readFileSync(receipt, 'utf8'), before, 'Evaluation must never overwrite the complete receipt');

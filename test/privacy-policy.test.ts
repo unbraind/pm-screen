@@ -1,3 +1,4 @@
+import { testTime } from './support/depth.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, symlinkSync, rmSync } from 'node:fs';
@@ -32,7 +33,7 @@ test('home resolution covers symlink targets and unavailable directories without
   const root = mkdtempSync(join(tmpdir(), 'screen-home-'));
   try { const target = join(root, 'target'); mkdirSync(target); const alias = join(root, 'alias'); symlinkSync(target, alias, 'dir'); assert.equal(resolvedHome(alias), target);
     const code = `import assert from 'node:assert/strict'; import {guardSubmitted} from ${JSON.stringify(new URL('../dist/src/privacy.js', import.meta.url).href)}; for (const path of ${JSON.stringify([alias, target])}) for (const dots of ['', '...']) assert.throws(() => guardSubmitted(path + dots), /Private paths/);`;
-    const run = spawnSync(process.execPath, ['--input-type=module', '-e', code], { env: { ...testEnvironment(npmEnvironment(process.env)), HOME: alias }, encoding: 'utf8', timeout: 30000 });
+    const run = spawnSync(process.execPath, ['--input-type=module', '-e', code], { env: { ...testEnvironment(npmEnvironment(process.env)), HOME: alias }, encoding: 'utf8', timeout: testTime(30000) });
     assert.equal(run.status, 0, 'Resolved home paths must classify as private: ' + run.stderr);
     const missing = join(root, 'missing'); assert.equal(resolvedHome(missing), missing); } finally { rmSync(root, { recursive: true, force: true }); }
 });

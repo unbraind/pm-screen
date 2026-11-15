@@ -1,3 +1,4 @@
+import { testDepth } from './support/depth.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createScreening, assessCandidate, resolveScreening, readScreening, screeningReport } from '../dist/index.js';
@@ -14,13 +15,13 @@ export function oracle(values: Vector) { return eligibility[`${values.find(v => 
 /** Seeded generator with deterministic high-bit mixing, independent of package code. */
 function random(seed: number) { let state = seed >>> 0; return (max: number) => { state ^= state << 13; state ^= state >>> 17; state ^= state << 5; return (state >>> 0) % max; }; }
 
-test('500 seeded operation sequences agree with independent maps and real SDK read-back', async t => {
+test('seeded operation sequences agree with independent maps and real SDK read-back', async t => {
   const { host, native, birth, pmRoot } = await fixture(t, false); const rand = random(0x51ce2026); const values = ['met', 'not_met', 'unknown'] as const;
   let predecessor: { item_id: string; item_hash: string } | undefined; let sequences = 0; let accepted = 0; let refused = 0; let replays = 0;
-  for (let partition = 0; sequences < 500; partition++) {
+  for (let partition = 0; sequences < testDepth(500); partition++) {
     const id = `corpus-model-${partition}`; await createScreening(host, { ...birth, ...definition(4, ['first', 'second']), id, ...(predecessor ? { predecessor } : {}) });
     const expected = new Map<string, Vector>(); const resolved = new Map<string, Vector>(); const recorded: AssessCandidateInput[] = []; const originalRevision = (await readScreening(host, id)).revision;
-    for (let local = 0; local < 32 && sequences < 500; local++, sequences++) {
+    for (let local = 0; local < 32 && sequences < testDepth(500); local++, sequences++) {
       const key = `candidate-${rand(4)}`; const reviewer = rand(2) === 0 ? 'first' : 'second'; const slot = `${key}/${reviewer}`; const operation = rand(6);
       const before = await readScreening(host, id); const history = await historyEvents(pmRoot, id); let changed = false;
       const input = await request(host, id, key, reviewer, `sequence-${sequences}`, vector(values[rand(3)], values[rand(3)]));
@@ -63,5 +64,5 @@ test('500 seeded operation sequences agree with independent maps and real SDK re
     }
     predecessor = { item_id: id, item_hash: (await readScreening(host, id)).revision };
   }
-  assert.equal(sequences, 500); t.diagnostic(JSON.stringify({ seed: '51ce2026', sequences, accepted, refused, replays, native_reads_verified: 500, relationships_verified: 500 }));
+  assert.equal(sequences, testDepth(500)); t.diagnostic(JSON.stringify({ seed: '51ce2026', sequences, accepted, refused, replays, native_reads_verified: sequences, relationships_verified: sequences }));
 });
