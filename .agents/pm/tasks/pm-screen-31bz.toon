@@ -1,17 +1,15 @@
 id: pm-screen-31bz
-title: Keep required CI check names stable under exact Node pins
+title: Preserve required checks while splitting quick PR and full deep CI
 description: "Branch protection requires test (22) and test (26), but the exact-version matrix reports test (22.19.0) and test (26.0.0), so every pull request stays BLOCKED with all checks green (Dependabot 2 and 3 included)."
 type: Task
 status: in_progress
 priority: 1
 tags[3]: branch-protection,ci,performance
 created_at: "2026-11-09T10:24:34.931Z"
-updated_at: "2026-11-15T14:53:31.656Z"
-assignee: codex-sol
-claim_principal: codex-sol
+updated_at: "2026-11-15T15:06:19.008Z"
 author: "harness:claude-code"
-acceptance_criteria: The test job reports test (22) and test (26); the audit test requires exactly 22.19.0 and 26.0.0 and the major-only job name; mutating a major fails it.
-comments[7]{created_at,author,text}:
+acceptance_criteria: The test job reports test (22) and test (26); the audit test requires exactly 22.19.0 and 26.0.0 and the major-only job name; mutating a major fails it.; Required PR check names remain unchanged and every original gate runs in a documented tier
+comments[12]{created_at,author,text}:
   "2026-11-09T10:24:42.378Z","harness:claude-code",audit.test.ts 4/4 with the include matrix; mutating major 26 to 25 fails 1. Same fix as pm-case a56d4b5 (pm-case#1 was BLOCKED the same way).
   "2026-11-09T12:40:52.923Z","harness:claude-code","CodeRabbit PRRT_kwDOVll0Ws61QETs and PRRT_kwDOVll0Ws61QET1: the audit now requires CI setup-node to use matrix.node-version (release jobs may still pin the floor), and checks the test job's own name key instead of matching anywhere in the file. Mutations: a fixed 22.19.0 in CI setup-node fails 1, and moving the right name into a comment while the job uses the patch version fails 1; restored 4/4."
   "2026-11-09T13:41:57.499Z","harness:claude-code","CodeRabbit PRRT_kwDOVll0Ws61RYA4 and PRRT_kwDOVll0Ws61RYBC: every CI assertion now reads the test job's own block (name, matrix include, setup-node), and the job must contain at least one setup-node step that uses matrix.node-version. Mutations: removing the setup-node step fails 1; moving the right matrix text into a comment outside the job while the job pins 26.1.0 fails 1; restored 4/4."
@@ -19,10 +17,16 @@ comments[7]{created_at,author,text}:
   "2026-11-15T14:50:42.139Z",codex-sol,"Reusing the required-check CI task for Fleet CI v2, companion pm-cli-website-dyhg. Preserve exact runtime pins and required names; move exhaustive npm/Bun gates to main/nightly deep checks. CodeQL is required and remains unfiltered. Docs/tracker changes retain identity, privacy, README, package allowlist, changelog and authoritative health checks. Keep release workflow and verifiers untouched."
   "2026-11-15T14:52:45.310Z",codex-sol,"Baseline main run 43656673307: test (22) wall 56m25s, execution 2m42s; test (26) wall 78m06s, execution 14m19s. Downloaded complete logs: model 500 sequences 30.68-50.39s, packed acceptance 110.28-134.14s. Quick uses the deterministic 50-operation prefix. All scaled uses are spawnSync harness deadlines, validated and rounded before spawn; no product budgets are scaled. Typecheck/lint and strict workflow YAML parsing passed; actionlint unavailable. Full depth not run locally."
   "2026-11-15T14:53:31.654Z",codex-sol,"Local health exposed host-global pm-github 2026.11.14 versus this package SDK 2026.11.10, plus clone-local merge-driver configuration. No dependency or release changes are needed for CI's clean home. Docs CI installs clone-local merge drivers before strict health. Local SDK health is not claimed green in this shared environment."
-files[4]{path,scope}:
+  "2026-11-15T14:55:31.599Z",codex-sol,"Quick coverage first run: 86/87 tests passed in 119.4s; the SDK health fixture failed under pm test schema PM_PATH injection. Direct workflow test passes 3/3. Rerun linked coverage with pm-context none so fixture trackers use their own roots, matching CI. Quick model itself passed 50 sequences in 24.32s (11 accepted, 34 refused, 5 replays)."
+  "2026-11-15T14:56:52.371Z",codex-sol,"Reopening and enriching the existing CI task changes its unreleased changelog entry. Regenerating the tracked changelog rather than weakening changelog:check. pm-context none is refused for a source workspace by the CLI, so the coverage retry runs directly; linked test commands and the refusal remain documented."
+  "2026-11-15T15:02:39.011Z",codex-sol,"Direct quick coverage passed all 87 tests with exactly 100% statements, branches, functions and lines across all nine production files. Initial linked failure was pm schema-test context, not missing late-seed coverage. Full depth was not run locally. PR 14 CI and required CodeQL remain queued; no completed PR wall time is available."
+  "2026-11-15T15:03:33.466Z",codex-sol,"Final scope correction: leave behavioral release revert-proof scripts unchanged under the owner's release-verifier boundary. Stopped their redundant local probe; they still run unmodified in the Node 26 PR gate and both deep gates. Direct quick coverage passed 87/87 in 354.52s suite time (model 52.18s), exactly 100% all four dimensions. No same-host full run was performed."
+  "2026-11-15T15:06:17.884Z",codex-sol,"Final minimal diff leaves packed-install and behavioral revert acceptance files byte-identical to main. Redundant long local acceptance probes were stopped; no pass is claimed for them. Changed unit suites are covered by the passing direct 87-test quick coverage run. Existing acceptance remains required in the PR Node 26 and deep gates. No product flaky failure found: changes address repeated CI gates and harness deadlines. CodeQL/CI are queued and are not awaited."
+files[5]{path,scope}:
   .github/workflows/ci-deep.yml,project
   .github/workflows/ci.yml,project
   test/audit.test.ts,project
+  test/depth.test.ts,project
   test/support/depth.ts,project
 tests[3]:
   - command: node --test test/audit.test.ts

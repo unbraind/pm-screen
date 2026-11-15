@@ -34,7 +34,7 @@ preinstalled and its version is logged. Release workflows/verifiers are unchange
 Only repetitive model sequences shrink: quick runs the first 50 of the same
 500 operations with the same generator and assertions. Unset depth means full.
 Large privacy/receipt fixtures test product boundaries and remain unchanged.
-Harness child-process timeouts scale with finite positive factors, rounded up to
+Changed unit-suite harness child-process timeouts scale with finite positive factors, rounded up to
 integer milliseconds before spawn; product budgets are unchanged. Coverage policy
 remains 100% in all four dimensions without exclusions.
 
@@ -51,4 +51,8 @@ were 56m25s (22) and 78m06s (26); execution was 2m42s and 14m19s. Logs show
 full 500-operation model runs at 30.68–50.39s and packed acceptance at
 110.28–134.14s. These are historical hosted measurements, not a same-host
 quick/full benchmark. Full depth is intentionally not run locally; deep CI
-certifies it after merge. New PR timing is recorded in the task and PR body.
+certifies it after merge. Local quick coverage passed 87/87 tests in 354.52s of suite time at unchanged
+100% thresholds; the model took 52.18s under contention. These measurements
+are not directly comparable with hosted full-depth timings. Existing release
+packed-install and revert-proof scripts retain their original budgets and remain untouched.
+New PR timing is recorded in the task and PR body.

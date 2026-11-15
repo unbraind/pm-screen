@@ -1,4 +1,3 @@
-import { testTime } from './support/depth.ts';
 import assert from 'node:assert/strict';
 import { mkdtempSync, cpSync, symlinkSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -9,7 +8,7 @@ import { npmEnvironment, testEnvironment } from '../scripts/environment.ts';
 const root = mkdtempSync(join(tmpdir(), 'screen-review-revert-'));
 const env = testEnvironment(npmEnvironment(process.env)); const receipts = [];
 /** Execute each proof with bounded workers in the disposable copy, never the reviewed checkout. */
-function execute(args: string[]) { return spawnSync(process.execPath, args, { cwd: root, env, encoding: 'utf8', timeout: testTime(300000), maxBuffer: 4 * 1024 * 1024 }); }
+function execute(args: string[]) { return spawnSync(process.execPath, args, { cwd: root, env, encoding: 'utf8', timeout: 300000, maxBuffer: 4 * 1024 * 1024 }); }
 const attribution = "const recorder = KeySchema.safeParse(host.author);\n    insist(recorder.success, 'invalid_input', 'Recorder attribution requires a compatible key', 'Select an author key of 1-96 ASCII letters, digits, underscores, periods, colons or hyphens, starting with a letter or digit; reserved prototype names are forbidden');\n    const state = structuredClone(snapshot.state); const result = apply(state, normalized, parse(KeySchema, recorder.data));";
 const recorded = JSON.parse(readFileSync('docs/real-data-receipt.json', 'utf8')) as { corpus: { candidates: number; all_packet_bytes: number; completeness_receipt: { source_manifest_digest: string } }[]; synthetic_controls: { changed_sources: number } };
 /** Mutate a measured receipt field without baking fixture-specific counts into the proof. */
