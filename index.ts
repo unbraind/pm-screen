@@ -1,7 +1,7 @@
 import { defineExtension } from '@unbrained/pm-cli/sdk/authoring';
 import { register } from './src/commands.ts';
 /** Native screening extension contributes commands, schema and inert renderers. */
-const extension = defineExtension({ name: 'pm-screen', version: '2026.11.6', description: 'Durable evidence selection and exact attrition', activate: register });
+const extension = defineExtension({ name: 'pm-screen', version: "2026.11.6", description: 'Durable evidence selection and exact attrition', activate: register });
 /** Load through the native pm extension host. */
 export default extension;
 /** Authorized lifecycle operations shared by agents and CLI. */
