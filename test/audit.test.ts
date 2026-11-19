@@ -75,12 +75,13 @@ test('every CI and release runtime setup pins exact versions and release gates p
   const source = readFileSync('README.md', 'utf8').replaceAll('\r\n', '\n');
   for (const fixture of [source, source.replaceAll('\n', '\r\n')]) {
     const readme = fixture.replaceAll('\r\n', '\n');
-    const blocks = [...readme.matchAll(/```sh\n([\s\S]*?)```/g)].map(match => match[1].trim().split('\n'));
+    const blocks = [...readme.matchAll(/```sh\n([\s\S]*?)```/g)].map(match => match[1].trim().split('\n').map(line => line.trimStart()));
     for (const command of ['npm install', 'bun add']) {
       const install = `${command} "$archive" @unbrained/pm-cli`;
       const block = blocks.find(lines => lines.includes(install));
       assert.ok(block, `The README must document the ${command} archive path`);
       assert.deepEqual(block.slice(0, block.indexOf(install)), [
+        '(',
         'npm ci',
         'tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1',
         'archive="$(pwd)/$tarball"',
@@ -96,7 +97,7 @@ test('documented archive installs stop before installation when packing fails or
   const readme = readFileSync('README.md', 'utf8').replaceAll('\r\n', '\n');
   const blocks = [...readme.matchAll(/^```sh\n([\s\S]*?)^```$/gm)]
     .map(match => match[1])
-    .filter(block => /^tarball=|^(?:npm install|bun add) "\$archive"/m.test(block));
+    .filter(block => /^[ \t]*(?:tarball=|(?:npm install|bun add) "\$archive")/m.test(block));
   assert.ok(blocks.length > 0, 'The README must document an archive installation');
   const source = mkdtempSync(join(tmpdir(), 'readme-pack-'));
   t.after(() => rmSync(source, { recursive: true, force: true }));
@@ -125,14 +126,16 @@ mkdir() { printf 'mkdir\n' >&2; return 90; }
 mktemp() { printf 'mktemp\n' >&2; return 90; }
 `;
   for (const block of blocks) {
+    assert.match(block.trim(), /^\(\n[\s\S]*\n\)$/, 'The archive install must run in a subshell');
     for (const packResult of ['failed', 'empty', 'missing']) {
-      const result = spawnSync('sh', ['-c', `${stubs}\n${block}`, 'readme-pack', packResult], {
+      const result = spawnSync('sh', ['-c', `${stubs}\n${block}\nprintf 'shell continued: %s\\n' "$?"`, 'readme-pack', packResult], {
         cwd: source,
         encoding: 'utf8',
       });
       assert.ifError(result.error);
       assert.equal(result.stderr, 'pack\n', `${packResult}: only packing should run\n${block}`);
-      assert.equal(result.status, 1, `${packResult}: the snippet must exit with a failure`);
+      assert.equal(result.status, 0, `${packResult}: the calling shell must continue`);
+      assert.equal(result.stdout, 'shell continued: 1\n', `${packResult}: the snippet must return a failure`);
     }
   }
 });

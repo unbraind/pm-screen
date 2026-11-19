@@ -18,27 +18,31 @@ npx --no-install pm screen --help
 To evaluate a source commit, start in the checkout. Choose npm or Bun to pack and install it in a fresh consumer directory.
 
 ```sh
-npm ci
-tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
-archive="$(pwd)/$tarball"
-consumer=$(mktemp -d -t pm-screen.XXXXXX)
-cd "$consumer"
-npm install "$archive" @unbrained/pm-cli
-npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
-npx --no-install pm package install ./node_modules/pm-screen
-npx --no-install pm screen --help
+(
+  npm ci
+  tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
+  archive="$(pwd)/$tarball"
+  consumer=$(mktemp -d -t pm-screen.XXXXXX)
+  cd "$consumer"
+  npm install "$archive" @unbrained/pm-cli
+  npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
+  npx --no-install pm package install ./node_modules/pm-screen
+  npx --no-install pm screen --help
+)
 ```
 
 ```sh
-npm ci
-tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
-archive="$(pwd)/$tarball"
-consumer=$(mktemp -d -t pm-screen.XXXXXX)
-cd "$consumer"
-bun add "$archive" @unbrained/pm-cli
-bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
-bunx --bun --no-install pm package install ./node_modules/pm-screen
-bunx --bun --no-install pm screen --help
+(
+  npm ci
+  tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
+  archive="$(pwd)/$tarball"
+  consumer=$(mktemp -d -t pm-screen.XXXXXX)
+  cd "$consumer"
+  bun add "$archive" @unbrained/pm-cli
+  bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
+  bunx --bun --no-install pm package install ./node_modules/pm-screen
+  bunx --bun --no-install pm screen --help
+)
 ```
 
 For an existing tracker, skip initialization. Use `pm package install npm:pm-screen` to install and activate the registry version in that tracker. Node >=22.19 and native Bun are supported. Development and acceptance use SDK 2026.11.5.
