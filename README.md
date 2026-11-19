@@ -2,32 +2,46 @@
 
 Evidence selection is context. An agent may remember five useful results but forget which other candidates it considered, why it excluded them, or which sources it could not assess. `pm-screen` preserves that selection protocol and every disposition in native pm items, so another agent can resume from explicit reasons and unknowns.
 
-This is an unpublished first-release candidate. Create the local archive before installing this candidate. Maintainer protocol approval and a second independent corpus reviewer remain outstanding; the implementation does not claim either.
+Maintainer protocol approval and a second independent corpus reviewer remain outstanding.
 
 ## Install
 
-In a source checkout, build the archive into a consumer directory first, then choose either npm or Bun below.
+Install from the npm registry in a fresh project, then activate the extension.
+
+```sh
+npm install pm-screen @unbrained/pm-cli
+npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
+npx --no-install pm package install ./node_modules/pm-screen
+npx --no-install pm screen --help
+```
+
+To evaluate a source commit, start in the checkout. Choose npm or Bun to pack and install it in a fresh consumer directory.
 
 ```sh
 npm ci
-mkdir -p ../screen-consumer
-npm pack --pack-destination ../screen-consumer
-cd ../screen-consumer
-```
-
-```sh
-npm install ./pm-screen-2026.11.6.tgz @unbrained/pm-cli
+tarball=$(npm pack --silent)
+archive="$(pwd)/$tarball"
+consumer=$(mktemp -d -t pm-screen.XXXXXX)
+cd "$consumer"
+npm install "$archive" @unbrained/pm-cli
 npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
 npx --no-install pm package install ./node_modules/pm-screen
+npx --no-install pm screen --help
 ```
 
 ```sh
-bun add ./pm-screen-2026.11.6.tgz @unbrained/pm-cli
+npm ci
+tarball=$(npm pack --silent)
+archive="$(pwd)/$tarball"
+consumer=$(mktemp -d -t pm-screen.XXXXXX)
+cd "$consumer"
+bun add "$archive" @unbrained/pm-cli
 bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
 bunx --bun --no-install pm package install ./node_modules/pm-screen
+bunx --bun --no-install pm screen --help
 ```
 
-For an existing tracker, skip initialization and register the installed archive with `pm package install ./node_modules/pm-screen`. After publication, `pm package install npm:pm-screen` is also available. Run `pm screen --help`, `npx --no-install pm screen --help`, or `bunx --bun --no-install pm screen --help`. Node >=22.19 and native Bun are supported; development and acceptance use SDK 2026.11.5.
+For an existing tracker, skip initialization. Use `pm package install npm:pm-screen` to install and activate the registry version in that tracker. Node >=22.19 and native Bun are supported. Development and acceptance use SDK 2026.11.5.
 
 ## Commands
 

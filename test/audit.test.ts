@@ -72,6 +72,19 @@ test('every CI and release runtime setup pins exact versions and release gates p
       }
     }
   }
-  const readme = readFileSync('README.md', 'utf8'); assert.ok(readme.indexOf('npm pack') < readme.indexOf('npm install ./pm-screen-'));
+  const readme = readFileSync('README.md', 'utf8');
+  const blocks = [...readme.matchAll(/```sh\n([\s\S]*?)```/g)].map(match => match[1].trim().split('\n'));
+  for (const command of ['npm install', 'bun add']) {
+    const install = `${command} "$archive" @unbrained/pm-cli`;
+    const block = blocks.find(lines => lines.includes(install));
+    assert.ok(block, `The README must document the ${command} archive path`);
+    assert.deepEqual(block.slice(0, block.indexOf(install)), [
+      'npm ci',
+      'tarball=$(npm pack --silent)',
+      'archive="$(pwd)/$tarball"',
+      'consumer=$(mktemp -d -t pm-screen.XXXXXX)',
+      'cd "$consumer"',
+    ]);
+  }
   assert.match(readme, /await native.init\('screening'/, 'SDK example must initialize a new tracker');
 });
