@@ -19,7 +19,7 @@ To evaluate a source commit, start in the checkout. Choose npm or Bun to pack an
 
 ```sh
 npm ci
-tarball=$(npm pack --silent)
+tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
 archive="$(pwd)/$tarball"
 consumer=$(mktemp -d -t pm-screen.XXXXXX)
 cd "$consumer"
@@ -31,7 +31,7 @@ npx --no-install pm screen --help
 
 ```sh
 npm ci
-tarball=$(npm pack --silent)
+tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
 archive="$(pwd)/$tarball"
 consumer=$(mktemp -d -t pm-screen.XXXXXX)
 cd "$consumer"
@@ -162,6 +162,11 @@ The frozen evidence covers five open issues from three public repositories, 80 i
 Token estimates are bytes/4 rounded up. Full streams repeat proof context across pages. Ten cold-resume questions use 43,812 bytes versus 4,265,430 for rereading the complete frame plus notes, a 98.97% reduction under that explicit baseline. All conservation equations hold; four tracker candidates remain uncertain.
 
 `npm run release:check` and `bun run release:check` enforce typechecking, lint, zero duplication, export docstrings, exactly 100% statement/branch/function/line coverage over all production sources, production dependency audit, package allowlist, tracker health, identity, changelog, archived-publish attestation, packed consumers and behavioral revert proofs. The seeded model executes 500 operation sequences against real SDK trackers. No SDK mocks or external source services are used by domain tests. Public-corpus acquisition is a separate explicit script with a fixed public-repository allowlist.
+
+Automated npm publication requires the maintainer to configure a GitHub Actions
+[trusted publisher](https://docs.npmjs.com/trusted-publishers/) for this repository
+with workflow filename `release.yml`. `PM_RELEASE_APPROVED=true` gates daily and manual
+releases on `main`. The trusted publisher authorizes the workflow to publish to npm through OIDC.
 
 ## Privacy and exit codes
 
