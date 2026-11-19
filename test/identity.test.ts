@@ -20,7 +20,7 @@ test('identity gate allows public URI paths and refuses actual private paths in 
     writeFileSync(join(root, 'event.json'), JSON.stringify({ pull_request: { base: { sha: '1'.repeat(40) }, head: { sha: '2'.repeat(40) } } }));
     mkdirSync(join(root, '.github')); copyFileSync('.github/approved-git-identities.txt', join(root, '.github/approved-git-identities.txt'));
     writeFileSync(join(root, 'public.txt'), `${publicUri} and ${publicUri.replace('https://', '')} src/home/index.ts components/Users/List.tsx`);
-    for (const args of [['init', '-q'], ['add', '.github/approved-git-identities.txt', 'public.txt'], ['-c', 'user.name=SteveBot', '-c', 'user.email=1153461+unbraind@users.noreply.github.com', 'commit', '-qm', 'Public fixture']]) assert.equal(run('git', args).status, 0);
+    for (const args of [['init', '-q'], ['add', '.github/approved-git-identities.txt', 'public.txt'], ['-c', 'user.name=unbrained', '-c', 'user.email=1153461+unbraind@users.noreply.github.com', 'commit', '-qm', 'Public fixture']]) assert.equal(run('git', args).status, 0);
     const accepted = check(); assert.equal(accepted.status, 0, accepted.stderr);
     for (const path of [...privateCases().filter(path => !['~', '$HOME', '${HOME}', '%USERPROFILE%', '/' + 'home', '/' + 'Users', '/' + 'root'].includes(path)).flatMap(path => [path, path + '...']), '/' + ['home', 'example', 'private'].join('/'), '/' + ['Users', 'example', 'private'].join('/'), '/' + ['root', 'private'].join('/'), 'C:' + String.fromCharCode(92) + ['Users', 'example', 'private'].join(String.fromCharCode(92))]) {
       writeFileSync(join(root, 'public.txt'), `${publicUri} and ${path}`); const refused = check(); assert.equal(refused.status, 1); assert.match(refused.stderr, /Private path policy failed/);
