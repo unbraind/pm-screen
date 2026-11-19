@@ -19,29 +19,39 @@ To evaluate a source commit, start in the checkout. Choose npm or Bun to pack an
 
 ```sh
 (
-  npm ci
+  npm ci || exit 1
   tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
+  packed_version=$(node -p 'require("./package.json").version') || exit 1
   archive="$(pwd)/$tarball"
-  consumer=$(mktemp -d -t pm-screen.XXXXXX)
-  cd "$consumer"
-  npm install "$archive" @unbrained/pm-cli
-  npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
-  npx --no-install pm package install ./node_modules/pm-screen
-  npx --no-install pm screen --help
+  consumer=$(mktemp -d -t pm-screen.XXXXXX) && test -n "$consumer" && cd "$consumer" || exit 1
+  npm install "$archive" @unbrained/pm-cli || exit 1
+  npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence || exit 1
+  npx --no-install pm package install ./node_modules/pm-screen || exit 1
+  npx --no-install pm screen --help || exit 1
+  installed_version=$(node -p 'require("./node_modules/pm-screen/package.json").version') || exit 1
+  test "$installed_version" = "$packed_version" || {
+    printf 'Expected version %s, installed %s.\n' "$packed_version" "$installed_version" >&2
+    exit 1
+  }
 )
 ```
 
 ```sh
 (
-  npm ci
+  npm ci || exit 1
   tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
+  packed_version=$(node -p 'require("./package.json").version') || exit 1
   archive="$(pwd)/$tarball"
-  consumer=$(mktemp -d -t pm-screen.XXXXXX)
-  cd "$consumer"
-  bun add "$archive" @unbrained/pm-cli
-  bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
-  bunx --bun --no-install pm package install ./node_modules/pm-screen
-  bunx --bun --no-install pm screen --help
+  consumer=$(mktemp -d -t pm-screen.XXXXXX) && test -n "$consumer" && cd "$consumer" || exit 1
+  bun add "$archive" @unbrained/pm-cli || exit 1
+  bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence || exit 1
+  bunx --bun --no-install pm package install ./node_modules/pm-screen || exit 1
+  bunx --bun --no-install pm screen --help || exit 1
+  installed_version=$(node -p 'require("./node_modules/pm-screen/package.json").version') || exit 1
+  test "$installed_version" = "$packed_version" || {
+    printf 'Expected version %s, installed %s.\n' "$packed_version" "$installed_version" >&2
+    exit 1
+  }
 )
 ```
 
@@ -169,7 +179,9 @@ Token estimates are bytes/4 rounded up. Full streams repeat proof context across
 
 Automated npm publication requires the maintainer to configure a GitHub Actions
 [trusted publisher](https://docs.npmjs.com/trusted-publishers/) for this repository
-with workflow filename `release.yml`. `PM_RELEASE_APPROVED=true` gates daily and manual
+with workflow filename `release.yml` and select `npm publish` under **Allowed actions**.
+Trusted publishers created after September 3, 2026 default to
+`npm stage publish` only. `PM_RELEASE_APPROVED=true` gates daily and manual
 releases on `main`. The trusted publisher authorizes the workflow to publish to npm through OIDC.
 
 ## Privacy and exit codes
