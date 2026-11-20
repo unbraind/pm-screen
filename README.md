@@ -18,27 +18,41 @@ npx --no-install pm screen --help
 To evaluate a source commit, start in the checkout. Choose npm or Bun to pack and install it in a fresh consumer directory.
 
 ```sh
-npm ci
-tarball=$(npm pack --silent)
-archive="$(pwd)/$tarball"
-consumer=$(mktemp -d -t pm-screen.XXXXXX)
-cd "$consumer"
-npm install "$archive" @unbrained/pm-cli
-npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
-npx --no-install pm package install ./node_modules/pm-screen
-npx --no-install pm screen --help
+(
+  npm ci || exit 1
+  tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
+  packed_version=$(node -p 'require("./package.json").version') || exit 1
+  archive="$(pwd)/$tarball"
+  consumer=$(mktemp -d -t pm-screen.XXXXXX) && test -n "$consumer" && cd "$consumer" || exit 1
+  npm install "$archive" @unbrained/pm-cli || exit 1
+  npx --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence || exit 1
+  npx --no-install pm package install ./node_modules/pm-screen || exit 1
+  npx --no-install pm screen --help || exit 1
+  installed_version=$(node -p 'require("./node_modules/pm-screen/package.json").version') || exit 1
+  test "$installed_version" = "$packed_version" || {
+    printf 'Expected version %s, installed %s.\n' "$packed_version" "$installed_version" >&2
+    exit 1
+  }
+)
 ```
 
 ```sh
-npm ci
-tarball=$(npm pack --silent)
-archive="$(pwd)/$tarball"
-consumer=$(mktemp -d -t pm-screen.XXXXXX)
-cd "$consumer"
-bun add "$archive" @unbrained/pm-cli
-bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence
-bunx --bun --no-install pm package install ./node_modules/pm-screen
-bunx --bun --no-install pm screen --help
+(
+  npm ci || exit 1
+  tarball=$(npm pack --silent) && test -n "$tarball" && test -f "$tarball" || exit 1
+  packed_version=$(node -p 'require("./package.json").version') || exit 1
+  archive="$(pwd)/$tarball"
+  consumer=$(mktemp -d -t pm-screen.XXXXXX) && test -n "$consumer" && cd "$consumer" || exit 1
+  bun add "$archive" @unbrained/pm-cli || exit 1
+  bunx --bun --no-install pm init screening --defaults --agent-guidance skip --no-merge-fence || exit 1
+  bunx --bun --no-install pm package install ./node_modules/pm-screen || exit 1
+  bunx --bun --no-install pm screen --help || exit 1
+  installed_version=$(node -p 'require("./node_modules/pm-screen/package.json").version') || exit 1
+  test "$installed_version" = "$packed_version" || {
+    printf 'Expected version %s, installed %s.\n' "$packed_version" "$installed_version" >&2
+    exit 1
+  }
+)
 ```
 
 For an existing tracker, skip initialization. Use `pm package install npm:pm-screen` to install and activate the registry version in that tracker. Node >=22.19 and native Bun are supported. Development and acceptance use SDK 2026.11.5.
@@ -162,6 +176,13 @@ The frozen evidence covers five open issues from three public repositories, 80 i
 Token estimates are bytes/4 rounded up. Full streams repeat proof context across pages. Ten cold-resume questions use 43,812 bytes versus 4,265,430 for rereading the complete frame plus notes, a 98.97% reduction under that explicit baseline. All conservation equations hold; four tracker candidates remain uncertain.
 
 `npm run release:check` and `bun run release:check` enforce typechecking, lint, zero duplication, export docstrings, exactly 100% statement/branch/function/line coverage over all production sources, production dependency audit, package allowlist, tracker health, identity, changelog, archived-publish attestation, packed consumers and behavioral revert proofs. The seeded model executes 500 operation sequences against real SDK trackers. No SDK mocks or external source services are used by domain tests. Public-corpus acquisition is a separate explicit script with a fixed public-repository allowlist.
+
+Automated npm publication requires the maintainer to configure a GitHub Actions
+[trusted publisher](https://docs.npmjs.com/trusted-publishers/) for this repository
+with workflow filename `release.yml` and select `npm publish` under **Allowed actions**.
+Trusted publishers created after September 3, 2026 default to
+`npm stage publish` only. `PM_RELEASE_APPROVED=true` gates daily and manual
+releases on `main`. The trusted publisher authorizes the workflow to publish to npm through OIDC.
 
 ## Privacy and exit codes
 
