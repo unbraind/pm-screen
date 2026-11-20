@@ -1,6 +1,6 @@
 {
   "name": "pm-screen",
-  "version": "2026.11.19",
+  "version": "2026.11.20",
   "description": "Durable evidence selection, eligibility and exact attrition for agents",
   "author": "@unbraind",
   "entry": "./dist/index.js",
