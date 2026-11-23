@@ -1,6 +1,6 @@
 {
   "name": "pm-screen",
-  "version": "2026.11.20",
+  "version": "2026.11.23",
   "description": "Durable evidence selection, eligibility and exact attrition for agents",
   "repository": {
     "type": "git",
