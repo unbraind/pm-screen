@@ -60,7 +60,13 @@ test('stored legacy text remains readable evaluable and exportable through every
     const fitted = fitEnvelope(host, envelope(data), 8192); assert.deepEqual(JSON.parse(wire(fitted, 'json')), decodeToon(wire(fitted, 'toon')), 'Legacy output parity');
   }
   for (const command of ['next', 'report', 'packet', 'check']) {
-    const result = await ext.runCommand({ command: `screen ${command}`, args: [id], options: { reviewer: 'first', budget: '8192' }, global: { author: 'fixture' }, pmRoot });
+    const options = { budget: '8192', ...(command === 'next' ? { reviewer: 'first' } : {}) };
+    const call = { command: `screen ${command}`, args: [id], options, global: { author: 'fixture' }, pmRoot };
+    if (command !== 'next') {
+      await assert.rejects(ext.runCommand({ ...call, options: { ...options, reviewer: 'first' } }), { code: 'unknown_option', exitCode: 2 }, command);
+    }
+    const result = await ext.runCommand(call);
+    if (result.cause) throw result.cause;
     assert.equal((result.result as ScreeningEnvelope).ok, true, `Stored CLI ${command} must remain readable`);
   }
   assert.deepEqual(await readScreening(host, id), before); assert.equal(await historyEvents(pmRoot, id), history);

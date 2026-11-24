@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createExtensionTestHarness, decodeToon } from '@unbrained/pm-cli/sdk/testing';
+import { createExtensionCommandSdk } from '@unbrained/pm-cli/sdk';
 import type { CommandHandlerContext } from '@unbrained/pm-cli/sdk/authoring';
 import extension, { assessCandidate, readScreening, screeningPacket, envelope, fitEnvelope, ScreeningRefusal, ScreeningEnvelopeSchema } from '../dist/index.js';
 import type { ScreeningEnvelope } from '../dist/index.js';
@@ -25,18 +26,54 @@ test('real extension harness executes all seven commands and preserves strict JS
   for (const command of ['report', 'check', 'packet']) assert.equal((await run(command, ['corpus-cli'], { budget: '8192' })).ok, true);
   const packet = await run('packet', ['corpus-cli'], { limit: '1', budget: '8192' }); assert.ok(packet.next_cursor);
   assert.equal((await run('packet', ['corpus-cli'], { limit: '1', cursor: packet.next_cursor, budget: '8192' })).ok, true);
-  assert.equal((await run('packet', ['corpus-cli'], { limit: '1' }, { outputCursor: packet.next_cursor, outputBudget: 'unbounded' })).ok, true);
+  assert.equal((await run('packet', ['corpus-cli'], { limit: '1', cursor: 'bad' })).refusal?.code, 'stale_cursor');
+  const ids = ['corpus-cli'];
+  const hostCursorRefusal = { code: 'read_output_cursor_invalid', exitCode: 2 };
+  const birthFlags = { id: 'corpus-refused', op: 'tiny', input: JSON.stringify(definition()) };
+  await assert.rejects(run('packet', ids, { limit: '1' }, { outputCursor: packet.next_cursor, outputBudget: 'unbounded' }), hostCursorRefusal);
+  await assert.rejects(run('packet', ids, { cursor: packet.next_cursor }, { outputCursor: packet.next_cursor }), hostCursorRefusal);
+  await assert.rejects(run('report', ids, {}, { outputCursor: 'bad' }), hostCursorRefusal);
+  await assert.rejects(run('packet', ids, {}, { outputSession: 'x' }), { code: 'invalid_read_output_session', exitCode: 2 });
+  await assert.rejects(run('packet', ids, { candidate: [] }), { code: 'extension_flag_value_invalid', exitCode: 2 });
+  await assert.rejects(run('create', [], birthFlags, { outputBudget: '1' }), { code: 'read_output_surface_unsupported', exitCode: 2 });
+  await assert.rejects(run('packet', ids, {}, { outputBudget: '1' }), (error: unknown) => {
+    assert.ok(hasCode('output_budget_exceeded')(error));
+    assert.ok(error instanceof Error && 'exitCode' in error && 'context' in error);
+    assert.equal(error.exitCode, 2);
+    assert.ok(error.context && typeof error.context === 'object' && 'required' in error.context);
+    assert.match(String(error.context.required), /outputBudget/u);
+    return true;
+  });
+  const malformedBudgets = [0, [], '99999999999999999999'] as const;
+  for (const outputBudget of malformedBudgets) {
+    await assert.rejects(run('packet', ids, {}, { outputBudget }), { message: '--output-budget must be a positive integer or unbounded.', exitCode: 2 });
+  }
+  // Keep the package's own refusal coverage for callers that bypass native dispatch.
+  const sdk = createExtensionCommandSdk(pmRoot, native);
+  for (const [command, args, options, global, expected] of [
+    ['create', [], birthFlags, { outputBudget: '1' }, 'output_budget'],
+    ['packet', ids, {}, { outputBudget: '1' }, 'output_budget'],
+    ['packet', ids, { candidate: [] }, {}, 'invalid_input'],
+    ['packet', ids, {}, { outputSession: 'x' }, 'invalid_input'],
+    ['report', ids, {}, { outputCursor: 'bad' }, 'invalid_input'],
+    ['packet', ids, { cursor: packet.next_cursor }, { outputCursor: packet.next_cursor }, 'invalid_input'],
+    ...malformedBudgets.map(outputBudget => ['packet', ids, {}, { outputBudget }, 'invalid_input'] as const),
+  ] as const) {
+    // Untyped direct callers can still supply malformed values.
+    const direct = await runCommand(command, { command: `screen ${command}`, args: [...args], options, global: { author: 'fixture', ...global } as CommandHandlerContext['global'], pm_root: pmRoot, sdk }) as ScreeningEnvelope;
+    assert.equal(direct.refusal?.code, expected);
+    assert.equal(direct.exit_code, 2);
+  }
+  assert.equal((await run('create', [], { ...birthFlags, budget: '1' })).refusal?.code, 'output_budget');
   for (const format of ['json', 'toon'] as const) { ext.assertRendererOverride({ format }); const output = await ext.runRendererOverride({ format, command: 'screen packet', result: packet }); assert.deepEqual(format === 'json' ? JSON.parse(String(output.rendered)) : decodeToon(String(output.rendered)), packet); }
   for (const [command, options, global, expected] of [
     ['assess', { op: 'stale', revision: birth.revision, input: JSON.stringify(assessment) }, {}, 'revision_conflict'],
     ['assess', { op: 'empty', revision: '', input: '{}' }, {}, 'invalid_input'],
     ['create', { id: 'corpus-refused', op: 'bad', input: '{"id":"other"}' }, {}, 'invalid_input'],
-    ['create', { id: 'corpus-refused', op: 'tiny', input: JSON.stringify(definition()) }, { outputBudget: '1' }, 'output_budget'],
     ['resolve', { op: 'bad', revision: first.revision, candidate: 'candidate-0', input: '{"candidate":"other"}' }, {}, 'invalid_input'],
-    ['packet', { limit: '1.5' }, {}, 'invalid_input'], ['packet', { limit: '101' }, {}, 'invalid_input'], ['packet', {}, { outputBudget: 0 }, 'invalid_input'], ['packet', {}, { outputBudget: [] }, 'invalid_input'], ['packet', {}, { outputBudget: '99999999999999999999' }, 'invalid_input'],
-    ['packet', { candidate: [] }, {}, 'invalid_input'], ['packet', {}, { outputInclude: 'id' }, 'invalid_input'], ['packet', {}, { outputSession: 'x' }, 'invalid_input'], ['packet', {}, { outputRowContract: 'x' }, 'invalid_input'],
-    ['report', {}, { outputCursor: 'bad' }, 'invalid_input'], ['report', {}, { outputLimit: 1 }, 'invalid_input'],
-    ['packet', { cursor: packet.next_cursor }, { outputCursor: packet.next_cursor }, 'invalid_input'],
+    ['packet', { limit: '1.5' }, {}, 'invalid_input'], ['packet', { limit: '101' }, {}, 'invalid_input'],
+    ['packet', {}, { outputInclude: 'id' }, 'invalid_input'], ['packet', {}, { outputRowContract: 'x' }, 'invalid_input'],
+    ['report', {}, { outputLimit: 1 }, 'invalid_input'],
     ['packet', { limit: '1' }, { outputLimit: '1' }, 'invalid_input'], ['packet', { budget: '1600' }, { outputBudget: '1600' }, 'invalid_input'],
   ] as const) { const failed = await run(command, ['corpus-cli'], options, global); assert.equal(failed.refusal?.code, expected, JSON.stringify(failed)); }
   assert.equal((await run('packet', ['corpus-cli'], {}, { outputLimit: '1', outputBudget: '8192' })).ok, true);
