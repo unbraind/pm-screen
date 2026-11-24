@@ -1,0 +1,30 @@
+id: pm-screen-sdk-1122
+title: Adopt pm-cli 2026.11.24 host-aligned SDK behaviour
+description: "Move the screening harness to the native host dispatch contract. Companion item: pm-cli-website-spus. Producer transport remains tracked by pm-screen-sdk-transport."
+type: Chore
+status: in_progress
+priority: 2
+tags: []
+created_at: "2026-11-24T05:43:29.265Z"
+updated_at: "2026-11-24T07:49:54.536Z"
+author: codex-agent
+acceptance_criteria: "The first-party dev toolchain uses npm latest at exact pins.; Native host transport refusals and direct package refusal paths have distinct coverage. Package cursor and budget keep their documented contracts.; All changelog entry points retain published dependency bullets and have a regression test.; Run typecheck, lint, the full suite, coverage, identity, self-host and changelog gates at current thresholds."
+comments[5]{created_at,author,text}:
+  "2026-11-24T05:43:36.234Z",codex-agent,Started from the tagged main release. The exact dev pins match npm latest. Classify full-suite failures before adapting native harness expectations.
+  "2026-11-24T05:46:14.104Z",codex-agent,"Reproduced pm-cli#1775 on the exact 2026.11.24 pin with the public SDK. In JavaScript, import scanMutationSecrets from the SDK and call it on JSON.stringify({title: [\"api\", \"key\"].join(\"_\") + \": $\" + \"{API_KEY}\", updated: \"2026-11-23T00:00:00.000Z\"}). It reports rule credential_key_assignment at path $ for a reference-only title; expected an empty array. This is an upstream scanner reproduction; package tests and fixture guarantees are preserved."
+  "2026-11-24T06:00:12.633Z",codex-agent,"The baseline test suite at CI quick depth failed at real extension harness executes all seven commands and preserves strict JSON TOON parity. The old harness accepted a package cursor on native transport. The new host refuses it with read_output_cursor_invalid, validates scalar flags and sessions, and reserves global output controls for read surfaces. Assert host refusals alongside direct package guards, preserve package pagination and budget semantics, and check that refused create writes nothing."
+  "2026-11-24T06:01:03.857Z",codex-agent,"Baseline CI quick depth ran 92 tests with 90 passing. The second failure was stored legacy text remains readable evaluable and exportable through every SDK and CLI view. Earlier harness dispatch accepted the undeclared reviewer flag on report, packet and check. The host now fails unknown_option. Apply reviewer only to next, assert the old invocations fail, and keep every legacy read, evaluation, serialization and history assertion."
+  "2026-11-24T07:49:53.164Z",codex-agent,"Full-depth npm run release:check and bun run release:check both passed 93 of 93 tests and all four coverage dimensions at 100 percent across 9 emitted files. The packed test passed 76 npm and 76 native Bun commands without Git. Each revert run passed 8 core baseline tests with 10 defects detected and 33 review baseline tests with 32 defects detected. All restored tests passed. The linked test run passed 14 tests. With the upgraded SDK the previous harness and legacy-data tests failed at the native cursor and undeclared reviewer flag. Removing each dependency-updates flag independently failed the regression. Online workflow attestation, production audit, identity, tracker health and changelog checks passed. The dev-only glob advisory remains tracked by pm-screen-dev-audit. Branch CI runs are listed in the repository Actions view filtered to deps/adopt-pm-cli-host-alignment-1122."
+files[6]{path,scope}:
+  CHANGELOG.md,project
+  package-lock.json,project
+  package.json,project
+  test/contracts.test.ts,project
+  test/release-workflow.test.ts,project
+  test/review.test.ts,project
+tests[1]{command,scope,provenance{author,created_at,source_kind,source_ref}}:
+  npm run build && node --test --test-concurrency=2 test/contracts.test.ts test/release-workflow.test.ts test/review.test.ts,project,codex-agent,"2026-11-24T06:01:09.017Z",local_mutation,deps/adopt-pm-cli-host-alignment-1122
+docs[2]{path,scope,note}:
+  CHANGELOG.md,project,Regenerated release history retaining published dependency bullets
+  README.md,project,Package cursor and budget contracts
+body: ""
