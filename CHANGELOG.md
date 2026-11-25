@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2026.11.25 - 2026-11-25
 
 ### Other
 
@@ -8,7 +8,7 @@
 
 ### Dependencies
 
-- Bump @babel/parser
+- Bump @babel/parser from 8.1.2 to 8.1.3 in the dependencies group ([#31](https://github.com/unbraind/pm-screen/pull/31))
 
 ## 2026.11.23 - 2026-11-23
 
