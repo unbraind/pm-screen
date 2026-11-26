@@ -1,0 +1,21 @@
+id: pm-screen-github-0fc72e388aab-32
+title: "Unmet spec criteria: independent screening judgments and protocol approval"
+description: "GH issue #32: https://github.com/unbraind/pm-screen/issues/32 · author @unbraind · created 2026-11-24T19:11:52Z · updated 2026-11-24T19:12:31Z"
+type: Issue
+status: open
+priority: 2
+tags[2]: "gh:unbraind/pm-screen#32","github_author:unbraind"
+created_at: "2026-11-24T19:11:52Z"
+updated_at: "2026-11-26T12:36:20.704Z"
+author: pm-github
+github_close_reason: ""
+github_closed_at: ""
+github_created_at: "2026-11-24T19:11:52Z"
+github_link_only: false
+github_number: 32
+github_release: ""
+github_state: open
+github_state_reason: unspecified
+github_updated_at: "2026-11-24T19:12:31Z"
+github_url: "https://github.com/unbraind/pm-screen/issues/32"
+body: "> At least 80 public candidate items across four fleet trackers are screened against a predeclared protocol with independent assessment fixtures\n\n`docs/real-data.md` reports the 80-item frame from four public trackers, with 87 total real vectors across all frames agreeing with the independent mechanical oracle. One implementing recorder supplied the judgments. The report and PR #1 explicitly identify the outstanding second review and protocol approval. Package tracker `pm-screen-independent-review` records the same work.\n\nObtain maintainer approval of the screening protocol and an independently prepared second assessment of the public 80-item frame. Record reviewer agreement, disagreements and adjudications separately from the existing mechanical correctness figures.\n\n\n---\n\n### GitHub comments (1)\n\n> **@coderabbitai[bot]** (2026-11-24T19:12:30Z)\n>\n> <!-- coderabbit-ai-generated:v1 -->\n> \n> <!-- This is an auto-generated issue plan by CodeRabbit -->\n> <details>\n> <summary>🔗 Related PRs</summary>\n> <dl>\n> <dd>\n> <br>\n> \n> unbraind/pm-screen#1 - pm-screen: auditable evidence screening with declared criteria, per-candidate decisions and completeness receipts [merged]\n> </dd>\n> </dl>\n> </details>\n> \n> ---\n> <details>\n> <summary>📝 Issue Planner</summary>\n> <dl>\n> <dd>\n> <br>\n> \n> <sub>Check the box below or use the `@coderabbitai plan` command to generate an implementation plan and prompts that you can use with your favorite coding assistant.</sub>\n> \n> - [ ] <!-- {\"checkboxId\":\"8d4f2b9c-3e1a-4f7c-a9b2-d5e8f1c4a7b9\"} --> Create Plan\n> </dd>\n> </dl>\n> </details>\n> \n> \n> ---\n> <details>\n> <summary> 🧪 Issue enrichment is currently in open beta.</summary>\n> <dl>\n> <dd>\n> <br>\n> \n> \n> You can configure auto-planning by selecting labels in the issue_enrichment configuration.\n> \n> To disable automatic issue enrichment, add the following to your `.coderabbit.yaml`:\n> ```yaml\n> issue_enrichment:\n>   auto_enrich:\n>     enabled: false\n> ```\n> </dd>\n> </dl>\n> </details>\n> \n> 💬 Have feedback or questions? Drop into our [discord](https://discord.gg/coderabbit)!"
