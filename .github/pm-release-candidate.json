@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "repository": "unbraind/pm-screen",
-  "baseSha": "311d638a9328978bb5bdf8d904336f0243319c78",
-  "version": "2026.11.25",
-  "runId": 45650464196,
+  "baseSha": "4d7d118f1e922009d816eb20dcadc1bdde34124b",
+  "version": "2026.11.27",
+  "runId": 46025971917,
   "runAttempt": 1,
   "configDigest": "d5ef3b203a57a1e0d70a698c27192e5ea14f00fe608847bff51c9d23a3d56978"
 }
